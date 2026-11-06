@@ -153,7 +153,8 @@
 } bind def
 
 % Page number, small and centred at the foot.
+/cb-foliorgb cb-ink cb-default    % re-def to cb-paper on a dark page foot
 /cb-folio { % n -> ()
-  cb-font findfont 11 scalefont setfont cb-ink cb-rgb
+  cb-font findfont 11 scalefont setfont cb-foliorgb cb-rgb
   20 string cvs cb-W 2 div 22 showctr
 } bind def

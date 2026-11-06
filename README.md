@@ -70,9 +70,9 @@ can't be searched; see `docs/pscat-issues.md`.
 >
 > **11.** There was the sea, big and silver under the moon. And it sang: *hush . . . hush . . . hush.*
 >
-> **12.** Moss listened until her eyes grew heavy. Then she curled up inside her shell, the way snails do.
+> **12.** Moss listened until her eyes grew heavy.
 >
-> **13.** And there, inside her own small house, she could still hear the sea singing: *hush . . . hush . . . hush.*
+> **13.** Then she curled up inside her shell, the way snails do. And there, in her own small house, she could still hear the sea singing: *hush . . . hush . . . hush.*
 >
 > *The End*
 
