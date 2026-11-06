@@ -54,7 +54,11 @@ while [ $# -gt 0 ]; do
     *) if [ -d "$1" ]; then files+=("${1%/}"/*.ps); else files+=("$1"); fi; shift ;;
   esac
 done
-[ ${#files[@]} -gt 0 ] || files=(books/*/pages/*.ps)
+if [ ${#files[@]} -eq 0 ]; then
+  shopt -s nullglob
+  files=(books/*/pages/*.ps)
+  shopt -u nullglob
+fi
 
 tmp="$(mktemp -d "${TMPDIR:-/tmp}/cb-render.XXXXXX")"
 trap 'rm -rf "$tmp"' EXIT

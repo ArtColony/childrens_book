@@ -48,6 +48,38 @@ expensive at stage 4.
 
 ---
 
+## Reviews: a panel at every gate
+
+A checkpoint is the author checking their own work, and that has a blind
+spot. So every gate also gets **outside reads** from reviewer agents, each
+with a persona and a model sized to the job. They are defined in
+`.claude/agents/`:
+
+| Reviewer | Persona | Model | Sees |
+|---|---|---|---|
+| `reviewer-child` | Maya, 5½, at bedtime | Haiku: a small model for a small reader, which also keeps the vocabulary honest | **Only what a child gets**: the read-aloud text, or page images. Never the plans. |
+| `reviewer-parent` | Parent of two, reading aloud every night | Sonnet | Text and page plan |
+| `reviewer-educator` | Pre-K and kindergarten teacher | Sonnet | Text and page plan; checks counting and concept accuracy |
+| `reviewer-writer` | Senior picture-book editor | Opus: craft judgement against award-winning books | Ideation (the intended heart) and manuscript |
+| `reviewer-artist` | Illustrator and art director | Sonnet, reading the images | Rendered storyboard or final pages |
+
+Who reviews which stage:
+
+| Stage | Panel | Plus |
+|---|---|---|
+| 1 Ideation | writer | the advisor (a stronger model, given the whole session) |
+| 2 Manuscript | child, parent, educator, writer | advisor |
+| 3 Storyboard | artist, child (on the thumbnails), educator (counting matches the pictures) | advisor |
+| 4 Book | artist, child, parent | advisor, then a **Codex** review of the finished book and its code: a different model family, for a read not anchored on ours |
+| 5 Reflection | writer | none |
+
+The reviewers run in parallel and never see each other's notes. Each review
+is saved under `books/<slug>/reviews/<stage>-<reviewer>.md`, and
+`checkpoints.md` records what each review changed and what was declined,
+with the reason.
+Reviews advise; the author decides, but every declined point is written
+down.
+
 ## 1. Ideation: `01-ideation.md` and `01-hero/hero_sheet.ps`
 
 **Input.** The brief: audience, trim size, rough length, medium, and

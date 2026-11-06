@@ -255,21 +255,33 @@
 } bind def
 
 % ---------------------------------------------------------------- Mama
-/cb-mama-coat {
-  -0.16 0.08 moveto 0.17 0.08 lineto
-  0.13 0.45 0.12 0.62 0.11 0.78 curveto
-  -0.11 0.78 lineto
-  -0.12 0.62 -0.13 0.45 -0.16 0.08 curveto closepath
+/cb-mama-coat {   % an A-line coat: narrow shoulders, a waist, a flared hem at the knee
+  -0.09 0.76 moveto 0.09 0.76 lineto
+  0.12 0.70 0.10 0.56 0.09 0.50 curveto
+  0.12 0.40 0.17 0.30 0.19 0.20 curveto
+  0.06 0.17 -0.06 0.17 -0.18 0.20 curveto
+  -0.16 0.30 -0.11 0.40 -0.09 0.50 curveto
+  -0.10 0.56 -0.12 0.70 -0.09 0.76 curveto closepath
 } bind def
 /cb-mama {
   20 dict begin
   /h exch def /y exch def /x exch def
   /lw h 85 div 0.6 max 2.2 min def
   /f { x y translate h cb-face mul h scale } def
-  newpath { f -0.09 0.0 0.08 0.10 cb-rect 0.02 0.0 0.08 0.10 cb-rect } cb-local cb-ink 0.8 cb-wash
+  % legs and shoes below the hem
+  newpath { f -0.07 0.03 0.05 0.17 cb-rect 0.03 0.03 0.05 0.17 cb-rect } cb-local [0.30 0.30 0.34] 0.8 cb-wash
+  newpath { f -0.09 0.0 0.09 0.05 0.02 rrect 0.02 0.0 0.10 0.05 0.02 rrect } cb-local cb-ink 0.85 cb-wash
+  % neck
+  newpath { f -0.025 0.74 0.05 0.07 cb-rect } cb-local cb-skin 0.85 cb-wash
   newpath { f cb-mama-coat } cb-local gsave cb-paper cb-rgb fill grestore
   newpath { f cb-mama-coat } cb-local cb-mamacoat 0.8 cb-wash
   newpath { f cb-mama-coat } cb-local lw cb-line
+  % belt at the waist, and a soft scarf
+  newpath { f -0.095 0.48 moveto 0.095 0.48 lineto } cb-local lw 0.9 mul cb-line
+  newpath { f -0.10 0.74 moveto -0.02 0.70 0.06 0.70 0.11 0.75 curveto 0.10 0.79 lineto
+            0.04 0.76 -0.04 0.76 -0.10 0.79 curveto closepath
+            0.05 0.74 moveto 0.09 0.60 lineto 0.12 0.61 lineto 0.08 0.74 lineto closepath } cb-local
+  [0.86 0.62 0.62] 0.85 cb-wash
   % bun, hair, face
   newpath { f -0.11 0.92 0.055 0 360 arc closepath } cb-local cb-hair 0.9 cb-wash
   newpath { f 0.02 0.885 0.09 0 360 arc closepath } cb-local gsave cb-paper cb-rgb fill grestore

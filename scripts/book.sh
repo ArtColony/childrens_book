@@ -46,7 +46,11 @@ bind() { # dir pdf
 }
 
 if [ $# -eq 0 ]; then
-  for b in books/*/; do b="${b%/}"; bind "$b/pages" "$out/$(basename "$b").pdf"; done
+  for b in books/*/; do
+    b="${b%/}"
+    [ -d "$b/pages" ] || continue   # a book still in its early stages has no pages yet
+    bind "$b/pages" "$out/$(basename "$b").pdf"
+  done
   exit 0
 fi
 
