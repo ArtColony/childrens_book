@@ -27,7 +27,7 @@ jobs:
           echo "$RUNNER_TEMP/$t" >> "$GITHUB_PATH"
       - run: pscat --version
       - run: scripts/render.sh
-      - run: scripts/book.sh
+      - run: scripts/book.sh          # every book
       - uses: actions/upload-artifact@v7
         if: always()
         with:
