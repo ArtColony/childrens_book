@@ -5,6 +5,7 @@
 %   x y h cb-ana            Ana, feet at (x,y), h points tall
 %   x y h cb-grandpa        Grandpa standing, feet at (x,y), h points tall
 %   x y h cb-grandpa-bust   Grandpa from the waist up (in his boat)
+%   x y h cb-mama           Mama standing, feet at (x,y), h points tall
 %   x y s [sail] cb-boat    a fishing boat, waterline centre (x,y), s = half its length
 %   x y r cb-glow           lamplight: a warm halo of radius r
 %   x y s cb-lantern        the lamp itself, hung from (x,y), s = its height
@@ -35,6 +36,7 @@
 /cb-beard  [0.96 0.95 0.92] def
 /cb-hull   [0.95 0.93 0.88] def
 /cb-gpblue [0.30 0.55 0.85] def          % Grandpa's little blue boat
+/cb-mamacoat [0.36 0.52 0.56] def        % Mama: a slate-teal coat, quieter than Ana's red
 
 % ---------------------------------------------------------------- the lamp
 /cb-glow { % x y r -> ()
@@ -250,4 +252,36 @@
   /cb-gpb-s exch def /cb-gpb-y exch def /cb-gpb-x exch def
   cb-gpb-x cb-gpb-s 0.45 mul cb-face mul add cb-gpb-y cb-gpb-s 0.30 mul add
   cb-gpb-s 1.5 mul cb-grandpa-bust
+} bind def
+
+% ---------------------------------------------------------------- Mama
+/cb-mama-coat {
+  -0.16 0.08 moveto 0.17 0.08 lineto
+  0.13 0.45 0.12 0.62 0.11 0.78 curveto
+  -0.11 0.78 lineto
+  -0.12 0.62 -0.13 0.45 -0.16 0.08 curveto closepath
+} bind def
+/cb-mama {
+  20 dict begin
+  /h exch def /y exch def /x exch def
+  /lw h 85 div 0.6 max 2.2 min def
+  /f { x y translate h cb-face mul h scale } def
+  newpath { f -0.09 0.0 0.08 0.10 cb-rect 0.02 0.0 0.08 0.10 cb-rect } cb-local cb-ink 0.8 cb-wash
+  newpath { f cb-mama-coat } cb-local gsave cb-paper cb-rgb fill grestore
+  newpath { f cb-mama-coat } cb-local cb-mamacoat 0.8 cb-wash
+  newpath { f cb-mama-coat } cb-local lw cb-line
+  % bun, hair, face
+  newpath { f -0.11 0.92 0.055 0 360 arc closepath } cb-local cb-hair 0.9 cb-wash
+  newpath { f 0.02 0.885 0.09 0 360 arc closepath } cb-local gsave cb-paper cb-rgb fill grestore
+  newpath { f 0.02 0.885 0.09 0 360 arc closepath } cb-local cb-skin 0.85 cb-wash
+  newpath { f -0.07 0.86 moveto -0.08 0.98 0.06 1.01 0.11 0.93 curveto
+            0.04 0.95 -0.02 0.93 -0.03 0.86 curveto closepath } cb-local cb-hair 0.9 cb-wash
+  newpath { f 0.02 0.885 0.09 0 360 arc closepath } cb-local lw 0.8 mul cb-line
+  { f 0.075 0.895 transform } cb-local itransform h 34 div cb-dot
+  newpath { f 0.065 0.85 0.02 0 360 arc closepath } cb-local cb-pink 0.6 cb-wash
+  % arm, reaching forward (a hand on Ana's shoulder, or to the lamp)
+  newpath { f 0.0 0.72 moveto 0.10 0.62 0.18 0.56 0.24 0.55 curveto } cb-local
+  cb-mamacoat 0.85 shade setrgbcolor << /Width h 0.055 mul /Pressure { pop 1 } >> pkribbon
+  newpath { f 0.24 0.55 0.022 0 360 arc closepath } cb-local gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
+  end
 } bind def
