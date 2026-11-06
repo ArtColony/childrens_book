@@ -48,7 +48,7 @@ expensive at stage 4.
 
 ---
 
-## 1. Ideation: `01-ideation.md` and `03-storyboard/hero_sheet.ps`
+## 1. Ideation: `01-ideation.md` and `01-hero/hero_sheet.ps`
 
 **Input.** The brief: audience, trim size, rough length, medium, and
 anything to avoid (here: repeating an earlier book's shape).

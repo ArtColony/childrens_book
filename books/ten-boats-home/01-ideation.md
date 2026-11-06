@@ -126,7 +126,10 @@ for later: it is a strong book, but its opening is too close to Moss's.
   - *Grandpa*: a fisherman with a blue cap and a white beard, seen small in
     his boat, then on the pier.
   - The *boats*: one per count, each with its own sail colour.
-- **Hero sheet:** `03-storyboard/hero_sheet.ps`, drawn by `lib/cb_ana.ps`.
+- **Hero sheet:** [`01-hero/hero_sheet.ps`](01-hero/hero_sheet.ps), drawn by
+  [`lib/cb_ana.ps`](../../lib/cb_ana.ps).
   It shows Ana standing, walking, holding the lamp out and up, and seen
   close; Grandpa; a counting boat, Grandpa's boat and its lantern; the lamp
   glow in fog.
+
+![The cast: Ana in every pose the story needs, Grandpa, the boats, and the lamp in fog](hero_sheet.png)

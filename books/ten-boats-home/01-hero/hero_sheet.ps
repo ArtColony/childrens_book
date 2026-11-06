@@ -1,0 +1,33 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, hero sheet
+% Stage 1 gate: every pose and scale the story needs, on one page.
+/Seed where { pop } { /Seed 1 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/lab { cb-ink cb-rgb cb-font findfont 10 scalefont setfont showctr } def
+% row 1: Ana's poses, 150 pt tall (a mid shot)
+60 400 150 cb-ana                                          (standing) 60 382 lab
+/cb-step true def 170 400 150 cb-ana /cb-step false def    (walking) 170 382 lab
+/cb-arm /out def /cb-lamp true def 280 400 150 cb-ana      (lamp out, unlit) 290 382 lab
+/cb-arm /down def /cb-lamp false def
+/cb-face -1 def 520 400 150 cb-ana /cb-face 1 def          (facing left) 520 382 lab
+% row 2: smallest Ana (wide shot), Grandpa, a counting boat
+40 230 40 cb-ana                                           (40 pt) 46 214 lab
+130 230 150 cb-grandpa                                     (Grandpa) 140 214 lab
+300 250 60 [0.86 0.33 0.28] cb-boat                        (a counting boat) 300 214 lab
+% row 3: far boats (wide-shot scale)
+60 80 18 [0.35 0.62 0.45] cb-boat 120 80 18 [0.90 0.75 0.40] cb-boat 180 80 18 [0.65 0.45 0.75] cb-boat
+(boats at 18 pt) 120 50 lab
+% the night swatch: everything lit is judged on the dark it will be seen on
+newpath 380 20 222 350 cb-rect cb-night 0.9 cb-wash
+newpath 380 20 222 350 cb-rect [0.6 0.62 0.68] 0.35 cb-bigwash
+/cb-arm /up def /cb-lamp true def /cb-lit true def
+420 200 130 cb-ana
+/cb-arm /down def /cb-lamp false def /cb-lit false def
+/cb-boatlight true def /cb-face -1 def
+545 70 40 cb-gpboat /cb-boatlight false def /cb-face 1 def
+cb-paper cb-rgb cb-font findfont 10 scalefont setfont
+(lamp up, lit, in fog) 440 32 showctr (Grandpa's boat) 545 32 showctr
+cb-ink cb-rgb cb-titlefont findfont 22 scalefont setfont (Ten Boats Home: cast) 306 580 showctr
+showpage

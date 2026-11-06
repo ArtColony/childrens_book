@@ -1,0 +1,253 @@
+%!PS-Adobe-3.0
+% cb_ana.ps -- the cast of Ten Boats Home: Ana, Grandpa, the boats, the lamp.
+% Load after cb_kit.ps (cb_book.ps loads it).
+%
+%   x y h cb-ana            Ana, feet at (x,y), h points tall
+%   x y h cb-grandpa        Grandpa standing, feet at (x,y), h points tall
+%   x y h cb-grandpa-bust   Grandpa from the waist up (in his boat)
+%   x y s [sail] cb-boat    a fishing boat, waterline centre (x,y), s = half its length
+%   x y r cb-glow           lamplight: a warm halo of radius r
+%   x y s cb-lantern        the lamp itself, hung from (x,y), s = its height
+%
+% Ana's options, read at call time (re-def them between calls, reset after):
+%   cb-face   1 faces right, -1 faces left           (default 1)
+%   cb-arm    /down, /out, /up (lamp held high)      (default /down)
+%   cb-lamp   true: she holds the lamp               (default false)
+%   cb-lit    true: the lamp is lit                  (default false)
+%   cb-step   true: mid-stride, boots apart          (default false)
+%   cb-glowr  radius of a lit lamp's glow, in multiples of h (default 0.8)
+% cb-boat reads cb-face too, and cb-boatlight (a lit lantern on the mast).
+
+/cb-arm /down cb-default
+/cb-lamp false cb-default
+/cb-lit false cb-default
+/cb-step false cb-default
+/cb-boatlight false cb-default
+/cb-glowr 0.8 cb-default          % Ana's lamplight radius, in her heights
+
+/cb-coat   [0.84 0.27 0.22] def
+/cb-boots  [0.97 0.78 0.26] def
+/cb-skin   [0.98 0.84 0.72] def
+/cb-hair   [0.36 0.22 0.15] def
+/cb-gold   [1.00 0.80 0.36] def          % the book's one accent: lamplight
+/cb-navy   [0.20 0.27 0.45] def
+/cb-capblue [0.25 0.42 0.70] def
+/cb-beard  [0.96 0.95 0.92] def
+/cb-hull   [0.95 0.93 0.88] def
+/cb-gpblue [0.30 0.55 0.85] def          % Grandpa's little blue boat
+
+% ---------------------------------------------------------------- the lamp
+/cb-glow { % x y r -> ()
+  8 dict begin /gr exch def /gy exch def /gx exch def
+  [1.0 0.66 0.40] {
+    /k exch def
+    newpath gx gy gr k mul 0 360 arc closepath cb-gold 0.07 cb-bigwash
+  } forall
+  newpath gx gy gr 0.14 mul 0 360 arc closepath [1 0.95 0.75] 0.9 cb-wash
+  end
+} bind def
+
+% The lantern hangs from (x,y): handle above, glass below. s = its height.
+/cb-lantern { % x y s -> ()
+  8 dict begin /ls exch def /ly exch def /lx exch def
+  /f { lx ly translate ls dup scale } def
+  /lw ls 18 div 0.6 max def
+  newpath { f 0 -0.12 0.18 20 160 arc } cb-local lw cb-line                       % handle
+  newpath { f -0.22 -1.0 0.44 0.72 cb-rect } cb-local
+  cb-lit { [1 0.88 0.55] 0.95 cb-wash } { [0.80 0.82 0.80] 0.5 cb-wash } ifelse   % glass
+  newpath { f -0.22 -1.0 0.44 0.72 cb-rect } cb-local lw cb-line
+  newpath { f -0.28 -0.28 moveto 0.28 -0.28 lineto 0.12 -0.12 lineto -0.12 -0.12 lineto closepath } cb-local
+  cb-ink 0.85 cb-wash                                                               % cap
+  newpath { f -0.26 -1.06 0.52 0.08 cb-rect } cb-local cb-ink 0.85 cb-wash          % base
+  newpath { f 0 -1.0 moveto 0 -0.28 lineto } cb-local lw 0.7 mul cb-line           % middle bar
+  cb-lit {
+    newpath { f 0 -0.62 0.09 0 360 arc closepath } cb-local [1 0.98 0.85] 0.95 cb-wash
+  } if
+  end
+} bind def
+
+% ---------------------------------------------------------------- Ana
+/cb-ana-coat {
+  -0.17 0.13 moveto
+  -0.05 0.10 0.07 0.10 0.18 0.13 curveto
+  0.13 0.30 0.11 0.45 0.10 0.56 curveto
+  -0.11 0.56 lineto
+  -0.12 0.45 -0.14 0.30 -0.17 0.13 curveto
+  closepath
+} bind def
+
+/cb-ana {
+  20 dict begin
+  /h exch def /y exch def /x exch def
+  /lw h 70 div 0.7 max 2.4 min def
+  /frame { x y translate h cb-face mul h scale } def
+  /hand cb-arm /up eq { [0.27 0.88] } { cb-arm /out eq { [0.27 0.44] } { [0.07 0.30] } ifelse } ifelse def
+
+  % lamplight first, centred on the lantern's glass, so she stands in it
+  cb-lamp cb-lit and {
+    { frame hand aload pop 0.17 sub transform } cb-local itransform
+    h cb-glowr mul cb-glow
+  } if
+
+  % boots
+  /b1 cb-step { -0.13 } { -0.07 } ifelse def
+  /b2 cb-step { 0.07 } { 0.02 } ifelse def
+  [b1 b2] {
+    /bx exch def
+    newpath { frame bx 0.0 0.12 0.13 0.03 rrect } cb-local
+    gsave cb-paper cb-rgb fill grestore
+    newpath { frame bx 0.0 0.12 0.13 0.03 rrect } cb-local cb-boots 0.8 cb-wash
+    newpath { frame bx 0.0 0.12 0.13 0.03 rrect } cb-local lw cb-line
+  } forall
+
+  % hood behind the head
+  newpath { frame -0.02 0.70 0.15 0 360 arc closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { frame -0.02 0.70 0.15 0 360 arc closepath } cb-local cb-coat 0.8 cb-wash
+
+  % coat
+  newpath { frame cb-ana-coat } cb-local gsave cb-paper cb-rgb fill grestore
+  newpath { frame cb-ana-coat } cb-local cb-coat 0.75 cb-wash
+  newpath { frame cb-ana-coat } cb-local lw cb-line
+  newpath { frame 0.0 0.52 moveto 0.01 0.35 0.0 0.2 -0.01 0.12 curveto } cb-local lw 0.6 mul cb-line
+  [0.44 0.32 0.20] { /by exch def
+    newpath { frame 0.04 by 0.014 0 360 arc closepath } cb-local cb-ink cb-rgb fill } forall
+
+  % face, inside the hood
+  newpath { frame 0.03 0.69 0.115 0 360 arc closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { frame 0.03 0.69 0.115 0 360 arc closepath } cb-local cb-skin 0.85 cb-wash
+  newpath { frame 0.03 0.69 0.115 0 360 arc closepath } cb-local lw 0.8 mul cb-line
+  % fringe
+  newpath { frame -0.06 0.74 moveto 0.0 0.83 0.10 0.82 0.14 0.75 curveto
+            0.08 0.77 0.02 0.76 -0.06 0.74 curveto closepath } cb-local cb-hair 0.85 cb-wash
+  % hood rim
+  newpath { frame -0.02 0.70 0.15 35 320 arc } cb-local lw cb-line
+  % eye, cheek, mouth
+  { frame 0.095 0.70 transform } cb-local itransform h 26 div cb-dot
+  newpath { frame 0.085 0.645 0.028 0 360 arc closepath } cb-local cb-pink 0.6 cb-wash
+  newpath { frame 0.105 0.625 moveto 0.115 0.615 0.125 0.615 0.135 0.625 curveto } cb-local lw 0.6 mul cb-line
+
+  % arm: a sleeve from the shoulder to the hand
+  newpath { frame -0.01 0.50 moveto hand aload pop lineto } cb-local
+  cb-coat 0.85 shade setrgbcolor << /Width h 0.075 mul /Pressure { pop 1 } >> pkribbon
+  newpath { frame -0.01 0.50 moveto hand aload pop lineto } cb-local lw 0.6 mul cb-line
+  newpath { frame hand aload pop 0.03 0 360 arc closepath } cb-local
+  gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
+
+  % the lamp, hanging from her hand
+  cb-lamp {
+    { frame hand aload pop 0.02 sub transform } cb-local itransform
+    h 0.24 mul cb-lantern
+  } if
+  end
+} bind def
+
+% ---------------------------------------------------------------- Grandpa
+/cb-grandpa-top { % draws head, cap and beard; frame already set via proc f
+  % beard
+  newpath { f -0.06 0.86 moveto 0.02 0.70 0.14 0.72 0.16 0.86 curveto closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { f -0.06 0.86 moveto 0.02 0.70 0.14 0.72 0.16 0.86 curveto closepath } cb-local cb-beard 0.9 cb-wash
+  newpath { f -0.06 0.86 moveto 0.02 0.70 0.14 0.72 0.16 0.86 curveto } cb-local lw 0.7 mul cb-line
+  % face
+  newpath { f 0.05 0.89 0.095 0 360 arc closepath } cb-local gsave cb-paper cb-rgb fill grestore
+  newpath { f 0.05 0.89 0.095 0 360 arc closepath } cb-local cb-skin 0.85 cb-wash
+  newpath { f 0.05 0.89 0.095 0 360 arc closepath } cb-local lw 0.8 mul cb-line
+  newpath { f -0.04 0.84 moveto 0.04 0.80 0.12 0.80 0.15 0.86 curveto
+            0.10 0.74 0.0 0.72 -0.04 0.84 curveto closepath } cb-local cb-beard 0.95 cb-wash
+  % cap
+  newpath { f -0.06 0.93 moveto -0.05 1.04 0.14 1.05 0.15 0.94 curveto closepath } cb-local
+  cb-capblue 0.85 cb-wash
+  newpath { f 0.10 0.93 moveto 0.22 0.92 lineto } cb-local cb-capblue cb-rgb << /Width h 0.03 mul /Pressure { pop 1 } >> pkribbon
+  newpath { f -0.06 0.93 moveto -0.05 1.04 0.14 1.05 0.15 0.94 curveto closepath } cb-local lw 0.8 mul cb-line
+  { f 0.10 0.90 transform } cb-local itransform h 30 div cb-dot
+  newpath { f 0.10 0.855 0.022 0 360 arc closepath } cb-local cb-pink 0.6 cb-wash
+} bind def
+
+/cb-grandpa {
+  20 dict begin
+  /h exch def /y exch def /x exch def
+  /lw h 80 div 0.7 max 2.4 min def
+  /f { x y translate h cb-face mul h scale } def
+  % legs and boots
+  newpath { f -0.10 0.0 0.09 0.42 cb-rect 0.02 0.0 0.09 0.42 cb-rect } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { f -0.10 0.0 0.09 0.42 cb-rect 0.02 0.0 0.09 0.42 cb-rect } cb-local [0.45 0.47 0.50] 0.8 cb-wash
+  newpath { f -0.10 0.0 0.09 0.42 cb-rect 0.02 0.0 0.09 0.42 cb-rect } cb-local lw cb-line
+  newpath { f -0.11 0.0 0.12 0.07 0.02 rrect 0.01 0.0 0.14 0.07 0.02 rrect } cb-local cb-ink 0.8 cb-wash
+  % jersey
+  newpath { f -0.15 0.40 moveto 0.15 0.40 lineto 0.13 0.78 lineto -0.13 0.78 lineto closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { f -0.15 0.40 moveto 0.15 0.40 lineto 0.13 0.78 lineto -0.13 0.78 lineto closepath } cb-local cb-navy 0.8 cb-wash
+  newpath { f -0.15 0.40 moveto 0.15 0.40 lineto 0.13 0.78 lineto -0.13 0.78 lineto closepath } cb-local lw cb-line
+  % arm, reaching forward and down (to hold a small hand)
+  newpath { f 0.0 0.72 moveto 0.12 0.56 0.18 0.48 0.22 0.42 curveto } cb-local
+  cb-navy 0.85 shade setrgbcolor << /Width h 0.06 mul /Pressure { pop 1 } >> pkribbon
+  newpath { f 0.22 0.42 0.025 0 360 arc closepath } cb-local gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
+  cb-grandpa-top
+  end
+} bind def
+
+/cb-grandpa-bust { % x y h -> (); (x,y) is where his waist meets the boat
+  20 dict begin
+  /h exch def /y exch def /x exch def
+  /lw h 80 div 0.7 max 2.4 min def
+  /f { x y translate h cb-face mul h scale 0 -0.40 translate } def
+  newpath { f -0.15 0.40 moveto 0.15 0.40 lineto 0.13 0.78 lineto -0.13 0.78 lineto closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { f -0.15 0.40 moveto 0.15 0.40 lineto 0.13 0.78 lineto -0.13 0.78 lineto closepath } cb-local cb-navy 0.8 cb-wash
+  newpath { f -0.15 0.40 moveto 0.15 0.40 lineto 0.13 0.78 lineto -0.13 0.78 lineto closepath } cb-local lw cb-line
+  % a wave: arm raised
+  newpath { f 0.0 0.72 moveto 0.14 0.80 0.20 0.92 0.22 1.02 curveto } cb-local
+  cb-navy 0.85 shade setrgbcolor << /Width h 0.06 mul /Pressure { pop 1 } >> pkribbon
+  newpath { f 0.22 1.02 0.028 0 360 arc closepath } cb-local gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
+  cb-grandpa-top
+  end
+} bind def
+
+% ---------------------------------------------------------------- boats
+/cb-boat-hull {
+  -1.0 0.30 moveto 1.05 0.30 lineto
+  0.85 -0.05 0.40 -0.18 0.0 -0.18 curveto
+  -0.55 -0.18 -0.85 -0.05 -1.0 0.30 curveto closepath
+} bind def
+
+/cb-boat { % x y s [sail] -> ()
+  20 dict begin
+  /sail exch def /s exch def /y exch def /x exch def
+  /lw s 45 div 0.6 max 2.2 min def
+  /f { x y translate s cb-face mul s scale } def
+  % reflection, pulled down into the water
+  newpath { f -0.9 -0.05 1.8 0.14 cb-rect } cb-local sail 0.35 cb-wash
+  % mast and sail
+  newpath { f -0.05 0.30 moveto -0.05 1.75 lineto } cb-local lw 1.2 mul cb-line
+  newpath { f 0.0 0.45 moveto 0.0 1.70 lineto 0.80 0.48 lineto closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { f 0.0 0.45 moveto 0.0 1.70 lineto 0.80 0.48 lineto closepath } cb-local sail 0.75 cb-wash
+  newpath { f 0.0 0.45 moveto 0.0 1.70 lineto 0.80 0.48 lineto closepath } cb-local lw cb-line
+  newpath { f -0.10 0.42 moveto -0.10 1.35 lineto -0.62 0.42 lineto closepath } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { f -0.10 0.42 moveto -0.10 1.35 lineto -0.62 0.42 lineto closepath } cb-local sail 1.25 shade 3 array astore 0.75 cb-wash
+  newpath { f -0.10 0.42 moveto -0.10 1.35 lineto -0.62 0.42 lineto closepath } cb-local lw cb-line
+  % hull
+  newpath { f cb-boat-hull } cb-local gsave cb-paper cb-rgb fill grestore
+  newpath { f cb-boat-hull } cb-local cb-hull 0.85 cb-wash
+  newpath { f -0.97 0.20 moveto 1.0 0.20 lineto 0.98 0.15 lineto -0.95 0.15 lineto closepath } cb-local
+  sail 0.8 cb-wash
+  newpath { f cb-boat-hull } cb-local lw 1.1 mul cb-line
+  cb-boatlight {
+    { f -0.05 1.20 transform } cb-local itransform 2 copy s 1.1 mul cb-glow
+    s 0.22 mul cb-lamp-at-lit
+  } if
+  end
+} bind def
+/cb-lamp-at-lit { /cb-lit true def cb-lantern /cb-lit false def } bind def
+
+% Grandpa's little blue boat, with him in it.
+/cb-gpboat { % x y s -> ()
+  3 copy cb-gpblue cb-boat
+  /cb-gpb-s exch def /cb-gpb-y exch def /cb-gpb-x exch def
+  cb-gpb-x cb-gpb-s 0.45 mul cb-face mul add cb-gpb-y cb-gpb-s 0.30 mul add
+  cb-gpb-s 1.5 mul cb-grandpa-bust
+} bind def
