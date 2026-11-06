@@ -1,107 +1,139 @@
 # Stage 2: Manuscript
 
+*Draft 2, revised after the stage 2 review panel. Draft 1 and the reviews
+are in [`reviews/`](reviews/) and in git history. The decisions are logged in
+[checkpoints.md](checkpoints.md#checkpoint-2-manuscript).*
+
 ## The text, read aloud
 
-> Every evening, the fishing boats come home to the harbour. And every
-> evening, Ana stands at the end of the pier and counts them in.
+> Every evening, Mama mends her nets by the old lamp at the start of the
+> pier. And every evening, Ana counts the fishing boats home.
 >
-> She is waiting for one boat most of all: Grandpa's little blue one.
+> She is waiting for one boat most of all. It is little, and it is blue,
+> and it is Grandpa's.
 >
-> Here comes a boat with a red sail. *One!* Not Grandpa's.
+> Red sail. *One!* Not Grandpa's.
 >
-> Here comes a boat with a green sail. *Two!* Not Grandpa's.
+> Green sail. *Two!* Not Grandpa's.
 >
-> *Three, four, five.* The sun slips down behind the hill. Not Grandpa's,
-> not Grandpa's, not Grandpa's.
+> *Three. Four. Five.* Not Grandpa's. Not Grandpa's. Not Grandpa's.
 >
-> *Six, seven, eight, nine.* The harbour fills with masts, and the sky turns
-> purple. But not one of them is little, and not one of them is blue.
+> *Six, seven, eight … nine.* Not little. Not blue.
 >
-> Then the fog comes in. Soft and grey, it fills the harbour, until Ana
-> cannot even see the end of the pier.
+> The gulls go quiet. Ana waits for ten.
 >
-> "Where is Grandpa?" Ana whispers. "How will he find the harbour in all
-> this grey?"
+> But ten is not a boat. Ten is fog.
 >
-> Then Ana remembers the old lamp on its hook. "Mama," she says, "can we
-> light it for him?"
+> Ana can't see the end of the pier. "Where is Grandpa?" she whispers.
+> "How will he find us in all this grey?"
 >
-> Mama lights the wick. Ana carries the lamp, step by careful step, all the
-> way to the end of the pier, and Mama walks right behind.
+> Then she looks up at the old lamp. "Mama! The lamp!"
 >
-> And there, Ana holds it high.
+> Mama lights it and shuts its little glass door. Ana holds it in both
+> hands, and out they go along the pier, into the grey.
+>
+> At the very end, Ana holds the lamp up high. Nothing. Only grey.
+>
+> So she holds it higher.
 >
 > Out in the fog, something blinks back. A little light. A little boat. A
 > little *blue* boat.
 >
 > *Ten!* Ten boats home. And this one is Grandpa's.
 >
-> "I knew the way," says Grandpa, "but your light made it feel very close."
-> And they all walk home together, with the lamp to light the way.
+> "I always know the way home," says Grandpa. "But tonight, I could see it."
+>
+> He lifts Ana up, lamp and all. "And this one," he says, "is mine."
 
-**Word count:** 244 (story pages only, counted with `wc -w`). The target was 300–600 for ages 3–6.
-It comes in under, which is right for a counting book: the pictures do the
-counting and the words make room for the child to count aloud.
+The end page has no words: the lamp is back on its hook, still lit, and
+all ten boats are home.
+
+**Word count:** 220 (`wc -w`). The longest pages are p1 and p11, at 25
+words each, against a ceiling of 45. Draft 1 had 244 words and a 26-word
+page made of one long, comma-chained sentence (p10). Draft 2's long pages
+are two short sentences each.
 
 ## Page plan
 
-Shot: **W** wide, **M** mid, **C** close. → / ← is the direction of travel:
-boats sail **←** (homeward), Ana faces **→** (out to sea, waiting), and on
-the walk home everyone goes **←**.
+**Shot:** W wide, M mid, C close. **Travel:** boats sail ← (homeward); Ana
+faces → (out to sea); the lamp walk goes → and the walk home ←.
 
-| # | Text (abridged) | The one drawable moment | Shot | Light |
-|---|---|---|---|---|
-| 0 | *Ten Boats Home* | Ana on the pier, lamp on its hook, boats on a gold sea | W | gold |
-| 1 | Every evening … counts them in. | Whole harbour: pier, village, Ana small at the pier's end, the lamp on its hook at the near end | W | gold |
-| 2 | Waiting for … Grandpa's little blue one. | Ana close at the rail looking → to an empty sea | M | gold |
-| 3 | A red sail. *One!* Not Grandpa's. | A red-sailed boat sails ← past Ana | M | gold |
-| 4 | A green sail. *Two!* Not Grandpa's. | A green boat ←, the red one moored behind | M | late gold |
-| 5 | *Three, four, five.* The sun slips down. | Five boats, the sun half behind the hill | W | sunset |
-| 6 | *Six … nine.* Masts, purple sky. Not little, not blue. | Nine boats moored, a forest of masts, Ana small | W | dusk |
-| 7 | Then the fog comes in … cannot see the end of the pier. | The same view, half swallowed by fog; the pier fades out | W | fog |
-| 8 | "Where is Grandpa?" … "all this grey?" | Ana close, worried, fog around her | C | fog |
-| 9 | The old lamp on its hook. "Mama … light it for him?" | Ana reaching up to the lamp on its hook; Mama beside her | M | fog |
-| 10 | Mama lights the wick … step by careful step. | Ana walking → along the pier with the lit lamp, Mama right behind | M | fog, one warm light |
-| 11 | And there, Ana holds it high. | **The heart's page:** tiny Ana at the pier's end, lamp high, a huge glow in a huge grey | W | fog-night, gold |
-| 12 | Something blinks back … a little *blue* boat. | Grandpa's blue boat coming ← out of the fog, its own lantern lit | M | fog-night |
-| 13 | *Ten!* … this one is Grandpa's. | Grandpa waving from his boat at the pier; Ana with the lamp | C | fog-night, gold |
-| 14 | "I knew the way" … walk home together. | Grandpa, Ana and Mama walking ← along the harbour toward lit windows | W | night, clearing |
-| 15 | *The End* | The lamp back on its hook, lit | C | night |
+The four right-hand columns are the **continuity ledger**. Each cell must
+agree with its neighbours, and a contradiction is a bug. Draft 1's errors
+(Ana "at the end of the pier", Mama appearing from nowhere, the lamp in two
+places at the end, never ten boats in one picture) all show up as
+contradictions in these columns.
+
+| # | Text | The one drawable moment | Shot | Light | Boats seen | Lamp | Ana | Mama |
+|---|---|---|---|---|---|---|---|---|
+| 0 | *Ten Boats Home* | Ana on the pier holding the lit lamp in both hands; the little blue boat far out | M | dusk, gold lamp | 1 (blue, far) | Ana's hands | pier | no (cover) |
+| 1 | Every evening … counts the boats home | The pier's start: the lamp on its hook (unlit), Mama on a crate with nets, Ana beside her; the long pier runs out to an empty gold sea | W | gold | 0 | hook | start | yes, mending |
+| 2 | One boat most of all … Grandpa's | Ana at the rail, looking → at the empty sea | M | gold | 0 | hook (edge of frame) | start | partly in frame |
+| 3 | Red sail. *One!* | A red-sailed boat sails ← past | M | gold | 1 | hook | start | yes |
+| 4 | Green sail. *Two!* | A green boat sails ←; the red one moored | M | late gold | 2 | hook | start | yes |
+| 5 | *Three. Four. Five.* | Three boats coming in staggered (big, mid, small), and two moored | W | sunset | 5 | hook | start | yes |
+| 6 | *Six … nine.* Not little. Not blue. | Nine moored boats in two clear rows (4 + 5), all sails distinct, none blue, none small | W | dusk | 9 | hook | start | yes |
+| 7 | The gulls go quiet. Ana waits for ten. | Ana small, alone in the frame's centre at the rail, the empty violet sea; the gulls settled on posts | W | late dusk | 9 (moored, edge) | hook | start | yes, behind |
+| 8 | But ten is not a boat. Ten is fog. | The same view as p6, fog rolling over it; the nine boats faint but countable | W | fog | 9, faint | hook | start | yes |
+| 9 | Can't see the end … "find us in all this grey?" | Ana close, worried, the pier vanishing into grey behind her | C | fog | 0 | hook, unlit, top of frame | start | her hand on Ana's shoulder |
+| 10 | She looks up at the old lamp. "Mama! The lamp!" | Ana pointing up at the lamp; Mama reaching for it | M | fog | 0 | hook | start | yes, reaching |
+| 11 | Mama lights it … out they go, into the grey | Ana walking → with the lit lamp in both hands; Mama a step behind, a hand near her | M | fog, one gold light | 0 | Ana's hands, lit | walking out | yes, behind |
+| 12 | At the very end … Nothing. Only grey. | Ana at the pier's end, lamp up, a small glow swallowed by grey; Mama beside her | W | fog-night | 0 | held up | end | yes, beside |
+| 13 | So she holds it higher. | **The heart's page:** the same place, tiptoe, arms straight up; the glow is the biggest light in the book | W | fog-night, gold | 0 | held highest | end, tiptoe | yes, small, beside |
+| 14 | Something blinks back … a little *blue* boat | The blue boat coming ← out of the fog, its own lantern lit; Ana's light at the right edge | M | fog-night | 1 (blue) | Ana's hands (edge) | end | yes (edge) |
+| 15 | *Ten!* … this one is Grandpa's. | All ten boats seen together; the blue one coming alongside the pier's end; Mama catches his rope | W | fog thinning | **10** | Ana's hands | end | yes, catching the rope |
+| 16 | "I always know the way home … could see it." | Grandpa on the pier, kneeling to Ana; the lamp between them lighting both faces | C | night, gold | 0 | Ana's hands | end | edge |
+| 17 | He lifts Ana up … "is mine." | Grandpa holding Ana high on his arm, the lamp held up in her hands, Mama smiling | M | night, clearing | 0–1 | Ana's hands, held high | in Grandpa's arms | yes |
+| 18 | *(no words)* | The lamp back on its hook, lit; ten boats moored; the three walking home ← small in the distance | W | night, a few stars | 10 | hook, lit | walking home | yes |
+
+**Pages:** a cover, 17 story pages and a wordless end page make 19 files.
+That is longer than draft 1 (16 files). It was decided deliberately:
+
+- The count needs one page per beat, so a child can point and count.
+- "Nothing" and "higher" must be two pages, so the turn between them
+  costs Ana something.
+- The refrain's reversal needs its own turn.
+
+A 32-page printed book carries about 14 spreads, so 17 single pages is a
+little over. Accepted for a square single-page format.
 
 ## Page turns
 
-- **1 → 2 → 3:** the opening sets up the counting game, and each turn
-  delivers the next boat (1, 2, then the jump to 3–5).
-- **6 → 7:** the counting stops at nine, and the turn reveals **fog**, not
-  the tenth boat. This is the book's first big turn.
-- **10 → 11:** the walk ends and the turn reveals the lamp held high, with
-  the biggest light in the book.
-- **12 → 13:** "a little blue boat", then the turn to *Ten!* The refrain
-  finally changes.
+- **1 → 2 → … → 6:** each turn delivers a number. The refrain answers it.
+- **6 → 7:** the count stalls. "Ana waits for ten" is the held breath.
+- **7 → 8:** ***But ten is not a boat. Ten is fog.*** The break lands on the
+  number itself, and the missing tenth becomes the fog.
+- **12 → 13:** "Nothing. Only grey." becomes *So she holds it higher.* Her
+  second choice is braver than her first, and it costs her the turn.
+- **13 → 14:** the answer blinks back.
+- **16 → 17:** the refrain reverses. Ana, who counted every boat, is the
+  one who gets counted: "And this one is mine."
 
-## Checking the heart
+## The heart, checked again
 
-- **Acted, not told.** The choice happens on pages 9–11: Ana remembers,
-  asks, carries and holds up the lamp. No narrator line states a moral. The
-  one character line that comes near the idea is Grandpa's, and it's about
-  how the light *felt*, not a lesson.
-- **The obstacle tests it.** Without the fog, waiting would be enough. The
-  fog makes waiting helpless, which is exactly the condition under which
-  "turn waiting into doing" means something.
-- **What it is not.** Two lines exist to keep the heart honest:
-  - *"I knew the way."* Grandpa is never in danger because of Ana's
-    absence. Her light is a gift, not a rescue.
-  - *"Mama walks right behind."* Added at this stage (see below).
+- **Acted:** she remembers the lamp (p10), carries it into the grey (p11),
+  holds it up (p12), and when nothing happens, holds it higher (p13). Four
+  actions, each harder than the last. No narrator line states a moral.
+- **The obstacle tests it.** Waiting worked for nine boats and fails at
+  ten. Raising the lamp fails once, and she does it again anyway.
+- **What it is not:**
+  - *A rescue.* "I always know the way home" means Grandpa was never lost,
+    and "But tonight, I could see it" is what her light gave him.
+  - *Unsafe.* Mama is there from the first page. She lights the lamp and
+    closes its glass door, and she walks out beside Ana. The art must also
+    show it: a glass lantern, both hands, a rail on the pier, Mama in frame.
+    That is on the storyboard checklist.
+- **The refrain reversal carries the adult layer.** For nine pages, "Not
+  Grandpa's" is about what Grandpa *has*. At the end, the line turns into
+  whom he loves.
 
-## What the manuscript sent back to stage 1
+## Glossary for the art
 
-Writing pages 9–11 exposed an unintended reading the ideation missed:
-**a five-year-old alone at the end of a pier at night in fog.** A parent
-reading aloud would wince, and the book would be modelling something
-unsafe. The fix keeps the idea and the action Ana's (she remembers the
-lamp, she asks, she carries it) and puts an adult in the scene:
+These are words the child reviewer didn't know. The pictures must show
+them clearly the first time they appear:
 
-- **Mama** joins the cast. She lights the wick (Ana doesn't handle fire),
-  and she walks behind Ana, not in front.
-- Mama needs a figure: `cb-mama` in `lib/cb_ana.ps`, added to the hero
-  sheet. In fog she is drawn softly, so Ana stays the brightest figure.
+- *pier* (p1, the long wooden walk out over the water)
+- *harbour* (the place the boats are moored)
+- *nets* (p1)
+
+Draft 1's *mast* and *wick* are no longer in the text.
