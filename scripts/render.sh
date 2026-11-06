@@ -3,7 +3,7 @@
 #
 #   scripts/render.sh                          # every page of every book
 #   scripts/render.sh books/moss-goes-to-the-sea/pages      # one book's pages
-#   scripts/render.sh books/lamp-for-the-dark/03-storyboard # its storyboard
+#   scripts/render.sh books/ten-boats-home/03-storyboard # its storyboard
 #   scripts/render.sh books/moss-goes-to-the-sea/pages/01_home.ps   # one page
 #   DPI=144 scripts/render.sh                  # higher resolution (default 72)
 #   scripts/render.sh -D Seed=4 books/.../pages/01_home.ps

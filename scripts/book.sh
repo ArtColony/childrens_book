@@ -3,7 +3,7 @@
 #
 #   scripts/book.sh books/moss-goes-to-the-sea            # -> renders/moss-goes-to-the-sea.pdf
 #   scripts/book.sh books/moss-goes-to-the-sea --commit   # -> books/<slug>/<slug>.pdf (the committed copy)
-#   scripts/book.sh books/lamp-for-the-dark/03-storyboard out.pdf
+#   scripts/book.sh books/ten-boats-home/03-storyboard out.pdf
 #                                                         # any directory of pages
 #   scripts/book.sh                                       # every book, into renders/
 #

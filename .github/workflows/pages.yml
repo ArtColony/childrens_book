@@ -1,0 +1,36 @@
+# The site at https://artcolony.github.io/childrens_book/: each book's landing
+# page, its stage documents (ideation, manuscript, storyboard, checkpoints,
+# reflection) and the process, rendered from the repo's Markdown by
+# scripts/build_site.py (standard-library Python). The PDFs and previews are
+# the committed ones, so this needs no pscat.
+name: pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/build_site.py dist
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -220,9 +220,10 @@ found at stage 4, the most expensive place to find it:
 
 Each fix meant repainting and re-binding. Moss also never had a named
 heart. Its message emerged during writing, and its strengths and weaknesses
-show it. See [its reflection](../books/moss-goes-to-the-sea/05-reflection.md). The second book, *A Lamp for the
-Dark*, runs every stage in order, and its `checkpoints.md` records what each
-checkpoint caught.
+show it. See [its reflection](../books/moss-goes-to-the-sea/05-reflection.md).
+
+The second book, [*Ten Boats Home*](../books/ten-boats-home/), runs every
+stage in order, and its `checkpoints.md` records what each checkpoint caught.
 
 ## Applying this to other long artifacts
 

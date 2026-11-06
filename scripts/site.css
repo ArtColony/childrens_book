@@ -1,0 +1,80 @@
+/* The GitHub Pages site (scripts/build_site.py). Warm paper, like the books. */
+:root {
+  --bg: #f6f2e9; --panel: #fffdf8; --ink: #1f1b18; --muted: #6b645b; --line: #e0d8c8;
+  --accent: #b5452f; --code: #efe8da; --done: #4f7a3a; --todo: #b08a2e;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 10px 30px rgba(0,0,0,.07);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171513; --panel: #201d1a; --ink: #ede7dc; --muted: #a59e92; --line: #39342e;
+    --accent: #e8957d; --code: #2a2622; --done: #8cbf72; --todo: #d8b35e;
+    --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171513; --panel: #201d1a; --ink: #ede7dc; --muted: #a59e92; --line: #39342e;
+  --accent: #e8957d; --code: #2a2622; --done: #8cbf72; --todo: #d8b35e;
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.65 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+a { color: var(--accent); text-underline-offset: 2px; }
+code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .84em; }
+code { background: var(--code); padding: .08em .32em; border-radius: 4px; }
+pre { background: var(--code); padding: 14px 16px; border-radius: 8px; overflow-x: auto; line-height: 1.45; }
+pre code { background: none; padding: 0; }
+img { max-width: 100%; height: auto; border-radius: 6px; }
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+.top { background: var(--panel); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline;
+  justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+.brand { font-weight: 700; font-size: 19px; color: var(--ink); text-decoration: none; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--accent); }
+
+main { padding-top: 22px; padding-bottom: 40px; }
+h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: .2em 0 .5em; }
+h2 { font-size: 25px; line-height: 1.25; margin: 1.8em 0 .5em; }
+h3 { font-size: 20px; margin: 1.5em 0 .4em; }
+.lede { font-size: 19px; color: var(--muted); max-width: 40em; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 2.5em 0; }
+blockquote { margin: 1.2em 0; padding: 4px 20px; border-left: 3px solid var(--accent);
+  background: var(--panel); border-radius: 0 8px 8px 0; }
+blockquote p { margin: .7em 0; }
+.muted { color: var(--muted); font-size: 15px; }
+.button { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--accent);
+  color: #fff; text-decoration: none; font-size: 15px; }
+
+.table { overflow-x: auto; margin: 1.2em 0; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.5; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-weight: 700; border-bottom: 2px solid var(--line); }
+.table.grid td { border: 0; padding: 4px; width: 33%; }
+
+ul.task, li.task { list-style: none; }
+li.task { position: relative; padding-left: 4px; margin-left: -18px; }
+li.task .box { display: inline-block; width: 15px; height: 15px; margin-right: 9px; vertical-align: -2px;
+  border: 2px solid var(--todo); border-radius: 4px; }
+li.task.done .box { border-color: var(--done); background: var(--done); }
+
+nav.stages { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 22px; font-size: 14px; }
+nav.stages a { padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px;
+  text-decoration: none; color: var(--muted); background: var(--panel); }
+nav.stages a.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; margin-top: 30px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+  box-shadow: var(--shadow); }
+.card h2 { font-size: 21px; margin: .6em 0 .2em; }
+.card h2 a { color: var(--ink); text-decoration: none; }
+.card p { margin: .4em 0; font-size: 15.5px; }
+
+footer { color: var(--muted); font-size: 14px; padding-top: 18px; padding-bottom: 40px;
+  border-top: 1px solid var(--line); }
