@@ -1,0 +1,21 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 8: the ladybird
+/Seed where { pop } { /Seed 8 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+120 cb-sky cb-skylite cb-sky-wash
+[120 130 112 124] cb-grassc 0.55 cb-hill
+newpath 440 100 moveto 446 180 430 260 436 310 curveto
+cb-grassdk cb-rgb << /Width 6 /Taper 0.5 /Waver 0.3 /Depletion 0 >> pkliner
+440 190 520 236 18 cb-leafc cb-leaf
+436 260 360 290 16 cb-leafc cb-leaf
+436 318 15 80 cb-ladybird
+-9 112 621 108 30 cb-grassdk cb-grass
+/cb-eyes /up def
+230 100 40 cb-moss
+cb-ink cb-rgb
+/cb-size 20 def
+(\252Where are you going?\272 asked a ladybird.\n\252To hear the sea sing,\272 said Moss.\n\252That is very far for a snail,\272 said the ladybird.\n\252Then I will go very far,\272 said Moss.) 50 586 512 /center cb-text pop
+8 cb-folio
+showpage

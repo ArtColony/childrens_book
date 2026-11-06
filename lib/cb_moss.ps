@@ -1,0 +1,125 @@
+%!PS-Adobe-3.0
+% cb_moss.ps -- Moss the snail, the book's hero, drawn the same on every page.
+% Load after cb_kit.ps.
+%
+%   x y s cb-moss
+%
+% (x, y) is the ground point under the middle of her shell; s is the shell's
+% radius in points (about 40 for a close-up, 12 for a tiny snail far off).
+% Options, read at call time (re-def them between calls, reset after):
+%   cb-face  1 faces right, -1 faces left             (default 1)
+%   cb-eyes  /open, /closed (asleep), /up (looking up) (default /open)
+%   cb-tuck  true: only the shell shows, she is inside (default false)
+%   cb-trail length of the silver trail behind her, in shell radii (0 = none)
+
+/cb-face 1 cb-default
+/cb-eyes /open cb-default
+/cb-tuck false cb-default
+/cb-trail 0 cb-default
+
+% Body outline in the local frame (shell radius 1, facing right).
+/cb-moss-body {
+  -1.55 0.02 moveto
+  -0.6 -0.04 0.9 -0.04 1.95 0.02 curveto
+  2.25 0.06 2.32 0.42 2.18 0.72 curveto        % chin, up the face
+  2.08 0.98 1.68 1.02 1.56 0.80 curveto        % top of the head
+  1.46 0.62 1.34 0.40 1.00 0.34 curveto        % back of the neck
+  0.40 0.26 -0.6 0.26 -1.10 0.18 curveto       % along the back, under shell
+  -1.40 0.14 -1.55 0.08 -1.55 0.02 curveto
+  closepath
+} bind def
+
+% Body when looking up: the head lifts higher.
+/cb-moss-body-up {
+  -1.55 0.02 moveto
+  -0.6 -0.04 0.9 -0.04 1.85 0.02 curveto
+  2.20 0.08 2.30 0.70 2.22 1.05 curveto
+  2.14 1.35 1.70 1.42 1.58 1.12 curveto
+  1.50 0.86 1.40 0.42 1.00 0.34 curveto
+  0.40 0.26 -0.6 0.26 -1.10 0.18 curveto
+  -1.40 0.14 -1.55 0.08 -1.55 0.02 curveto
+  closepath
+} bind def
+
+% Shell: a disc, and the spiral drawn inside it.
+/cb-moss-shellc { 0.05 1.08 } def
+/cb-moss-disc { cb-moss-shellc 1.0 0 360 arc closepath } bind def
+/cb-moss-spiral {
+  cb-moss-shellc /cb-sy exch def /cb-sx exch def
+  0 6 800 {
+    /cb-a exch def
+    /cb-r 0.92 cb-a 900 div 0.95 mul 1 exch sub mul def
+    cb-sx cb-a 200 add cos cb-r mul add
+    cb-sy cb-a 200 add sin cb-r mul add
+    cb-a 0 eq { moveto } { lineto } ifelse
+  } for
+} bind def
+
+/cb-moss {
+  20 dict begin
+  /s exch def /y exch def /x exch def
+  /lw s 22 div 0.8 max 2.6 min def         % ink weight scales with her size
+  /frame { x y translate s cb-face mul s scale } def
+  /up cb-eyes /up eq def
+
+  % silver trail
+  cb-trail 0 gt {
+    newpath { frame -1.4 0.03 moveto cb-trail neg 1.4 sub 0.03 lineto } cb-local
+    [0.82 0.86 0.90] cb-rgb
+    << /Width s 0.22 mul /Pressure { 0.8 mul 1 exch sub } >> pkribbon
+    newpath { frame -1.5 0.06 moveto cb-trail neg 1.2 sub 0.06 lineto } cb-local
+    [0.96 0.97 0.99] cb-rgb << /Width s 0.05 mul >> pkribbon
+  } if
+
+  cb-tuck not {
+    % body
+    % paper underneath first, so the scene behind never shows through her
+    newpath { frame up { cb-moss-body-up } { cb-moss-body } ifelse } cb-local
+    gsave cb-paper cb-rgb fill grestore
+    newpath { frame up { cb-moss-body-up } { cb-moss-body } ifelse } cb-local
+    cb-mossc 0.55 cb-wash
+    newpath { frame -1.2 0.06 moveto -0.3 0.0 0.9 0.0 1.9 0.08 curveto } cb-local
+    cb-mossc 0.6 shade 3 array astore 0.25 cb-wash   % shadow along the foot
+    newpath { frame up { cb-moss-body-up } { cb-moss-body } ifelse } cb-local
+    lw cb-line
+
+    % eye stalks and eyes
+    /hx up { 1.80 } { 1.80 } ifelse def
+    /hy up { 1.28 } { 0.92 } ifelse def
+    /e1 up { [1.55 2.05] } { [1.62 1.62] } ifelse def
+    /e2 up { [2.05 2.12] } { [2.12 1.55] } ifelse def
+    newpath { frame hx 0.08 sub hy moveto e1 aload pop lineto } cb-local lw 0.8 mul cb-line
+    newpath { frame hx 0.12 add hy 0.02 sub moveto e2 aload pop lineto } cb-local lw 0.8 mul cb-line
+    [e1 e2] {
+      aload pop /ey exch def /ex exch def
+      newpath { frame ex ey 0.17 0 360 arc closepath } cb-local
+      gsave cb-mossc 1.15 shade setrgbcolor fill grestore lw 0.7 mul cb-line
+      cb-eyes /closed eq {
+        newpath { frame ex 0.12 sub ey 0.02 sub moveto ex 0.04 sub ey 0.09 sub ex 0.04 add ey 0.09 sub ex 0.12 add ey 0.02 sub curveto } cb-local
+        lw 0.7 mul cb-line
+      } {
+        { frame ex 0.05 add ey up { 0.07 } { 0.02 } ifelse add transform } cb-local
+        itransform s 0.16 mul cb-dot
+      } ifelse
+    } forall
+
+    % smile and cheek
+    /mx up { 2.05 } { 2.02 } ifelse def
+    /my up { 0.80 } { 0.46 } ifelse def
+    newpath { frame mx 0.13 sub my 0.03 add moveto mx 0.09 sub my 0.05 sub mx 0.01 add my 0.05 sub mx 0.04 add my 0.03 add curveto } cb-local
+    lw 0.7 mul cb-line
+    newpath { frame mx 0.42 sub my 0.02 sub 0.11 0 360 arc closepath } cb-local
+    cb-pink 0.5 cb-wash
+  } if
+
+  % shell, over the body
+  newpath { frame cb-moss-disc } cb-local
+  gsave cb-paper cb-rgb fill grestore
+  newpath { frame cb-moss-disc } cb-local
+  cb-shell 0.6 cb-wash
+  newpath { frame cb-moss-shellc 0.62 add exch 0.25 sub exch 0.30 0 360 arc closepath } cb-local
+  cb-shellhi 0.35 cb-wash
+  newpath { frame cb-moss-spiral } cb-local lw 0.9 mul cb-line
+  newpath { frame cb-moss-disc } cb-local lw 1.1 mul cb-line
+  end
+} bind def

@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 3: setting off
+/Seed where { pop } { /Seed 3 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+260 cb-sky cb-skylite cb-sky-wash
+[250 270 255 262 248] [0.62 0.78 0.48] 0.45 cb-hill
+[200 216 190 196 184] cb-grassc 0.55 cb-hill
+% the path
+newpath -9 120 moveto 200 150 360 100 621 140 curveto 621 80 lineto 360 50 200 100 -9 70 curveto closepath
+cb-sand 0.5 cb-wash
+-9 190 621 180 22 cb-grassdk cb-grass
+% home, far behind
+newpath 66 178 moveto 72 214 lineto cb-grassdk cb-rgb << /Width 3 /Depletion 0 >> pkliner
+72 214 14 222 16 cb-leafc cb-leaf
+/cb-trail 4.5 def
+360 92 40 cb-moss
+cb-ink cb-rgb
+(\252I would like to hear the sea sing,\272 said Moss.\nSo she packed nothing at all, because a snail carries her house with her, and off she went.) 60 576 492 /center cb-text pop
+3 cb-folio
+showpage

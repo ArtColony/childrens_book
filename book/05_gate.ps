@@ -1,0 +1,23 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 5: under the gate
+/Seed where { pop } { /Seed 5 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+120 cb-sky cb-skylite cb-sky-wash
+[130 140 124 134] cb-grassc 0.55 cb-hill
+% the gate: two posts and three rails with a brace
+newpath 116 100 30 330 cb-rect cb-wood 0.65 cb-wash newpath 116 100 30 330 cb-rect 1.6 cb-line
+newpath 466 100 30 330 cb-rect cb-wood 0.65 cb-wash newpath 466 100 30 330 cb-rect 1.6 cb-line
+[0.33 0.58 0.83] { newpath 146 100 330 3 index mul add 320 22 cb-rect cb-wood 1.12 shade 3 array astore 0.65 cb-wash
+                   newpath 146 100 330 4 -1 roll mul add 320 22 cb-rect 1.4 cb-line } forall
+newpath 150 220 moveto 150 236 lineto 466 395 lineto 466 379 lineto closepath cb-wood 1.12 shade 3 array astore 0.65 cb-wash
+newpath 150 220 moveto 150 236 lineto 466 395 lineto 466 379 lineto closepath 1.4 cb-line
+-9 104 621 100 26 cb-grassdk cb-grass
+/cb-trail 2.5 def
+330 100 28 cb-moss
+cb-ink cb-rgb
+(She went under the gate.) 60 580 492 /center cb-text pop
+cb-fontit findfont 30 scalefont setfont (Slowly.) 306 492 showctr
+5 cb-folio
+showpage

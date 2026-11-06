@@ -1,0 +1,273 @@
+%!PS-Adobe-3.0
+% cb_world.ps -- the scenery Moss travels through. Load after cb_kit.ps.
+% Every procedure paints in the book's watercolor-and-ink style: a wash
+% (cb-wash / cb-bigwash), then, for things near the eye, an ink line.
+% Variables live in a local dict, and none is named like an operator
+% (bind would turn a variable called `ln` into the logarithm).
+
+% ---------------------------------------------------------------- sky
+% x y w h -> a rectangle subpath
+/cb-rect { 4 2 roll moveto 1 index 0 rlineto 0 exch rlineto neg 0 rlineto closepath } bind def
+
+% Sky from y0 to the top of the page, colour c at the top fading to the
+% paler colour c2 at y0.
+/cb-sky-wash { % y0 [c] [c2] -> ()
+  8 dict begin
+  /c2 exch def /c exch def /y0 exch def
+  /sh cb-H y0 sub 9 add def
+  newpath -9 y0 cb-W 18 add sh cb-rect c 0.5 cb-bigwash
+  1 1 4 {
+    /k exch def
+    newpath -9 y0 12 sub cb-W 18 add sh 1 k 5 div sub mul cb-rect c2 0.2 cb-bigwash
+  } for
+  end
+} bind def
+
+% A rolling ground: a filled shape from y=-9 up to a wavy top edge through
+% the given heights (evenly spaced across the page), washed in colour c.
+/cb-hillpath { % [h0 h1 ... hn] -> path
+  6 dict begin
+  /hs exch def /n hs length 1 sub def /dx cb-W 18 add n div def
+  -9 -9 moveto -9 hs 0 get lineto
+  1 1 n {
+    /i exch def
+    -9 i 1 sub dx mul add dx 0.5 mul add hs i 1 sub get
+    -9 i dx mul add dx 0.5 mul sub hs i get
+    -9 i dx mul add hs i get curveto
+  } for
+  cb-W 9 add -9 lineto closepath
+  end
+} bind def
+/cb-hill { % [heights] [c] alpha -> ()
+  3 1 roll exch newpath cb-hillpath exch cb-bigwash
+} bind def
+
+% ---------------------------------------------------------------- plants
+% Grass blades standing on a line from (x0,y0) to (x1,y1).
+/cb-grass { % x0 y0 x1 y1 height [c] -> ()
+  10 dict begin
+  /c exch def /gh exch def /y1 exch def /x1 exch def /y0 exch def /x0 exch def
+  newpath x0 y0 moveto x1 y1 lineto
+  << /Direction 90 /Length gh /Spacing gh 9 div 2 max /Scatter gh 0.15 mul /Bow 0.35 >> pkpull
+  c cb-rgb << /Width gh 14 div 1.2 max /Taper 0.95 /Waver 0.6 /Depletion 0 >> pkliner
+  end
+} bind def
+
+% A five-petal flower on a stem.
+/cb-flower { % x y size [petal] -> ()
+  10 dict begin
+  /pc exch def /fs exch def /fy exch def /fx exch def
+  newpath fx fy fs 3.2 mul sub moveto fx fs 0.4 mul sub fy fs 2.2 mul sub fx fs 0.3 mul add fy fs 1.0 mul sub fx fy curveto
+  cb-grassdk cb-rgb << /Width fs 0.18 mul 1 max /Taper 0.2 /Waver 0.3 >> pkliner
+  0 72 359 {
+    /a exch def
+    newpath fx a cos fs 0.62 mul mul add fy a sin fs 0.62 mul mul add fs 0.5 mul 0 360 arc closepath
+    pc 0.55 cb-wash
+  } for
+  newpath fx fy fs 0.32 mul 0 360 arc closepath cb-sunc 0.8 cb-wash
+  newpath fx fy fs 0.32 mul 0 360 arc closepath fs 14 div 0.6 max cb-line
+  end
+} bind def
+
+% The big leaf Moss lives under: tip at (tx,ty), stem end at (x,y).
+/cb-leafshape { % x y tx ty width -> path
+  10 dict begin
+  /lw exch def /ty exch def /tx exch def /ly exch def /lx exch def
+  /dx tx lx sub def /dy ty ly sub def
+  /len dx dx mul dy dy mul add sqrt def
+  /nx dy neg len div lw mul def /ny dx len div lw mul def
+  lx ly moveto
+  lx dx 0.25 mul add nx 1.1 mul add  ly dy 0.25 mul add ny 1.1 mul add
+  lx dx 0.75 mul add nx 0.9 mul add  ly dy 0.75 mul add ny 0.9 mul add
+  tx ty curveto
+  lx dx 0.75 mul add nx 0.9 mul sub  ly dy 0.75 mul add ny 0.9 mul sub
+  lx dx 0.25 mul add nx 1.1 mul sub  ly dy 0.25 mul add ny 1.1 mul sub
+  lx ly curveto closepath
+  end
+} bind def
+/cb-leaf { % x y tx ty width [c] -> ()
+  12 dict begin
+  /c exch def /lw exch def /ty exch def /tx exch def /ly exch def /lx exch def
+  newpath lx ly tx ty lw cb-leafshape c 0.6 cb-wash
+  newpath lx ly tx ty lw cb-leafshape lw 30 div 1 max 2.4 min cb-line
+  % midrib and veins
+  newpath lx ly moveto tx ty lineto lw 50 div 0.7 max cb-line
+  /dx tx lx sub def /dy ty ly sub def
+  /len dx dx mul dy dy mul add sqrt def
+  /nx dy neg len div lw mul def /ny dx len div lw mul def
+  0.2 0.15 0.8 {
+    /t exch def
+    [1 -1] {
+      /sg exch def
+      newpath lx dx t mul add ly dy t mul add moveto
+      lx dx t 0.12 add mul add nx sg mul 0.6 mul 1 t sub mul add
+      ly dy t 0.12 add mul add ny sg mul 0.6 mul 1 t sub mul add lineto
+      lw 70 div 0.6 max cb-line
+    } forall
+  } for
+  end
+} bind def
+
+% A cabbage: a round pale head sitting in a ruff of darker outer leaves.
+/cb-cabbage { % x y r -> ()
+  10 dict begin
+  /cr exch def /cy exch def /cx exch def
+  /lwc cr 40 div 0.9 max def
+  % outer leaves, splayed left and right
+  [ [-1 -0.05 0.75 0.42 15] [1 -0.05 0.75 0.42 -15] [-0.55 -0.25 0.6 0.35 5] [0.55 -0.25 0.6 0.35 -5] ] {
+    aload pop /ra exch def /ry exch def /rx exch def /oy exch def /ox exch def
+    newpath { cx ox cr mul 0.6 mul add cy oy cr mul add translate ra rotate
+              rx cr mul ry cr mul scale 0 0 1 0 360 arc closepath } cb-local
+    [0.42 0.62 0.36] 0.6 cb-wash
+    newpath { cx ox cr mul 0.6 mul add cy oy cr mul add translate ra rotate
+              rx cr mul ry cr mul scale 0 0 1 0 360 arc closepath } cb-local
+    lwc cb-line
+  } forall
+  % the head
+  newpath cx cy cr 0.3 mul add cr 0.62 mul 0 360 arc closepath [0.72 0.85 0.55] 0.7 cb-wash
+  newpath cx cy cr 0.3 mul add cr 0.62 mul 0 360 arc closepath lwc cb-line
+  % leaf folds wrapping the head
+  newpath cx cr 0.5 mul sub cy cr 0.75 mul add moveto
+          cx cr 0.1 mul sub cy cr 0.55 mul add cx cy cr 0.05 mul add cx cr 0.15 mul add cy cr 0.25 mul sub curveto
+  cx cr 0.45 mul add cy cr 0.8 mul add moveto
+          cx cr 0.15 mul add cy cr 0.6 mul add cx cr 0.25 mul add cy cr 0.2 mul add cx cr 0.4 mul add cy cr 0.15 mul sub curveto
+  lwc 0.8 mul cb-line
+  end
+} bind def
+
+% ---------------------------------------------------------------- sky things
+/cb-cloud { % x y w -> ()
+  8 dict begin
+  /cw exch def /cy exch def /cx exch def
+  /p { newpath
+    cx cw 0.30 mul sub cy cw 0.12 mul 0 360 arc closepath
+    cx cy cw 0.10 mul add cw 0.20 mul 0 360 arc closepath
+    cx cw 0.28 mul add cy cw 0.02 mul add cw 0.15 mul 0 360 arc closepath
+    cx cw 0.45 mul sub cy cw 0.08 mul sub cx cw 0.45 mul add cy cb-band } def
+  /cb-band { % x0 y0 x1 y1 -> a flat-bottomed band
+    /yb2 exch def /xb2 exch def /yb exch def /xb exch def
+    xb yb moveto xb2 yb lineto xb2 yb2 lineto xb yb2 lineto closepath } def
+  p [1 1 1] 0.85 cb-wash
+  p [1 1 1] 0.6 cb-wash
+  end
+} bind def
+
+/cb-sun { % x y r -> ()
+  6 dict begin /sr exch def /sy exch def /sx exch def
+  newpath sx sy sr 1.5 mul 0 360 arc closepath cb-sunc 0.18 cb-bigwash
+  newpath sx sy sr 0 360 arc closepath cb-sunc 0.7 cb-wash
+  end
+} bind def
+
+/cb-moon-paint { % x y r -> ()
+  6 dict begin /mr exch def /my exch def /mx exch def
+  newpath mx my mr 2.2 mul 0 360 arc closepath cb-moon 0.10 cb-bigwash
+  newpath mx my mr 1.5 mul 0 360 arc closepath cb-moon 0.14 cb-bigwash
+  newpath mx my mr 0 360 arc closepath cb-moon 0.95 cb-wash
+  newpath mx my mr 0 360 arc closepath cb-moon 0.9 cb-wash
+  newpath mx mr 0.3 mul sub my mr 0.2 mul add mr 0.18 mul 0 360 arc closepath [0.9 0.85 0.7] 0.35 cb-wash
+  newpath mx mr 0.25 mul add my mr 0.3 mul sub mr 0.12 mul 0 360 arc closepath [0.9 0.85 0.7] 0.35 cb-wash
+  end
+} bind def
+
+% n little stars between heights y0 and y1, seeded by seed (keep y1 below
+% the text block, so no star lands on a word).
+/cb-stars { % y0 y1 n seed -> ()
+  6 dict begin /sd exch def /n exch def /y1 exch def /y0 exch def
+  -9 y0 cb-W 18 add y1 y0 sub screct
+  << /Count n /Seed sd /MinSpacing 22 /Scale [0.5 1.3]
+     /Mark { pop /cb-sk exch def newpath 4.5 cb-sk mul 1.8 cb-sk mul 5 star
+             cb-moon cb-rgb fill } >> scatter   % a wash would blur a star this small into a blob
+  end
+} bind def
+
+% ---------------------------------------------------------------- creatures
+% A gull standing, facing left, feet at (x,y), height h.
+/cb-gull { % x y h -> ()
+  10 dict begin /gh exch def /gy exch def /gx exch def
+  /f { gx gy translate gh 100 div dup scale } def
+  /body { 30 40 moveto 30 70 10 82 -18 80 curveto -32 79 -38 72 -40 66 curveto
+          -30 66 -22 62 -18 58 curveto -30 54 -40 42 -36 30 curveto
+          -20 22 10 22 40 34 curveto 52 38 60 40 66 44 curveto 50 44 40 42 30 40 curveto closepath } def
+  newpath { f body } cb-local [0.97 0.97 0.98] 0.95 cb-wash
+  newpath { f -14 46 moveto 10 62 30 52 46 42 curveto 28 34 0 32 -14 46 curveto closepath } cb-local
+  [0.62 0.66 0.72] 0.6 cb-wash
+  newpath { f body } cb-local gh 60 div 0.8 max cb-line
+  newpath { f -40 66 moveto -52 64 lineto -40 62 lineto closepath } cb-local
+  [0.98 0.70 0.25] 0.9 cb-wash
+  newpath { f -40 66 moveto -52 64 lineto -40 62 lineto } cb-local gh 90 div 0.6 max cb-line
+  newpath { f -2 26 moveto 0 0 lineto 12 26 moveto 12 0 lineto } cb-local
+  [0.98 0.70 0.25] cb-rgb << /Width gh 40 div 1 max /Waver 0 /Taper 0 >> pkliner
+  { f -26 72 transform } cb-local itransform gh 16 div cb-dot
+  end
+} bind def
+
+% A ladybird, viewed from above, centre (x,y), radius r, turned a degrees.
+/cb-ladybird { % x y r a -> ()
+  8 dict begin /la exch def /lr exch def /ly exch def /lx exch def
+  /f { lx ly translate la rotate lr dup scale } def
+  newpath { f 0 1.0 0.45 0 360 arc closepath } cb-local cb-ink 0.85 cb-wash
+  newpath { f 0 0 1 0 360 arc closepath } cb-local cb-red 0.85 cb-wash
+  newpath { f 0 0 1 0 360 arc closepath } cb-local lr 9 div 0.8 max cb-line
+  newpath { f 0 -1 moveto 0 1 lineto } cb-local lr 9 div 0.8 max cb-line
+  [[-0.45 0.3] [0.45 0.3] [-0.4 -0.4] [0.4 -0.4]] {
+    aload pop /dy exch def /dx exch def
+    newpath { f dx dy 0.2 0 360 arc closepath } cb-local cb-ink 0.85 cb-wash
+  } forall
+  end
+} bind def
+
+% ---------------------------------------------------------------- built things
+% A fence of n posts from x0, ground y, post height h, spacing sp.
+/cb-fence { % x0 y n h sp -> ()
+  10 dict begin /sp exch def /fh exch def /n exch def /fy exch def /fx exch def
+  /pw sp 0.32 mul def
+  % rails
+  [0.35 0.7] {
+    /t exch def
+    newpath fx fy fh t mul add sp n 1 sub mul pw add pw 0.45 mul cb-rect
+    cb-wood 0.6 cb-wash
+    newpath fx fy fh t mul add sp n 1 sub mul pw add pw 0.45 mul cb-rect
+    1.2 cb-line
+  } forall
+  0 1 n 1 sub {
+    /i exch def /px fx i sp mul add def
+    newpath px fy moveto pw 0 rlineto 0 fh rlineto pw -0.5 mul pw 0.5 mul rlineto
+    pw -0.5 mul pw -0.5 mul rlineto closepath
+    cb-wood 1.1 shade 3 array astore 0.65 cb-wash
+    newpath px fy moveto pw 0 rlineto 0 fh rlineto pw -0.5 mul pw 0.5 mul rlineto
+    pw -0.5 mul pw -0.5 mul rlineto closepath 1.4 cb-line
+  } for
+  end
+} bind def
+/{ } bind def
+
+% Rain: n slanted strokes over the region, seeded.
+/cb-rain { % x y w h n seed -> ()
+  8 dict begin /sd exch def /n exch def
+  screct << /Count n /Seed sd /MinSpacing 14
+     /Mark { pop pop newpath 2 copy moveto -4 -14 rlineto pop pop
+             [0.45 0.6 0.8] cb-rgb << /Width 1.6 /Taper 0.6 /Waver 0.2 >> pkliner } >> scatter
+  end
+} bind def
+
+% Sea from the bottom of the page up to y (the horizon), with wave lines.
+/cb-sea-paint { % y [c] -> ()
+  8 dict begin /c exch def /sy exch def
+  newpath -9 -9 cb-W 18 add sy 9 add cb-rect c 0.55 cb-bigwash
+  newpath -9 -9 cb-W 18 add sy 9 add 0.55 mul cb-rect c 0.7 shade 3 array astore 0.3 cb-bigwash
+  end
+} bind def
+
+% A row of little wave curls along y, from x0 to x1, each w wide.
+/cb-waves { % x0 x1 y w [c] lw -> ()
+  10 dict begin /wl exch def /c exch def /ww exch def /wy exch def /x1 exch def /x0 exch def
+  newpath
+  x0 ww x1 {
+    /wx exch def
+    wx wy moveto
+    wx ww 0.25 mul add wy ww 0.22 mul add wx ww 0.75 mul add wy ww 0.22 mul add wx ww add wy curveto
+  } for
+  c cb-rgb << /Width wl /Taper 0.5 /Waver 0.3 /Depletion 0.2 >> pkliner
+  end
+} bind def

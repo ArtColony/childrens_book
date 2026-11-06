@@ -1,0 +1,14 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, the end
+/Seed where { pop } { /Seed 15 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+cb-ink cb-rgb
+cb-titlefont findfont 52 scalefont setfont (The End) 306 360 showctr
+/cb-trail 5 def /cb-eyes /closed def
+360 250 22 cb-moss
+cb-font findfont 10 scalefont setfont
+(Moss Goes to the Sea. Written, painted and set in PostScript, rendered with pscat.) 306 70 showctr
+(An ArtColony project: github.com/ArtColony/childrens_book) 306 54 showctr
+showpage

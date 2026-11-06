@@ -1,0 +1,18 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 9: dusk
+/Seed where { pop } { /Seed 9 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+150 cb-dusk [0.95 0.66 0.58] cb-sky-wash
+newpath -9 380 630 250 cb-rect cb-night 0.35 cb-bigwash
+300 520 12 91 cb-stars
+150 230 30 cb-sun
+[170 230 262 236 190 150] [0.30 0.42 0.38] 0.75 cb-hill
+[120 140 126 136] [0.22 0.34 0.32] 0.7 cb-hill
+/cb-trail 3 def
+300 258 20 cb-moss
+cb-paper cb-rgb
+(The sun went down. The stars came out.\nMoss kept going.) 60 584 492 /center cb-text pop
+9 cb-folio
+showpage

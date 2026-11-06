@@ -1,0 +1,35 @@
+# Render every page and bind the book with the pscat release pinned in
+# .pscat-version, with strict lint (a stack or gsave leak, or an error, fails
+# the build). The page PNGs and the PDF are uploaded as artifacts.
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  book:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install pscat
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="$(cat .pscat-version)"
+          t="pscat-$v-x86_64-unknown-linux-musl"
+          cd "$RUNNER_TEMP"
+          gh release download "v$v" -R PSCatLabs/pscat -p "$t.tar.gz" -p SHA256SUMS
+          sha256sum -c SHA256SUMS --ignore-missing
+          tar xzf "$t.tar.gz"
+          echo "$RUNNER_TEMP/$t" >> "$GITHUB_PATH"
+      - run: pscat --version
+      - run: scripts/render.sh
+      - run: scripts/book.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: book
+          path: renders/

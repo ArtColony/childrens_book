@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 10: the sand
+/Seed where { pop } { /Seed 10 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+240 cb-night [0.30 0.32 0.56] cb-sky-wash
+260 520 18 101 cb-stars
+470 330 26 cb-moon-paint
+newpath -9 -9 630 260 cb-rect cb-sea 0.5 cb-bigwash
+newpath -9 -9 moveto -9 230 lineto 200 200 360 120 621 80 curveto 621 -9 lineto closepath cb-sand 0.75 cb-wash
+newpath -9 -9 moveto -9 230 lineto 200 200 360 120 621 80 curveto 621 -9 lineto closepath cb-sand 0.5 cb-wash
+newpath -9 -9 moveto -9 150 lineto 80 140 150 100 200 -9 curveto closepath cb-grassc 0.45 cb-wash
+-9 140 120 90 60 cb-grassdk cb-grass
+380 600 210 26 [0.85 0.9 0.95] 1.2 cb-waves
+440 600 160 30 [0.85 0.9 0.95] 1.2 cb-waves
+/cb-trail 3 def
+270 120 30 cb-moss
+cb-paper cb-rgb
+(At last the grass turned to sand, and the sand ran all the way down to the water.) 60 584 492 /center cb-text pop
+10 cb-folio
+showpage

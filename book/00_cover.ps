@@ -1,0 +1,23 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, cover
+/Seed where { pop } { /Seed 1 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+260 cb-sky cb-skylite cb-sky-wash
+500 250 40 cb-sun
+110 330 130 cb-cloud
+240 cb-sea cb-sea-paint
+-9 600 210 28 [0.92 0.96 1] 1.2 cb-waves
+newpath -9 -9 moveto -9 170 lineto 220 190 420 140 621 120 curveto 621 -9 lineto closepath cb-sand 0.85 cb-wash
+newpath -9 170 moveto 220 190 420 140 621 120 curveto [0.95 0.97 1] cb-rgb << /Width 3 /Taper 0.2 >> pkliner
+-9 150 120 120 44 cb-grassdk cb-grass
+/cb-trail 4 def /cb-eyes /up def
+330 98 52 cb-moss
+cb-ink cb-rgb
+cb-titlefont findfont 64 scalefont setfont
+(Moss Goes) 306 520 showctr
+(to the Sea) 306 452 showctr
+cb-fontit findfont 16 scalefont setfont
+(a picture book painted in PostScript) 306 414 showctr
+showpage

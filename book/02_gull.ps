@@ -1,0 +1,20 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 2: the gull
+/Seed where { pop } { /Seed 2 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+150 cb-sky cb-skylite cb-sky-wash
+470 590 34 cb-sun
+110 440 120 cb-cloud
+[160 172 150 166 158] cb-grassc 0.55 cb-hill
+-20 140 9 120 76 cb-fence
+-9 150 621 150 24 cb-grassdk cb-grass
+% the gull on a post top: post 5 is at x = -20 + 5*76 = 360, width 24.3
+372 268 110 cb-gull
+/cb-eyes /up def
+170 120 34 cb-moss
+cb-ink cb-rgb
+(One morning a gull landed on the fence.\n\252I have just come from the sea,\272 said the gull. \252It is big and blue, and all day long it sings.\272) 60 576 492 /center cb-text pop
+2 cb-folio
+showpage

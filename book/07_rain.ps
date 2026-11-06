@@ -1,0 +1,21 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 7: rain
+/Seed where { pop } { /Seed 7 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+150 [0.58 0.64 0.74] [0.80 0.84 0.90] cb-sky-wash
+120 470 160 cb-cloud 300 440 200 cb-cloud
+newpath -9 380 630 250 cb-rect [0.55 0.6 0.7] 0.25 cb-bigwash
+[160 168 152 162] cb-grassc 0.55 cb-hill
+newpath { 400 110 translate 1 0.22 scale 0 0 120 0 360 arc closepath } cb-local
+[0.62 0.74 0.88] 0.6 cb-wash
+newpath { 400 110 translate 1 0.22 scale 0 0 120 0 360 arc } cb-local 1.2 cb-line
+-9 160 621 158 24 cb-grassdk cb-grass
+20 180 572 360 70 17 cb-rain
+/cb-trail 1.5 def /cb-eyes /up def
+220 120 42 cb-moss
+cb-ink cb-rgb
+(Then it began to rain.\nMoss did not mind one bit. Snails like rain.) 60 580 492 /center cb-text pop
+7 cb-folio
+showpage

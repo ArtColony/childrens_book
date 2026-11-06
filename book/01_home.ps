@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 1: home under the leaf
+/Seed where { pop } { /Seed 11 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+200 cb-sky cb-skylite cb-sky-wash
+[205 222 200 214 206] cb-grassc 0.55 cb-hill
+[130 140 124 132] cb-grassdk 0.15 cb-hill
+-9 200 300 210 26 cb-grassdk cb-grass
+330 212 621 205 30 cb-grassdk cb-grass
+70 250 11 cb-pink cb-flower
+120 232 9 cb-sunc cb-flower
+545 248 12 cb-pink cb-flower
+% the stem and the big leaf
+newpath 455 160 moveto 470 230 450 300 432 352 curveto
+cb-grassdk cb-rgb << /Width 7 /Taper 0.4 /Waver 0.3 /Depletion 0 >> pkliner
+432 352 150 344 62 cb-leafc cb-leaf
+/cb-trail 1.2 def
+300 168 38 cb-moss
+cb-ink cb-rgb
+(In a corner of the garden, under a big green leaf, lived a small snail named Moss.) 70 572 472 /center cb-text pop
+1 cb-folio
+showpage

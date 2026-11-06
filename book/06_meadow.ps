@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 6: the meadow
+/Seed where { pop } { /Seed 6 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+60 cb-sky cb-skylite cb-sky-wash
+[70 80 66 74] cb-grassc 0.55 cb-hill
+-9 80 621 76 290 [0.40 0.62 0.32] cb-grass
+-9 74 621 70 250 cb-grassdk cb-grass
+60 330 14 cb-pink cb-flower
+170 370 12 cb-sunc cb-flower
+450 350 15 [0.75 0.65 0.95] cb-flower
+540 300 12 cb-pink cb-flower
+-9 66 621 66 90 cb-grassc cb-grass
+/cb-trail 2 def
+306 62 16 cb-moss
+cb-ink cb-rgb
+(She went through the meadow, where the grass was as tall as trees.) 60 584 492 /center cb-text pop
+cb-fontit findfont 30 scalefont setfont (Slowly, slowly.) 306 472 showctr
+6 cb-folio
+showpage

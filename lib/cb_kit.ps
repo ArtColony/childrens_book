@@ -1,0 +1,159 @@
+%!PS-Adobe-3.0
+% cb_kit.ps -- the book's house style: page size, paper, palette, type.
+% Load after artkit and paintkit:
+%   (lib/artkit.ps) run (lib/paintkit.ps) run (lib/cb_kit.ps) run
+% Every name here starts with cb- so nothing shadows pscat's own lib/.
+
+/cb-default { 1 index where { pop pop pop } { def } ifelse } bind def
+
+/cb-W 612 cb-default            % trim: 8.5 in square
+/cb-H 612 cb-default
+
+% ---------------------------------------------------------------- palette
+% One palette for the whole book. Moss is mossy green with a rust shell;
+% the world is sky blue, meadow green and sand, with dusk violets at night.
+/cb-ink      [0.17 0.13 0.12] def        % line work and type
+/cb-paper    [0.975 0.96 0.925] def
+/cb-sky      [0.58 0.76 0.92] def
+/cb-skylite  [0.80 0.89 0.96] def
+/cb-dusk     [0.42 0.40 0.66] def
+/cb-night    [0.16 0.20 0.40] def
+/cb-grassc   [0.48 0.70 0.36] def
+/cb-grassdk  [0.28 0.50 0.28] def
+/cb-leafc    [0.38 0.62 0.30] def
+/cb-sand     [0.93 0.82 0.60] def
+/cb-sea      [0.25 0.52 0.74] def
+/cb-mossc    [0.60 0.72 0.46] def        % Moss's body
+/cb-shell    [0.80 0.48 0.28] def        % Moss's shell
+/cb-shellhi  [0.95 0.72 0.45] def
+/cb-red      [0.86 0.25 0.20] def
+/cb-sunc     [0.98 0.80 0.38] def
+/cb-pink     [0.95 0.62 0.62] def
+/cb-wood     [0.62 0.45 0.32] def
+/cb-moon     [0.99 0.95 0.80] def
+
+/cb-rgb { aload pop setrgbcolor } bind def          % [r g b] -> set
+/cb-mix { mix3 } bind def                            % a b t -> r g b
+/cb-mixa { mix3 3 array astore } bind def            % a b t -> [r g b]
+
+% ---------------------------------------------------------------- paint
+% Watercolor wash of the current path in colour [rgb], strength a.
+/cb-wash { % [rgb] alpha -> (fills current path)
+  exch cb-rgb
+  << /Alpha 3 -1 roll /Layers 3 /Wet 4 /Bloom 0.5 /Grain 0.25 >> pkwash
+} bind def
+
+% A softer, wetter wash for big areas (sky, sea, hills). No granulation:
+% at this scale it is invisible in print but grows the PDF fivefold.
+/cb-bigwash { % [rgb] alpha -> (fills current path)
+  exch cb-rgb
+  << /Alpha 3 -1 roll /Layers 4 /Wet 9 /Bloom 0.35 /Grain 0 >> pkwash
+} bind def
+
+% Ink line along the current path, width w.
+/cb-line { % w -> (strokes current path in cb-ink)
+  cb-ink cb-rgb
+  << /Width 3 -1 roll /Taper 0.35 /Waver 0.35 /Depletion 0.15 >> pkliner
+} bind def
+
+/cb-dot { % x y d -> ink dot of diameter d
+  3 1 roll newpath moveto 0 0 rlineto
+  cb-ink cb-rgb << /Width 3 -1 roll /Waver 0 >> pkliner
+} bind def
+
+% The paper every page is painted on. Bleeds 9 pt past the trim.
+/cb-ground {
+  -9 -9 cb-W 18 add cb-H 18 add << /Tone cb-paper /Grain 0.55 >> pkpaper
+} bind def
+
+% Run proc, which builds a path in a local frame (translate/scale/rotate
+% freely inside it), then restore the page CTM so the path is painted with
+% page-sized brushes. proc -> (the path stays current)
+/cb-lm matrix def
+/cb-local {
+  cb-lm currentmatrix pop
+  exec
+  cb-lm setmatrix
+} bind def
+
+% ---------------------------------------------------------------- type
+/cb-font      /NewCenturySchlbk-Roman cb-default
+/cb-fontit    /NewCenturySchlbk-Italic cb-default
+/cb-titlefont /Bookman-Demi cb-default
+/cb-size 21 cb-default
+/cb-leading 1.38 cb-default
+
+% Join two strings with a space between them.
+/cb-join { % a b -> (a b)
+  1 index length 0 eq { exch pop } {
+    2 copy length exch length add 1 add string
+    dup 0 4 index putinterval
+    dup 3 index length 32 put
+    dup 3 index length 1 add 3 index putinterval
+    3 1 roll pop pop
+  } ifelse
+} bind def
+
+% Break one paragraph into lines no wider than w in the current font.
+/cb-lines { % (text) w -> [ (line) ... ]
+  10 dict begin
+  /w exch def /rest exch def /line () def
+  [
+  { rest ( ) search
+      { /word exch def pop /rest exch def true }
+      { /word exch def /rest () def false } ifelse
+    /more exch def
+    word length 0 gt {
+      line word cb-join /try exch def
+      try stringwidth pop w gt line length 0 gt and
+        { line /line word def } { /line try def } ifelse
+    } if
+    more not { exit } if
+  } loop
+  line
+  ]
+  end
+} bind def
+
+% Set text in a column. Paragraphs are separated by (\n); a (\n\n) leaves a
+% blank line. align is /left or /center. Colour is the current colour.
+%   (text) x ytop w align cb-text -> ybottom
+/cb-text {
+  12 dict begin
+  /align exch def /w exch def /y exch def /x exch def /txt exch def
+  cb-font findfont cb-size scalefont setfont
+  /lead cb-size cb-leading mul def
+  /y y cb-size sub def
+  { txt (\n) search
+      { /para exch def pop /txt exch def true }
+      { /para exch def false } ifelse
+    /more exch def
+    para w cb-lines {
+      /lstr exch def
+      align /center eq
+        { x w lstr stringwidth pop sub 2 div add y moveto }
+        { x y moveto } ifelse
+      lstr show
+      /y y lead sub def
+    } forall
+    para length 0 eq { /y y lead sub def } if
+    more not { exit } if
+  } loop
+  y lead add cb-size 0.3 mul sub
+  end
+} bind def
+
+% A soft paper-coloured cloud behind a block of text, so it reads over paint.
+/cb-panel { % x y w h -> paints a pale rounded wash
+  /cb-ph exch def /cb-pw exch def /cb-py exch def /cb-px exch def
+  newpath cb-px cb-py cb-pw cb-ph 24 rrect
+  cb-paper 0.92 cb-wash
+  newpath cb-px cb-py cb-pw cb-ph 24 rrect
+  cb-paper 0.6 cb-wash
+} bind def
+
+% Page number, small and centred at the foot.
+/cb-folio { % n -> ()
+  cb-font findfont 11 scalefont setfont cb-ink cb-rgb
+  20 string cvs cb-W 2 div 22 showctr
+} bind def

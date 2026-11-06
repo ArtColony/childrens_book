@@ -1,0 +1,19 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Moss Goes to the Sea, page 4: past the cabbages
+/Seed where { pop } { /Seed 4 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+330 cb-sky cb-skylite cb-sky-wash
+[320 330 316 326] cb-grassc 0.5 cb-hill
+newpath -9 -9 630 220 cb-rect [0.66 0.50 0.36] 0.45 cb-bigwash
+110 200 80 cb-cabbage
+300 230 72 cb-cabbage
+490 195 84 cb-cabbage
+/cb-trail 3 def
+300 70 24 cb-moss
+cb-ink cb-rgb
+(She went past the cabbages.) 60 560 492 /center cb-text pop
+cb-fontit findfont 30 scalefont setfont (Slowly.) 306 466 showctr
+4 cb-folio
+showpage
