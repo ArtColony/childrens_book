@@ -33,6 +33,7 @@ STAGES = [  # (source name, page name, label)
     ("02-manuscript.md", "manuscript.html", "2 · Manuscript"),
     ("03-storyboard.md", "storyboard.html", "3 · Storyboard"),
     ("checkpoints.md", "checkpoints.html", "Checkpoints"),
+    ("reviews", "reviews.html", "Reviews"),
     ("05-reflection.md", "reflection.html", "5 · Reflection"),
 ]
 
@@ -247,8 +248,14 @@ def build(dist):
     }
     for b in books():
         for src, dst, _ in STAGES:
-            if os.path.exists(os.path.join(ROOT, "books", b, src)):
+            if src.endswith(".md") and os.path.exists(os.path.join(ROOT, "books", b, src)):
                 pages["books/%s/%s" % (b, src)] = "%s/%s" % (b, dst)
+        # each persona review is its own page; reviews.html (made below) lists them
+        rdir = os.path.join(ROOT, "books", b, "reviews")
+        if os.path.isdir(rdir):
+            for r in sorted(os.listdir(rdir)):
+                if r.endswith(".md"):
+                    pages["books/%s/reviews/%s" % (b, r)] = "%s/reviews/%s.html" % (b, r[:-3])
 
     def linker(src):
         src_dir = os.path.dirname(src)
@@ -275,24 +282,46 @@ def build(dist):
 
         return link
 
+    generated = {}
     top_nav = [("index.html", "Books"), ("process.html", "The process"), ("pscat-notes.html", "pscat notes")]
 
+    # a generated index of each book's reviews, in stage order
+    for b in books():
+        rdir = os.path.join(ROOT, "books", b, "reviews")
+        if not os.path.isdir(rdir):
+            continue
+        items = []
+        for r in sorted(os.listdir(rdir)):
+            if r.endswith(".md"):
+                items.append("- [%s](reviews/%s)" % (title_of(os.path.join(rdir, r)), r))
+        md = ("# Reviews\n\nEvery review from the panel of persona agents, saved as written, "
+              "in stage order. What each one changed is logged in "
+              "[the checkpoints](checkpoints.md).\n\n" + "\n".join(items) + "\n")
+        src = "books/%s/reviews/README.md" % b
+        pages[src] = "%s/reviews.html" % b
+        generated[src] = md
+
     for src, dst in pages.items():
-        with open(os.path.join(ROOT, src)) as f:
-            md = f.read()
+        if src in generated:
+            md = generated[src]
+        else:
+            with open(os.path.join(ROOT, src)) as f:
+                md = f.read()
         body = render(md, linker(src))
         rel = "../" * dst.count("/")
         if src.startswith("books/"):
             b = src.split("/")[1]
+            here = "reviews.html" if "/reviews/" in dst else os.path.basename(dst)
+            up = "../" if "/reviews/" in dst else ""
             tabs = "".join(
-                '<a class="%s" href="%s">%s</a>' % ("on" if d == os.path.basename(dst) else "", d, label)
+                '<a class="%s" href="%s%s">%s</a>' % ("on" if d == here else "", up, d, label)
                 for s, d, label in STAGES
                 if os.path.exists(os.path.join(ROOT, "books", b, s))
             )
             body = '<nav class="stages">%s</nav><article>%s</article>' % (tabs, body)
         else:
             body = "<article>%s</article>" % body
-        title = title_of(os.path.join(ROOT, src))
+        title = md.split("\n", 1)[0][2:] if md.startswith("# ") else src
         out = os.path.join(dist, dst)
         os.makedirs(os.path.dirname(out), exist_ok=True)
         with open(out, "w") as f:

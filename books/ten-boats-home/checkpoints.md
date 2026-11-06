@@ -84,3 +84,36 @@ through the long fog sentences.
 **fresh** editor (not the one whose ideas were adopted) scores draft 2. At
 8/10 or more, or after two manuscript rounds, the book moves on to the
 storyboard. A fresh child reader also reads it cold.
+
+### Draft 2 → fresh panel (round 2)
+
+*Reviews: [fresh child](reviews/02-manuscript-draft2-child.md) (Haiku),
+[fresh editor](reviews/02-manuscript-draft2-writer.md) (Opus). Both were new
+agents that had not seen draft 1 or any earlier review.*
+
+The editor's score rose from **5 to 6.5/10**, and the editor called the 7→8
+turn the line "that would get the book acquired". The child now wanted to
+turn every page, and said "wait, what?" at "Ten is fog".
+
+| # | Point (reviewer) | Decision | What changed in draft 3 |
+|---|---|---|---|
+| 22 | The text never establishes *ten* (editor) | **Adopt** | p1: "Ten boats sail out in the morning." The picture shows all ten leaving, the blue one last |
+| 23 | The lamp idea is handed to Ana, not seeded (editor) | **Adopt** | p2: Grandpa's boat "carries a lamp just like the old lamp on the pier". p10: "Then Ana thinks of Grandpa's lamp." A light can call a light |
+| 24 | Open with Ana and her want, not Mama (editor) | **Adopt** | Ana is the subject of p1. Mama stays in the same sentence ("while Mama mends the nets") |
+| 25 | The count rushes through the middle; the refrain is mechanical (editor) | **Adopt, adapted** | "*Three! Four! Five!* Not one of them is Grandpa's." / "*Six. Seven. Eight.* … *Nine.* Not little. Not blue. Not Grandpa's." The refrain now tightens instead of repeating |
+| 26 | "How will he find us in all this grey?" states the problem as the author's set-up (editor) | **Adopt** | Cut. "The fog swallows the boats. It swallows the pier. 'Where is Grandpa?'" The sound-play the editor missed is now in the fog page |
+| 27 | "Grey" three times in five pages (editor) | **Adopt** | "Grey" is gone. "Fog" is the word, and the picture carries the colour |
+| 28 | The adult does every physical act (editor) | **Adopt** | Ana lifts the lamp off its hook herself. Mama only strikes the match (safety) and catches the rope |
+| 29 | "I always know the way home…" reads as a disclaimer; "this one is mine" waters down the first reversal (editor) | **Adopt** | Both are cut. Grandpa: "Ten boats home, and one little light." Ana: "*Eleven*." The count goes past the title, and the book ends on the child's voice |
+| 30 | "Ten is fog" will confuse a literal listener (fresh child) | **Keep the line, fix it in the art** | The confusion *is* the hook ("wait, what?"). The picture must make the metaphor literal: fog standing exactly where the tenth boat should be. Added to the storyboard checklist |
+| 31 | p1 and the lamp page are long, wiggly sentences (fresh child) | **Adopt** | p1 is now two short sentences. The lamp page is "Mama lights it. *Click* goes the little glass door. And out they go, into the fog." |
+| 32 | *Pier*, *nets* unfamiliar (fresh child) | **Art** | They are shown plainly on p1 (the glossary for the art) |
+
+**Draft 3:** 206 words, longest page 25 words, fog-to-lamp sentences at most
+11 words.
+
+**Checkpoint 2 passed by the stop rule** (two manuscript rounds). Draft 3
+was not re-scored; the editor's own estimate was that A–C make it "an 8".
+What remains is music on every page, and that is best judged again at the
+storyboard, when words and pictures can be read together. **Unlocks the
+storyboard.**
