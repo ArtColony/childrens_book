@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, page 17: eleven
+/Seed where { pop } { /Seed 117 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/night cb-light
+200 cb-harbour-sky
+% ten masts behind, small
+/cb-face -1 def
+[60 110 160 210 260 330 390 450 510] { 200 12 2 index 50 idiv 9 mod cb-sails exch get cb-boat } forall
+/cb-boatlight true def 570 200 11 cb-gpblue cb-boat /cb-boatlight false def
+/cb-face 1 def
+% Ana close, held up, the lamp held high
+/cb-arm /up def /cb-lamp true def /cb-lit true def /cb-glowr 0.9 def
+180 -40 440 cb-ana
+/cb-arm /down def /cb-lamp false def /cb-lit false def /cb-glowr 0.8 def
+cb-paper cb-rgb
+cb-fontit findfont 46 scalefont setfont (\252Eleven,\272) 306 540 showctr
+cb-font findfont cb-size scalefont setfont (says Ana.) 306 500 showctr
+/cb-foliorgb cb-paper def 17 cb-folio
+showpage

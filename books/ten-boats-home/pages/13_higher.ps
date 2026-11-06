@@ -1,0 +1,19 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, page 13: higher
+/Seed where { pop } { /Seed 113 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/night cb-light
+260 cb-harbour-sky
+-9 440 200 60 cb-pier
+0 600 0.9 cb-fog
+330 200 150 cb-mama
+% the same place, on tiptoe, arms straight up: the biggest light in the book
+/cb-arm /up def /cb-lamp true def /cb-lit true def /cb-glowr 2.6 def
+400 208 104 cb-ana
+/cb-arm /down def /cb-lamp false def /cb-lit false def /cb-glowr 0.8 def
+cb-paper cb-rgb
+cb-fontit findfont 34 scalefont setfont (So she holds it higher.) 306 548 showctr
+/cb-foliorgb cb-paper def 13 cb-folio
+showpage

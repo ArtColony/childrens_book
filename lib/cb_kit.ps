@@ -45,9 +45,19 @@
 
 % A softer, wetter wash for big areas (sky, sea, hills). No granulation:
 % at this scale it is invisible in print but grows the PDF fivefold.
+/cb-rough false cb-default      % storyboard mode: big washes become flat grey masses
 /cb-bigwash { % [rgb] alpha -> (fills current path)
+  cb-rough {
+    % a flat grey mass at the colour's own lightness, as translucent as the
+    % wash would be, so layering (fog over boats) still reads in a thumbnail
+    gsave
+    1.6 mul 1 min setalpha
+    aload pop 0.11 mul exch 0.59 mul add exch 0.30 mul add setgray fill
+    grestore newpath
+  } {
   exch cb-rgb
   << /Alpha 3 -1 roll /Layers 4 /Wet 9 /Bloom 0.35 /Grain 0 >> pkwash
+  } ifelse
 } bind def
 
 % Ink line along the current path, width w.

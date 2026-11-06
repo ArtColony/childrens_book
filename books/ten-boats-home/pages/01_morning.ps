@@ -1,0 +1,25 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, page 1: ten boats sail out
+/Seed where { pop } { /Seed 101 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/morning cb-light
+cb-harbour-back
+% ten boats sailing out, right, past the pier's end: Grandpa's little blue one last
+/cb-face 1 def
+% one long line from the pier's end out to the horizon, biggest (nearest) first;
+% the little blue one is last out, nearest the pier, and smallest for its place
+[ [598 300 7] [575 296 8] [552 291 9] [596 280 10] [566 271 11] [530 262 12] [590 248 14] [550 234 16] [596 214 18] ]
+0 1 8 { /i exch def dup i get aload pop cb-sails i get cb-boat } for pop
+/cb-boatlight true def 520 178 14 cb-gpblue cb-boat /cb-boatlight false def
+cb-harbour-front
+false cb-hook-lamp
+55 cb-DECK cb-RAIL add 40 44 cb-nets
+30 cb-DECK 150 cb-mama
+/cb-arm /up def 170 cb-DECK 100 cb-ana /cb-arm /down def
+330 380 10 cb-gull-fly 380 410 8 cb-gull-fly
+cb-ink cb-rgb
+(Ten boats sail out in the morning. Every evening, Ana counts them home, while Mama mends the nets.) 56 584 500 /center cb-text pop
+1 cb-folio
+showpage

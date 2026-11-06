@@ -1,0 +1,212 @@
+%!PS-Adobe-3.0
+% cb_harbour.ps -- the world of Ten Boats Home: one harbour, one evening.
+% Load after cb_kit.ps and cb_ana.ps (cb_book.ps loads them all).
+%
+%   /gold cb-light            set the light: /morning /gold /sunset /dusk /fog /night
+%   y cb-harbour-sky          sky and sea, split at horizon y, in the current light
+%   x0 y0 w cb-village        houses on a headland; windows lit from dusk on
+%   x0 x1 deck rail cb-pier   a wooden pier from x0 to x1 (its end), deck top at y=deck
+%   x deck h cb-lamppost      the old lamp's post; leaves the hook in cb-hookx, cb-hooky
+%   x y s cb-gull-fly         a gull in flight;  x y s cb-gull-sit  one on a post
+%   y0 y1 k cb-fog            fog over everything between heights y0 and y1, k = 0..1
+%   [ [x y s [sail] face] ... ] cb-moored    a row of moored boats, drawn back to front
+%   x y r cb-inset            a round picture-memory: paper disc and rim; clip with it
+%
+% Storyboard mode: with /cb-rough true (set it before the libraries load, or
+% with -D cb-rough=true), cb-bigwash paints flat grey masses instead of
+% watercolour, so a page's composition can be judged before it is painted.
+% Characters and sails keep their colour, because the counting depends on it.
+
+% ---------------------------------------------------------------- light
+/cb-light-presets <<
+  /morning [ [0.62 0.80 0.95] [0.96 0.92 0.80] [0.30 0.58 0.78] ]
+  /gold    [ [0.66 0.76 0.92] [1.00 0.84 0.56] [0.36 0.55 0.72] ]
+  /sunset  [ [0.52 0.52 0.80] [0.98 0.62 0.45] [0.38 0.44 0.66] ]
+  /dusk    [ [0.30 0.29 0.55] [0.74 0.52 0.64] [0.24 0.30 0.52] ]
+  /fog     [ [0.60 0.62 0.67] [0.80 0.80 0.80] [0.46 0.52 0.58] ]
+  /night   [ [0.16 0.20 0.40] [0.30 0.32 0.56] [0.13 0.20 0.36] ]
+>> def
+/cb-lightname /gold cb-default
+/cb-light { % name -> sets cb-skytop, cb-skylow, cb-seac
+  dup /cb-lightname exch def
+  cb-light-presets exch get aload pop
+  /cb-seac exch def /cb-skylow exch def /cb-skytop exch def
+} bind def
+/gold cb-light
+/cb-lit-windows { cb-lightname dup /dusk eq exch dup /fog eq exch /night eq or or } bind def
+
+% ---------------------------------------------------------------- sky and sea
+/cb-harbour-sky { % horizon -> ()
+  8 dict begin /hz exch def
+  hz cb-skytop cb-skylow cb-sky-wash
+  hz cb-seac cb-sea-paint
+  % the low sun's path on the water at gold and sunset
+  cb-lightname dup /gold eq exch /sunset eq or {
+    0 1 9 { /i exch def
+      newpath 380 i 9 mul sub hz 8 sub i 18 mul sub moveto 50 i 6 mul add 0 rlineto
+      cb-skylow cb-rgb << /Width 2.5 /Taper 0.6 /Waver 0.4 >> pkliner } for
+  } if
+  end
+} bind def
+
+% ---------------------------------------------------------------- village
+/cb-village { % x0 y0 w -> () a low headland with a few houses
+  10 dict begin /vw exch def /vy exch def /vx exch def
+  newpath vx 30 sub vy 6 sub moveto
+  vx vw 0.2 mul add vy 50 add vx vw 0.7 mul add vy 44 add vx vw add vy 6 sub curveto closepath
+  [0.40 0.50 0.42] cb-skylow 0.35 cb-mixa 0.7 cb-bigwash
+  [ [0.08 0.30 22 18] [0.22 0.38 18 16] [0.34 0.36 24 20] [0.50 0.30 18 15] [0.63 0.24 20 17] ] {
+    aload pop /hh exch def /hw exch def /hy exch def /hxf exch def
+    /hx vx vw hxf mul add def /hb vy hy 40 mul add 4 sub def
+    newpath hx hb hw hh cb-rect [0.93 0.88 0.80] cb-skylow 0.3 cb-mixa 0.85 cb-wash
+    newpath hx 2 sub hb hh add moveto hw 2 div 2 add hw 0.45 mul rlineto hw 2 div 2 add hw -0.45 mul rlineto closepath
+    [0.70 0.36 0.30] cb-skylow 0.3 cb-mixa 0.85 cb-wash
+    newpath hx hb hw hh cb-rect 0.7 cb-line
+    newpath hx hw 0.3 mul add hb hh 0.35 mul add hw 0.3 mul hh 0.3 mul cb-rect
+    cb-lit-windows { cb-gold cb-rgb fill } { [0.45 0.52 0.62] 0.8 cb-wash } ifelse
+  } forall
+  end
+} bind def
+
+% ---------------------------------------------------------------- the pier
+/cb-wood-c { cb-wood cb-skylow 0.2 cb-mixa } bind def
+/cb-pier { % x0 x1 deck rail -> ()
+  12 dict begin /rail exch def /deck exch def /x1 exch def /x0 exch def
+  /th rail 0.16 mul 4 max def           % deck thickness
+  /sp rail 1.1 mul 18 max def           % post spacing
+  /pw rail 0.11 mul 2.5 max def         % post width
+  % posts into the water
+  x0 sp x1 { /px exch def
+    newpath px deck th sub rail 0.9 mul sub pw rail 0.9 mul cb-rect
+    cb-wood-c 0.7 shade 3 array astore 0.85 cb-wash
+  } for
+  % deck: a plank edge with a lighter top
+  newpath x0 deck th sub x1 x0 sub th cb-rect cb-wood-c 0.85 cb-wash
+  newpath x0 deck th sub x1 x0 sub th cb-rect rail 70 div 0.6 max cb-line
+  % rail: posts and two rails, ending at the pier's end with a stout post
+  x0 sp x1 { /px exch def
+    newpath px deck pw 0.7 mul rail cb-rect cb-wood-c 0.85 cb-wash
+  } for
+  newpath x1 pw sub deck pw 1.3 mul rail 1.1 mul cb-rect cb-wood-c 0.8 shade 3 array astore 0.9 cb-wash
+  [1.0 0.55] { /t exch def
+    newpath x0 deck rail t mul add moveto x1 deck rail t mul add lineto
+    cb-wood-c 0.8 shade setrgbcolor << /Width rail 0.07 mul 1.5 max /Pressure { pop 1 } >> pkribbon
+  } forall
+  newpath x0 deck rail add moveto x1 deck rail add lineto rail 90 div 0.5 max cb-line
+  end
+} bind def
+
+% The old lamp's post at the start of the pier: a post with an arm to the
+% right and a hook. Leaves cb-hookx, cb-hooky (where the lamp hangs from).
+/cb-lamppost { % x deck h -> ()
+  8 dict begin /lh exch def /ld exch def /lx exch def
+  /pw lh 0.06 mul 3 max def
+  newpath lx ld pw lh cb-rect cb-wood-c 0.75 shade 3 array astore 0.9 cb-wash
+  newpath lx ld pw lh cb-rect lh 120 div 0.6 max cb-line
+  newpath lx ld lh add pw 0.5 mul sub moveto lh 0.30 mul 0 rlineto
+  cb-wood-c 0.75 shade setrgbcolor << /Width pw 0.8 mul /Pressure { pop 1 } >> pkribbon
+  userdict /cb-hookx lx pw 0.5 mul add lh 0.26 mul add put
+  userdict /cb-hooky ld lh add pw 0.5 mul sub 2 sub put
+  newpath cb-hookx cb-hooky 3 add 3 180 360 arcn lh 150 div 0.6 max cb-line
+  end
+} bind def
+
+% ---------------------------------------------------------------- gulls
+/cb-gull-fly { % x y s -> ()
+  3 dict begin /gs exch def /gy exch def /gx exch def
+  newpath gx gs sub gy gs 0.3 mul add moveto
+  gx gs 0.5 mul sub gy gs 0.55 mul add gx gs 0.15 mul sub gy gs 0.2 mul add gx gy curveto
+  gx gs 0.15 mul add gy gs 0.2 mul add gx gs 0.5 mul add gy gs 0.55 mul add gx gs add gy gs 0.3 mul add curveto
+  gs 12 div 0.7 max cb-line
+  end
+} bind def
+/cb-gull-sit { % x y s -> () a small white gull settled on a post top at (x,y)
+  4 dict begin /gs exch def /gy exch def /gx exch def
+  newpath { gx gy translate gs dup scale
+    -0.5 0.1 moveto -0.3 0.6 0.3 0.6 0.45 0.35 curveto 0.62 0.38 lineto 0.45 0.25 lineto
+    0.3 0.05 -0.2 0.0 -0.5 0.1 curveto closepath } cb-local
+  gsave [0.97 0.97 0.97] cb-rgb fill grestore gs 14 div 0.5 max cb-line
+  end
+} bind def
+
+% ---------------------------------------------------------------- fog
+/cb-fog { % y0 y1 k -> () pale, warm-grey bands, densest in the middle
+  8 dict begin /k exch def /y1 exch def /y0 exch def
+  /fc [0.86 0.86 0.85] def
+  0 1 5 { /i exch def
+    /t i 5 div def
+    newpath -9 y0 y1 y0 sub t mul 0.5 mul add cb-W 18 add y1 y0 sub 1 t 0.5 mul sub mul cb-rect
+    fc k 0.22 mul cb-bigwash
+  } for
+  end
+} bind def
+
+% ---------------------------------------------------------------- boats in a row
+/cb-moored { % [ [x y s [sail] face] ... ] -> () draws in the given order (back first)
+  { aload pop /cb-face exch def cb-boat } forall
+  /cb-face 1 def
+} bind def
+
+% ---------------------------------------------------------------- nets
+/cb-nets { % x y w h -> () a fishing net draped over the rail from (x, y) down h
+  8 dict begin /nh exch def /nw exch def /ny exch def /nx exch def
+  /np { nx ny moveto nx nw 0.15 mul add ny nh sub nx nw 0.85 mul add ny nh sub nx nw add ny curveto closepath } def
+  newpath np [0.78 0.62 0.38] 0.55 cb-wash
+  gsave newpath np clip
+    nx nh sub 7 nx nw add { /k exch def
+      newpath k ny moveto nh nh neg rlineto k nh add ny moveto nh neg nh neg rlineto
+      [0.55 0.40 0.22] cb-rgb 0.6 setlinewidth stroke } for
+  grestore
+  newpath np 0.8 cb-line
+  end
+} bind def
+
+% ---------------------------------------------------------------- inset
+/cb-inset { % x y r -> () a paper disc with an ink rim (a picture-memory)
+  3 copy newpath 0 360 arc closepath gsave cb-paper cb-rgb fill grestore
+  newpath 0 360 arc closepath 1.6 cb-line
+} bind def
+
+% ---------------------------------------------------------------- the harbour view
+% Pages 1-8, 15 and the end page share one camera, so the count is continuous:
+% the same moorings fill up one by one, and an empty post waits for the tenth.
+/cb-sails [                       % arrival order: none blue, none small
+  [0.86 0.33 0.28] [0.35 0.62 0.45] [0.90 0.75 0.40] [0.96 0.95 0.92] [0.92 0.60 0.66]
+  [0.30 0.62 0.62] [0.62 0.45 0.75] [0.62 0.45 0.32] [0.95 0.58 0.25]
+] def
+/cb-moorings [                    % x y s, back row first (arrivals 1-5), then front (6-9)
+  [150 262 18] [235 262 18] [320 262 18] [405 262 18] [490 262 18]
+  [110 212 24] [205 212 24] [300 212 24] [395 212 24]
+] def
+/cb-tenth [500 214 20] def          % the empty mooring that waits for Grandpa's little boat
+/cb-HZ 300 def /cb-DECK 150 def /cb-RAIL 70 def /cb-PEND 470 def
+
+/cb-moored-n { % n -> () the first n arrivals, moored (they face left: they came home)
+  /cb-mn exch def
+  cb-mn 0 gt {
+    0 1 cb-mn 1 sub { /cb-mi exch def
+      /cb-face -1 def
+      cb-moorings cb-mi get aload pop cb-sails cb-mi get cb-boat
+    } for
+    /cb-face 1 def
+  } if
+} bind def
+
+/cb-mooring-post { % -> () the tenth mooring: an empty post in the water
+  newpath cb-tenth 0 get 2 sub cb-tenth 1 get 6 sub 5 22 cb-rect
+  cb-wood-c 0.7 shade 3 array astore 0.9 cb-wash
+  newpath cb-tenth 0 get 2 sub cb-tenth 1 get 6 sub 5 22 cb-rect 0.8 cb-line
+} bind def
+
+/cb-harbour-back { % -> () sky, sea, village and the tenth post (behind the boats)
+  cb-HZ cb-harbour-sky
+  -9 cb-HZ 230 cb-village
+  cb-mooring-post
+} bind def
+/cb-harbour-front { % -> () the pier and the old lamp's post (in front of the moorings)
+  -9 cb-PEND cb-DECK cb-RAIL cb-pier
+  100 cb-DECK 100 cb-lamppost
+} bind def
+/cb-hook-lamp { % lit -> () the old lamp hanging on its hook
+  /cb-lit exch def cb-hookx cb-hooky 26 cb-lantern /cb-lit false def
+} bind def

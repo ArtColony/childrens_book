@@ -1,0 +1,19 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, page 9: where is Grandpa?
+/Seed where { pop } { /Seed 109 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/fog cb-light
+220 cb-harbour-sky
+-9 700 60 150 cb-pier
+0 600 0.7 cb-fog
+% the old lamp, unlit, at the top of the frame
+newpath 470 470 moveto 640 470 lineto cb-wood-c cb-rgb << /Width 8 /Pressure { pop 1 } >> pkribbon
+/cb-lit false def 500 466 50 cb-lantern
+-260 60 640 cb-mama
+/cb-worry true def 150 60 380 cb-ana /cb-worry false def
+cb-ink cb-rgb
+(The fog swallows the boats. It swallows the pier. \252Where is Grandpa?\272 Ana whispers.) 56 584 500 /center cb-text pop
+9 cb-folio
+showpage

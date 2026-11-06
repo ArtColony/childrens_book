@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, page 8: ten is fog
+/Seed where { pop } { /Seed 108 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/fog cb-light
+cb-harbour-back 9 cb-moored-n
+cb-HZ 60 sub 470 0.55 cb-fog
+% the fog stands where the tenth boat should be
+newpath cb-tenth 0 get cb-tenth 1 get 30 add 46 0 360 arc closepath [0.90 0.90 0.89] 0.55 cb-bigwash
+newpath cb-tenth 0 get cb-tenth 1 get 30 add 30 0 360 arc closepath [0.92 0.92 0.91] 0.55 cb-bigwash
+cb-harbour-front false cb-hook-lamp
+0 cb-DECK 30 add 0.3 cb-fog
+55 cb-DECK cb-RAIL add 40 44 cb-nets
+30 cb-DECK 150 cb-mama
+170 cb-DECK 100 cb-ana
+cb-ink cb-rgb
+(But ten is not a boat.) 56 584 500 /center cb-text pop
+cb-fontit findfont 40 scalefont setfont (Ten is fog.) 306 500 showctr
+8 cb-folio
+showpage

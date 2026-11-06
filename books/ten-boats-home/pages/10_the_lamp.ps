@@ -1,0 +1,21 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, page 10: the old lamp
+/Seed where { pop } { /Seed 110 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/fog cb-light
+240 cb-harbour-sky
+-9 700 70 120 cb-pier
+0 600 0.6 cb-fog
+330 70 260 cb-lamppost
+% Ana on tiptoe lifts the lamp from its hook: her hand is at the hook
+/cb-ah cb-hooky 70 sub 6 sub 0.86 div def
+/cb-arm /up def /cb-lamp true def
+cb-hookx cb-ah 0.36 mul sub 76 cb-ah cb-ana
+/cb-arm /down def /cb-lamp false def
+/cb-face -1 def 560 70 300 cb-mama /cb-face 1 def
+cb-ink cb-rgb
+(Then Ana thinks of Grandpa's lamp. She lifts the old lamp from its hook. \252Mama! Light it, quick!\272) 56 584 500 /center cb-text pop
+10 cb-folio
+showpage

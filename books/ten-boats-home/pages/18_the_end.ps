@@ -1,0 +1,19 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Ten Boats Home, the end
+/Seed where { pop } { /Seed 118 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/night cb-light
+cb-harbour-back
+newpath 0 0 moveto
+cb-HZ 20 add 590 18 131 cb-stars
+9 cb-moored-n
+/cb-face -1 def /cb-boatlight true def cb-tenth aload pop cb-gpblue cb-boat /cb-boatlight false def /cb-face 1 def
+cb-harbour-front true cb-hook-lamp
+cb-hookx cb-hooky 40 sub 60 cb-glow
+% the three of them walking home, small, toward the lit windows
+/cb-face -1 def
+40 cb-DECK 56 cb-grandpa 60 cb-DECK 36 cb-ana 78 cb-DECK 52 cb-mama
+/cb-face 1 def
+showpage
