@@ -56,7 +56,11 @@ the look.
   rising line. Both were cut back. A type move has to stay out of the
   page's main image.
 
-## 4. A second painting pass would
+## 4. The second painting pass
+
+Items 1–5 below were painted at [checkpoint 5](checkpoints.md) (the horizon on p6 only). Item 6 is still open.
+
+The list, as written before the pass:
 
 1. Vary the horizon: lower and higher water lines, and a close shot in the
    reeds.
