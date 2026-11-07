@@ -48,6 +48,28 @@ expensive at stage 4.
 
 ---
 
+### Explicit-message books
+
+The heart rule above ("the narrator never states a moral") makes books
+that work on two levels. It also makes books that can be missed.
+*Ten Boats Home*'s first human reader didn't understand it. So a book can
+choose the **explicit-message variant** at stage 1 instead, and *Puff* does:
+
+- **The lesson is said in plain words** on the last story page. It is
+  said by a character, ideally the one who was wrong, so it reads as a
+  correction and not a sermon.
+- **A refrain carries it**, in one fixed wording a child can join in on.
+  The refrain is said at least three times before the turn.
+- **It is still shown before it is said.** The hero's choice has to work
+  on the page before anyone names it.
+- **The stop rule changes.** The editor's score is advice. The gate is
+  that fresh reader agents (a child and an adult), given only the text,
+  each say the lesson back in one sentence, and both match the intended
+  sentence. It runs at stage 2 and again on the finished book.
+- **Reviewer briefs are overridden.** The editor persona marks down stated
+  morals by default, so for these books it is told to judge whether the
+  line is earned and well phrased, not whether it is stated.
+
 ## Reviews: a panel at every gate
 
 A checkpoint is the author checking their own work, and that has a blind

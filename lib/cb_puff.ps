@@ -1,0 +1,282 @@
+%!PS-Adobe-3.0
+% cb_puff.ps -- Puff the little cloud, the big clouds, the seedling and the
+% sunflower, for the book *Puff*. Load after cb_kit.ps and cb_world.ps.
+%
+%   x y w cb-puff
+%
+% (x, y) is the middle of the cloud and w its width in points: about 60 for
+% Puff, 240-400 for a big cloud. Options, read at call time (re-def them
+% between calls, then reset):
+%   cb-mood   /calm /hope /sad /push /thin /joy /wow /grand /rumble
+%             (default /calm)
+%   cb-cloudc the cloud's colour (default cb-paper; the big clouds are
+%             cb-bigc)
+%   cb-lookx  where the eyes look, -1 left .. 1 right (default 0)
+%   cb-looky  -1 down .. 1 up (default 0)
+%   cb-cheek  true: pink cheeks (default true; the big clouds have none)
+%   cb-wisp   0 = solid, 1 = nearly gone (default 0). It thins the paint
+%             and the line, for Puff after she has rained.
+
+/cb-mood /calm cb-default
+/cb-cloudc cb-paper cb-default
+/cb-lookx 0 cb-default
+/cb-looky 0 cb-default
+/cb-cheek true cb-default
+/cb-wisp 0 cb-default
+
+/cb-bigc    [0.86 0.86 0.90] def          % the big clouds: pale slate
+/cb-cloudsh [0.62 0.72 0.88] def          % the blue shade under a cloud
+/cb-straw   [0.86 0.76 0.50] def          % the dry field
+/cb-strawdk [0.70 0.58 0.36] def
+/cb-dropc   [0.45 0.68 0.92] def          % a raindrop
+/cb-petal   [0.98 0.78 0.20] def          % the sunflower
+/cb-disc    [0.50 0.33 0.18] def
+
+% The cloud's outline in a local frame of width 1, centred on the origin:
+% a scalloped ellipse, with bumps on top and a flatter base.
+%   ry [bulges] -> path      (one bulge per bump, as a fraction of the width)
+/cb-cloudpath {
+  12 dict begin
+  /bl exch def /ry exch def
+  /nb bl length def
+  /st 360 nb div def
+  /pt { % angle -> x y   (the base is squashed flat)
+    /pa exch def
+    pa cos 0.5 mul
+    pa sin ry mul dup 0 lt { 0.55 mul } if
+  } def
+  200 pt moveto
+  0 1 nb 1 sub {
+    /i exch def
+    /a0 200 i st mul add def /a1 a0 st add def /am a0 st 0.5 mul add def
+    /k bl i get 1.35 mul def
+    a0 pt exch am cos k mul add exch am sin k mul add
+    a1 pt exch am cos k mul add exch am sin k mul add
+    a1 pt curveto
+  } for
+  closepath
+  end
+} bind def
+
+% Bump lists, by mood: the base first (bottom, rightwards), then the top.
+/cb-cloudshape { % mood -> ry [bulges]
+  dup /sad eq  { pop 0.25 [0.02 0.02 0.03 0.07 0.08 0.07 0.06 0.03] } {
+  dup /joy eq  { pop 0.34 [0.02 0.02 0.04 0.12 0.15 0.13 0.11 0.05] } {
+  dup /thin eq { pop 0.22 [0.01 0.01 0.02 0.05 0.06 0.05 0.04 0.02] } {
+  dup /push eq { pop 0.36 [0.02 0.03 0.05 0.11 0.13 0.12 0.10 0.05] } {
+  dup /grand eq { pop 0.27 [0.02 0.02 0.03 0.07 0.12 0.10 0.13 0.08 0.10 0.04] } {
+  dup /rumble eq { pop 0.28 [0.02 0.02 0.03 0.08 0.12 0.10 0.13 0.08 0.10 0.04] } {
+  pop 0.31 [0.02 0.02 0.04 0.10 0.13 0.12 0.09 0.04] } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse
+} bind def
+
+/cb-puff {
+  24 dict begin
+  /w exch def /y exch def /x exch def
+  /big w 150 gt def
+  /lw w big { 160 } { 40 } ifelse div 0.7 max 2.4 min def
+  /a 1 cb-wisp 0.75 mul sub def               % paint strength
+  /frame { x y translate w w scale } def
+  cb-mood cb-cloudshape /bls exch def /ry exch def
+  /body { newpath { frame ry bls cb-cloudpath } cb-local } def
+
+  % paper first, so the sky never shows through (except when wispy)
+  cb-wisp 0.3 lt { body gsave cb-paper cb-rgb fill grestore } if
+  body cb-cloudc a 0.75 mul cb-wash
+  % a soft blue shade in the lower part, clipped to the cloud
+  gsave body clip
+  0 1 3 { /k exch def    % four faint layers, so the shade fades upward
+    newpath { frame 0 ry -1.15 mul translate 1 ry 0.55 k 0.16 mul add mul 0.5 div scale 0 0 0.5 0 360 arc closepath } cb-local
+    cb-cloudsh a 0.10 mul cb-bigwash } for
+  grestore
+  body
+  cb-wisp 0 gt {
+    gsave 1 cb-wisp 0.7 mul sub setalpha lw 0.8 mul cb-line grestore newpath
+  } { lw cb-line } ifelse
+
+  % ---- the face, in the local frame
+  /fy big { 0.03 } { 0.02 } ifelse def        % face centre height
+  /ex big { 0.10 } { 0.13 } ifelse def        % eye spacing (half)
+  /er big { 0.022 } { 0.045 } ifelse def      % eye size
+  /lx cb-lookx er 0.35 mul mul def
+  /ly cb-looky er 0.35 mul mul def
+  /fl { /fp exch def { frame fp } cb-local } def   % proc -> path built in frame
+  /ink { cb-wisp 0 gt { gsave 1 cb-wisp 0.6 mul sub setalpha cb-line grestore newpath } { cb-line } ifelse } def
+  /dot { % fx fy d -> an ink dot, d in frame units
+    /dd exch def
+    { frame transform } cb-local itransform dd w mul cb-dot-a
+  } def
+  /cb-dot-a { % x y d
+    cb-wisp 0 gt { gsave 1 cb-wisp 0.6 mul sub setalpha cb-dot grestore } { cb-dot } ifelse
+  } def
+  /shuteye { % fx fy up? -> a closed-eye arc (up: a happy ^ ; else a sleepy u)
+    /up exch def /sy exch def /sx exch def
+    newpath {
+      sx er 1.1 mul sub sy moveto
+      up { sx sy er 1.6 mul add sx sy er 1.6 mul add sx er 1.1 mul add sy curveto }
+         { sx sy er 1.2 mul sub sx sy er 1.2 mul sub sx er 1.1 mul add sy curveto } ifelse
+    } fl lw 0.8 mul ink
+  } def
+  /openeye { % fx fy -> a round eye looking (lookx, looky)
+    /sy exch def /sx exch def
+    sx lx add sy ly add er 2 mul dot
+    % a tiny highlight
+    gsave { frame sx lx add er 0.35 mul add sy ly add er 0.4 mul add transform } cb-local
+    itransform newpath er w mul 0.28 mul 0 360 arc closepath 1 1 1 setrgbcolor fill grestore
+  } def
+  /brows { % tilt -> two little brows; tilt>0 = worried (inner ends up)
+    /tl exch def
+    [ -1 1 ] {
+      /sd exch def
+      newpath {
+        ex sd mul er 1.3 mul sd mul sub fy er 2.4 mul add tl sd mul er mul 0.0 add sub moveto
+        ex sd mul er 1.3 mul sd mul add fy er 2.4 mul add tl sd mul er mul add lineto
+      } fl lw 0.6 mul ink
+    } forall
+  } def
+  /mouth { % kind -> a mouth under the eyes
+    /mk exch def
+    /my fy er 2.2 mul sub def
+    /mw er 1.5 mul def
+    mk /smile eq {
+      newpath { mw neg my moveto mw neg 0.6 mul my er 1.1 mul sub mw 0.6 mul my er 1.1 mul sub mw my curveto } fl lw 0.7 mul ink
+    } if
+    mk /frown eq {
+      newpath { mw neg 0.8 mul my er 0.6 mul sub moveto mw neg 0.4 mul my er 0.3 mul add mw 0.4 mul my er 0.3 mul add mw 0.8 mul my er 0.6 mul sub curveto } fl lw 0.7 mul ink
+    } if
+    mk /line eq {
+      newpath { mw neg 0.6 mul my moveto mw 0.6 mul my lineto } fl lw 0.7 mul ink
+    } if
+    mk /oh eq {
+      newpath { 0 my er 0.4 mul sub er 0.75 mul 0 360 arc closepath } fl
+      gsave cb-ink cb-rgb cb-wisp 0 gt { 1 cb-wisp 0.6 mul sub setalpha } if fill grestore newpath
+    } if
+    mk /grin eq {
+      newpath { mw neg 1.3 mul my er 0.3 mul add moveto mw neg 0.8 mul my er 2.0 mul sub mw 0.8 mul my er 2.0 mul sub mw 1.3 mul my er 0.3 mul add curveto closepath } fl
+      gsave [0.80 0.36 0.38] cb-rgb fill grestore lw 0.7 mul ink
+    } if
+    mk /rumble eq {
+      newpath { mw neg 1.4 mul my er 0.2 mul sub moveto mw neg 0.7 mul my er 1.6 mul sub mw 0.7 mul my er 1.6 mul sub mw 1.4 mul my er 0.2 mul sub curveto closepath } fl
+      gsave [0.35 0.30 0.36] cb-rgb fill grestore lw 0.7 mul ink
+    } if
+  } def
+  /cheeks { % size -> two pink cheeks
+    /cs exch def
+    cb-cheek {
+      [ -1 1 ] { /sd exch def
+        newpath { ex 1.75 mul sd mul fy er 1.4 mul sub er cs mul 0 360 arc closepath } fl
+        cb-pink a 0.55 mul cb-wash } forall
+    } if
+  } def
+  /lids { % -> heavy half-lids across both eyes (the big clouds' grand look)
+    [ -1 1 ] { /sd exch def
+      newpath { ex sd mul er 1.2 mul sub fy er 0.2 mul add moveto ex sd mul er 1.2 mul add fy er 0.2 mul add lineto } fl
+      lw 0.8 mul ink } forall
+  } def
+
+  cb-mood /calm eq { ex neg fy openeye ex fy openeye 1.1 cheeks /smile mouth } if
+  cb-mood /hope eq { ex neg fy openeye ex fy openeye -0.4 brows 1.1 cheeks /smile mouth } if
+  cb-mood /sad  eq { ex neg fy openeye ex fy openeye 0.9 brows 0.9 cheeks /frown mouth } if
+  cb-mood /wow  eq { ex neg fy openeye ex fy openeye -0.8 brows 1.1 cheeks /oh mouth } if
+  cb-mood /push eq { ex neg fy false shuteye ex fy false shuteye 0.7 brows 1.9 cheeks /line mouth } if
+  cb-mood /thin eq { ex neg fy false shuteye ex fy false shuteye 0.9 cheeks /smile mouth } if
+  cb-mood /joy  eq { ex neg fy true shuteye ex fy true shuteye 1.4 cheeks /grin mouth } if
+  cb-mood /grand eq { ex neg fy openeye ex fy openeye lids -0.5 brows /line mouth } if
+  cb-mood /rumble eq { ex neg fy openeye ex fy openeye lids -0.9 brows /rumble mouth } if
+  end
+} bind def
+
+% A raindrop: x y size (height in points).
+/cb-drop {
+  6 dict begin /ds exch def /dy exch def /dx exch def
+  newpath dx dy ds 0.5 mul add moveto
+  dx ds 0.32 mul add dy ds 0.05 mul sub dx ds 0.30 mul add dy ds 0.5 mul sub dx dy ds 0.5 mul sub curveto
+  dx ds 0.30 mul sub dy ds 0.5 mul sub dx ds 0.32 mul sub dy ds 0.05 mul sub dx dy ds 0.5 mul add curveto
+  closepath
+  gsave cb-dropc 0.9 cb-wash grestore
+  ds 14 div 0.5 max cb-line
+  end
+} bind def
+
+% The seedling: x y h. Option cb-droop 0 (upright) .. 1 (flat, wilted).
+/cb-droop 0 cb-default
+/cb-sprout {
+  10 dict begin /sh exch def /sy exch def /sx exch def
+  /dr cb-droop def
+  /tx sx sh 0.55 mul dr mul add def
+  /ty sy sh 1 dr 0.55 mul sub mul add def
+  % the stem
+  newpath sx sy moveto sx sy sh 0.5 mul add sx sh 0.1 dr mul mul add ty 0.1 sh mul sub tx ty curveto
+  [0.40 0.62 0.30] cb-rgb << /Width sh 16 div 1.2 max /Taper 0.3 /Waver 0.2 >> pkliner
+  % two leaves at the tip, hanging when wilted
+  [ -1 1 ] {
+    /sd exch def
+    /la 90 sd 55 mul sub dr sd 0 gt { 95 } { -40 } ifelse mul sub def
+    newpath tx ty moveto
+    tx la sd 25 mul add cos sh 0.35 mul mul add ty la sd 25 mul add sin sh 0.35 mul mul add
+    tx la sd 25 mul sub cos sh 0.45 mul mul add ty la sd 25 mul sub sin sh 0.45 mul mul add
+    tx la cos sh 0.6 mul mul add ty la sin sh 0.6 mul mul add curveto
+    tx la sd 30 mul sub cos sh 0.2 mul mul add ty la sd 30 mul sub sin sh 0.2 mul mul add
+    tx la sd 40 mul sub cos sh 0.1 mul mul add ty la sd 40 mul sub sin sh 0.1 mul mul add
+    tx ty curveto closepath
+    [0.48 0.74 0.36] dr 0.45 mul 1 exch sub shade 3 array astore 0.75 cb-wash
+    newpath tx ty moveto
+    tx la sd 25 mul add cos sh 0.35 mul mul add ty la sd 25 mul add sin sh 0.35 mul mul add
+    tx la sd 25 mul sub cos sh 0.45 mul mul add ty la sd 25 mul sub sin sh 0.45 mul mul add
+    tx la cos sh 0.6 mul mul add ty la sin sh 0.6 mul mul add curveto
+    tx la sd 30 mul sub cos sh 0.2 mul mul add ty la sd 30 mul sub sin sh 0.2 mul mul add
+    tx la sd 40 mul sub cos sh 0.1 mul mul add ty la sd 40 mul sub sin sh 0.1 mul mul add
+    tx ty curveto closepath sh 40 div 0.6 max cb-line
+  } forall
+  end
+} bind def
+
+% The sunflower, grown: x y h (ground to the flower's centre). It has a face,
+% because it speaks. Option cb-flmood /calm /joy /hope (default /calm).
+/cb-flmood /calm cb-default
+/cb-sunflower {
+  12 dict begin /fh exch def /fy exch def /fx exch def
+  /fr fh 0.16 mul def                 % disc radius
+  /cy fy fh add def
+  newpath fx fy moveto fx fh 0.06 mul sub fy fh 0.5 mul add fx fh 0.04 mul add cy fh 0.3 mul sub fx cy curveto
+  [0.38 0.60 0.28] cb-rgb << /Width fh 30 div 2 max /Taper 0.2 /Waver 0.2 >> pkliner
+  % leaves on the stem
+  [ [-1 0.35] [1 0.55] [-1 0.70] ] {
+    aload pop /lh exch def /sd exch def
+    /lyy fy fh lh mul add def
+    newpath fx lyy moveto
+    fx sd fh mul 0.14 mul add lyy fh 0.10 mul add fx sd fh mul 0.30 mul add lyy fh 0.06 mul add fx sd fh mul 0.32 mul add lyy fh 0.01 mul sub curveto
+    fx sd fh mul 0.20 mul add lyy fh 0.06 mul sub fx sd fh mul 0.08 mul add lyy fh 0.05 mul sub fx lyy curveto closepath
+    gsave [0.45 0.70 0.33] 0.75 cb-wash grestore fh 140 div 0.6 max cb-line
+  } forall
+  % petals
+  0 22.5 359 {
+    /pa exch def
+    newpath
+    fx pa cos fr 0.9 mul mul add cy pa sin fr 0.9 mul mul add moveto
+    fx pa 14 add cos fr 1.6 mul mul add cy pa 14 add sin fr 1.6 mul mul add
+    fx pa 6 add cos fr 2.1 mul mul add cy pa 6 add sin fr 2.1 mul mul add
+    fx pa cos fr 2.2 mul mul add cy pa sin fr 2.2 mul mul add curveto
+    fx pa 6 sub cos fr 2.1 mul mul add cy pa 6 sub sin fr 2.1 mul mul add
+    fx pa 14 sub cos fr 1.6 mul mul add cy pa 14 sub sin fr 1.6 mul mul add
+    fx pa cos fr 0.9 mul mul add cy pa sin fr 0.9 mul mul add curveto closepath
+    gsave cb-petal 0.75 cb-wash grestore fr 30 div 0.5 max cb-line
+  } for
+  newpath fx cy fr 0 360 arc closepath
+  gsave cb-disc 0.85 cb-wash grestore fr 22 div 0.6 max cb-line
+  % face on the disc
+  /fe fr 0.32 mul def
+  cb-flmood /joy eq {
+    [ -1 1 ] { /sd exch def newpath fx sd fe mul add fe 0.45 mul sub cy fe 0.25 mul add moveto
+      fx sd fe mul add fe 0.3 mul sub cy fe 0.75 mul add
+      fx sd fe mul add fe 0.3 mul add cy fe 0.75 mul add
+      fx sd fe mul add fe 0.45 mul add cy fe 0.25 mul add curveto
+      cb-paper cb-rgb << /Width fr 14 div 1 max /Waver 0 >> pkliner } forall
+  } {
+    [ -1 1 ] { /sd exch def fx sd fe mul add cy fe 0.3 mul add moveto
+      newpath fx sd fe mul add cy fe 0.35 mul add fr 0.11 mul 0 360 arc closepath cb-paper cb-rgb fill } forall
+  } ifelse
+  newpath fx fe 0.75 mul sub cy fe 0.45 mul sub moveto
+  fx fe 0.4 mul sub cy fe 1.2 mul sub fx fe 0.4 mul add cy fe 1.2 mul sub fx fe 0.75 mul add cy fe 0.45 mul sub curveto
+  cb-paper cb-rgb << /Width fr 14 div 1 max /Waver 0 >> pkliner
+  end
+} bind def
