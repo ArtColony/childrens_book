@@ -1,0 +1,20 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, page 9: I love to swim
+/Seed where { pop } { /Seed 19 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+cb-ground
+/summer cb-season
+200 cb-psky
+200 cb-pwater 420 200 90 cb-pglints
+newpath 420 214 26 0 360 arc closepath [0.99 0.90 0.60] cb-bfill
+-10 620 204 cb-pmist
+newpath -9 -9 200 630 cb-rect [0.40 0.32 0.28] cb-bfill
+newpath 160 -9 40 630 cb-rect [0.30 0.24 0.22] cb-bfill
+/cb-dkgrow 0.3 def 280 110 130 cb-duckling /cb-dkgrow 0 def
+500 621 220 18 cb-preeds
+cb-ink cb-rgb
+(\252But I love to swim,\272 said the duckling, \252and to dive to the bottom of the water.\272 \252What nonsense!\272 said the hen. So the duckling went back out into the wide world.) 220 584 360 /left cb-text pop
+9 cb-folio
+showpage

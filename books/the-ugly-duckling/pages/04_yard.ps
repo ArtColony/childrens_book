@@ -1,0 +1,21 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, page 4: the duck yard
+/Seed where { pop } { /Seed 14 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+cb-ground
+/summer cb-season
+300 cb-psky
+newpath -9 -9 630 309 cb-rect [0.70 0.62 0.48] 0.9 cb-bigwash
+newpath -9 230 630 80 cb-rect [0.64 0.52 0.44] cb-bfill
+0 60 600 { /x exch def newpath x 230 moveto 0 80 rlineto [0.54 0.44 0.38] cb-rgb << /Width 3 /Waver 0.1 >> pkliner } for
+/cb-dkface 1 def 140 120 150 cb-pduck 90 70 120 cb-pduck
+/cb-dkface -1 def 470 80 220 cb-phen /cb-dkface 1 def
+/cb-dkgrow 0.05 def /cb-dkface -1 def 330 90 150 cb-duckling /cb-dkface 1 def /cb-dkgrow 0 def
+cb-ink cb-rgb
+(But in the duck yard, the ducks pecked him and the hens chased him.) 60 584 492 /center cb-text pop
+(\252How big and ugly he is!\272) 306 380 30 [0.74 0.34 0.20] cb-rumble
+cb-ink cb-rgb cb-font 17 cb-type (they said.) 306 344 /center cb-say
+4 cb-folio
+showpage

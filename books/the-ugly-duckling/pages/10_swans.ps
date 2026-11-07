@@ -1,0 +1,19 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, page 10: the swans
+/Seed where { pop } { /Seed 20 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+cb-ground
+/autumn cb-season
+200 cb-psky 200 cb-pwater 470 200 70 cb-pglints
+newpath 470 214 30 0 360 arc closepath [0.99 0.84 0.52] cb-bfill
+-9 621 200 56 cb-ptreeline
+-10 620 202 cb-pmist
+-9 140 240 34 cb-preeds 490 621 230 30 cb-preeds
+[ [300 490 80 0.9] [372 456 70 -0.4] [440 424 62 0.6] [228 456 70 0.2] [160 424 62 -0.8] ] { aload pop cb-swanfly } forall
+/cb-dkgrow 0.4 def /cb-dklook /up def 220 90 70 cb-duckling /cb-dklook /ahead def /cb-dkgrow 0 def
+cb-ink cb-rgb
+(Autumn came. Great white birds flew over the marsh, calling to each other.) 60 340 492 /center cb-text pop
+10 cb-folio
+showpage

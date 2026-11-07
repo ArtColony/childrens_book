@@ -1,0 +1,425 @@
+%!PS-Adobe-3.0
+% cb_marsh.ps -- *The Ugly Duckling* in the painted style: no ink lines,
+% form from colour and light (paintkit brushes over a wash underpainting).
+% Load after cb_kit.ps and cb_swan.ps.
+%
+% Seasons: /summer /autumn /winter /spring  cb-season  sets the palette
+% every scenery procedure reads. One look, four palettes: structure stays,
+% colour swaps.
+
+% ---------------------------------------------------------------- seasons
+/cb-seasons <<
+  /summer << /skyhi [0.50 0.70 0.90] /skylo [0.95 0.94 0.84] /bands [[0.56 0.74 0.92] [0.70 0.83 0.94] [0.86 0.91 0.92] [0.96 0.94 0.84]]
+             /waterhi [0.52 0.68 0.84] /waterlo [0.36 0.52 0.72] /glint [1.0 0.97 0.84]
+             /treefar [0.58 0.70 0.52] /treenear [[0.30 0.50 0.26] [0.40 0.60 0.30] [0.52 0.68 0.34]] /reed [0.24 0.38 0.20] /reedhi [0.46 0.60 0.30]
+             /mist [0.92 0.95 0.90] /accent [0.98 0.80 0.30] /rim [1.0 0.95 0.80] >>
+  /autumn << /skyhi [0.44 0.38 0.62] /skylo [0.99 0.86 0.60] /bands [[0.50 0.42 0.66] [0.76 0.52 0.62] [0.94 0.68 0.54] [0.98 0.82 0.56]]
+             /waterhi [0.56 0.52 0.72] /waterlo [0.38 0.38 0.60] /glint [0.99 0.84 0.56]
+             /treefar [0.82 0.62 0.50] /treenear [[0.66 0.30 0.20] [0.80 0.48 0.24] [0.88 0.64 0.30]] /reed [0.24 0.24 0.18] /reedhi [0.56 0.42 0.26]
+             /mist [0.98 0.88 0.76] /accent [0.92 0.48 0.20] /rim [1.0 0.82 0.56] >>
+  /winter << /skyhi [0.56 0.60 0.76] /skylo [0.90 0.88 0.92] /bands [[0.60 0.64 0.78] [0.72 0.74 0.84] [0.84 0.84 0.90] [0.92 0.90 0.92]]
+             /waterhi [0.86 0.90 0.95] /waterlo [0.72 0.78 0.88] /glint [0.98 0.98 1.0]
+             /treefar [0.70 0.70 0.80] /treenear [[0.44 0.42 0.52] [0.52 0.50 0.60] [0.60 0.58 0.68]] /reed [0.50 0.46 0.42] /reedhi [0.74 0.68 0.56]
+             /mist [0.94 0.94 0.98] /accent [0.96 0.78 0.56] /rim [0.98 0.96 1.0] >>
+  /spring << /skyhi [0.56 0.76 0.94] /skylo [0.99 0.95 0.86] /bands [[0.60 0.78 0.94] [0.76 0.86 0.95] [0.90 0.93 0.92] [0.99 0.95 0.86]]
+             /waterhi [0.60 0.78 0.92] /waterlo [0.42 0.62 0.82] /glint [1.0 1.0 0.94]
+             /treefar [0.74 0.84 0.62] /treenear [[0.46 0.66 0.34] [0.60 0.78 0.42] [0.96 0.86 0.88]] /reed [0.30 0.48 0.24] /reedhi [0.58 0.76 0.36]
+             /mist [0.96 0.98 0.94] /accent [0.98 0.72 0.62] /rim [1.0 0.98 0.90] >>
+>> def
+/cb-season { cb-seasons exch get userdict /cb-pal 3 -1 roll put } bind def    % /name -> ()
+/cb-pc { cb-pal exch get } bind def                                            % /key -> value
+/autumn cb-season
+
+% ---------------------------------------------------------------- sky, water
+% The sky from the horizon y0 up: an underpainting, then broad loaded strokes
+% graded through the season's four bands. A quiet top band (ytext and above)
+% is kept flatter, for type.
+/cb-psky { % y0 -> ()
+  12 dict begin /y0 exch def
+  y0 /skyhi cb-pc /skylo cb-pc cb-sky-wash
+  /bd /bands cb-pc def
+  /nst cb-H y0 sub 26 div cvi 1 add def
+  0 1 nst { /i exch def
+    /yy y0 i 26 mul add 6 add def
+    /t yy y0 sub cb-H y0 sub div 1 min def          % 0 at the horizon, 1 at the top
+    /k 3 t 3 mul cvi sub 0 max 3 min def
+    /c1 bd k get def /c2 bd k 1 sub 0 max get def
+    newpath -20 yy moveto 640 yy 3 jit add lineto
+    << /Width 58 /Depletion 0.02 /Charge 1 /Colors [c1 c2] /ColorMix 1 >> pkbroad
+  } for
+  % a last thin glaze over the strokes, so they read as paint, not stripes
+  newpath -9 y0 630 cb-H y0 sub 9 add cb-rect /skylo cb-pc /skyhi cb-pc 0.5 cb-mixa 0.12 cb-bigwash
+  end
+} bind def
+
+% Water from the bottom up to the horizon y0: a wash, then ripples that are
+% short and close near the horizon and long and wide toward us.
+/cb-pwater { % y0 -> ()
+  10 dict begin /y0 exch def
+  newpath -9 -9 630 y0 9 add cb-rect /waterlo cb-pc 0.85 cb-bigwash
+  newpath -9 y0 40 sub 630 49 cb-rect /waterhi cb-pc 0.6 cb-bigwash
+  /yy y0 3 sub def /gap 4 def
+  { yy -9 lt { exit } if
+    /t 1 yy y0 div sub def                           % 0 at the horizon, 1 at the bottom
+    /len 30 t 220 mul add def
+    0 1 4 { pop
+      newpath 620 frnd mul yy 1.5 jit add moveto len 0.5 frnd mul 0.75 add mul 0 rlineto
+      /waterhi cb-pc /waterlo cb-pc frnd cb-mixa cb-rgb << /Width 1.2 t 3 mul add /Taper 0.6 /Waver 0.15 >> pkliner } for
+    /gap gap 1.18 mul def /yy yy gap sub def } loop
+  end
+} bind def
+
+% A path of sun-glints on the water below a light at x: x y0 width.
+/cb-pglints { % x y0 w -> ()
+  8 dict begin /gw exch def /y0 exch def /gx exch def
+  0 1 16 { /i exch def /yy y0 4 sub i 1.15 i exp 7 mul add sub def
+    yy -9 gt {
+      newpath gx gw i 0.12 mul 1 add mul 0.5 mul sub 30 jit add yy moveto gw i 0.10 mul 0.6 add mul 0 rlineto
+      /glint cb-pc cb-rgb << /Width 2.4 i 0.18 mul add /Taper 0.6 /Waver 0.2 >> pkliner } if } for
+  end
+} bind def
+
+% Mist lying along the horizon: x0 x1 y.
+/cb-pmist { % x0 x1 y -> ()
+  6 dict begin /my exch def /x1 exch def /x0 exch def
+  { newpath x0 my moveto x1 my lineto << /Nozzle 14 /Density 150 /Speck 1.0 >> pkspray }
+  << /Soft 0.9 /Under /skylo cb-pc >> /mist cb-pc cb-rgb pkwet
+  end
+} bind def
+
+% ---------------------------------------------------------------- trees, reeds
+% A willow-ish tree: a thin trunk, a feathered crown. x y (ground) h, far?
+% Far trees are one pale value; near trees use the season's three greens/golds.
+/cb-ptree { % x y h far -> ()
+  12 dict begin /far exch def /th exch def /ty exch def /tx exch def
+  newpath tx ty moveto tx 3 jit add ty th 0.55 mul add lineto
+  far { /treefar cb-pc } { [0.30 0.24 0.22] } ifelse cb-rgb
+  << /Width th 30 div 1 max /Taper 0.5 /Waver 0.3 >> pkliner
+  /cr th 0.30 mul def
+  far { [ /treefar cb-pc ] } { /treenear cb-pc } ifelse { /tc exch def
+    tc cb-rgb
+    newpath tx cr 0.6 mul sub ty th 0.58 mul add moveto tx 6 jit add ty th 0.80 mul add lineto tx cr 0.6 mul add ty th 0.60 mul add lineto
+    << /Size cr 0.32 mul /Density 2.0 /Scatter cr 0.55 mul /Shadow far { 0 } { 0.3 } ifelse /Highlight far { 0 } { 0.3 } ifelse
+       /Light 120 /HighlightColor /rim cb-pc >> pkdab
+  } forall
+  end
+} bind def
+
+% A far treeline along the horizon: y (the horizon) h (height) x0 x1.
+% One continuous pale band, softened by mist in front: depth, not lollipops.
+/cb-ptreeline { % x0 x1 y h -> ()
+  8 dict begin /lh exch def /ly exch def /x1 exch def /x0 exch def
+  /treefar cb-pc cb-rgb
+  newpath x0 ly lh 0.35 mul add moveto x1 ly lh 0.35 mul add lineto
+  << /Size lh 0.30 mul /Density 2.6 /Scatter lh 0.35 mul /Shadow 0.12 /Highlight 0.18 /Light 120 /HighlightColor /rim cb-pc >> pkdab
+  newpath x0 ly moveto x1 ly lineto x1 ly lh 0.3 mul add lineto x0 ly lh 0.3 mul add lineto closepath /treefar cb-pc cb-bfill
+  end
+} bind def
+
+% The bare winter tree: a trunk and a few forked branches.
+/cb-pbare { % x y h -> ()
+  8 dict begin /th exch def /ty exch def /tx exch def
+  /treenear cb-pc 0 get cb-rgb
+  newpath tx ty moveto tx 2 add ty th 0.6 mul add lineto << /Width th 26 div /Taper 0.5 /Waver 0.3 >> pkliner
+  [ [-0.30 0.85] [0.28 0.90] [-0.14 1.0] [0.18 0.70] [-0.36 0.62] ] { aload pop /by exch def /bx exch def
+    newpath tx ty th 0.45 mul add moveto tx bx th mul add ty by th mul add lineto << /Width th 70 div 0.6 max /Taper 0.8 /Waver 0.4 >> pkliner } forall
+  end
+} bind def
+
+% A frame of reeds at the page edge: x0 x1 (the band they grow in) height n.
+% Dark against light, overlapping, swaying; some cattails.
+/cb-preeds { % x0 x1 h n -> ()
+  10 dict begin /n exch def /rh exch def /x1 exch def /x0 exch def
+  0 1 n 1 sub { /i exch def
+    /rx x0 x1 x0 sub frnd mul add def
+    /hh rh 0.55 frnd 0.6 mul add mul def
+    /sway 30 jit def
+    newpath rx -9 moveto rx sway 0.3 mul add hh 0.5 mul rx sway add hh lineto lineto
+    i 3 mod 0 eq { /reedhi cb-pc } { /reed cb-pc } ifelse cb-rgb
+    << /Width 3.2 /Taper 0.9 /Waver 0.35 >> pkliner
+    i 4 mod 1 eq {
+      newpath rx sway 0.7 mul add hh 0.70 mul moveto rx sway 0.8 mul add hh 0.84 mul lineto
+      [0.38 0.24 0.14] cb-rgb << /Width 8 /Pressure { 180 mul sin 0.5 mul 0.5 add } >> pkribbon } if
+  } for
+  end
+} bind def
+
+% ---------------------------------------------------------------- the birds
+% Shapes are unions of simple fills (no outline), lit from the upper left:
+% a base, a lit top clipped to the base, a cool underside.
+/cb-dkface 1 cb-default          % 1 faces right, -1 left
+/cb-dklook /ahead cb-default     % /ahead /up /down
+/cb-dkstage /grey cb-default     % /grey (the ugly duckling) /white (the swan he becomes)
+/cb-dkgrow 0 cb-default          % 0 hatchling .. 1 nearly grown: a longer neck, a smaller head, paler
+
+/cb-bfill { cb-rgb fill } bind def
+
+% The ugly duckling: x y (waterline, middle) s (body length in points).
+% Chick proportions: a round body, a big head, a short thick neck, a tuft.
+/cb-duckling {
+  20 dict begin /s exch def /y exch def /x exch def
+  /white cb-dkstage /white eq def
+  /g cb-dkgrow def
+  /base white { [0.97 0.96 0.94] } { [0.50 0.49 0.52] [0.72 0.71 0.75] g cb-mixa } ifelse def
+  /lit  white { [1.0 1.0 0.98] } { [0.64 0.62 0.64] [0.84 0.83 0.86] g cb-mixa } ifelse def
+  /dark white { [0.82 0.84 0.92] } { [0.38 0.37 0.42] [0.56 0.56 0.62] g cb-mixa } ifelse def
+  /hr 0.15 g 0.05 mul sub def                       % head radius
+  /nw 0.17 g 0.07 mul sub def                       % neck width
+  /hx cb-dklook /up eq { 0.24 } { cb-dklook /down eq { 0.38 } { 0.31 } ifelse } ifelse g 0.06 mul add def
+  /hy cb-dklook /up eq { 0.56 } { cb-dklook /down eq { 0.27 } { 0.43 } ifelse } ifelse g cb-dklook /down eq { 0.04 } { 0.20 } ifelse mul add def
+  /tf 1 g sub def                                   % tuft and fluff fade as he grows
+  /fr { x y translate s cb-dkface mul s scale } def
+  /shape {
+    % body: a round, slightly flat-bottomed egg on the water
+    matrix currentmatrix -0.04 0.14 translate 1 0.50 scale 0 0 0.37 0 360 arc closepath setmatrix
+    % fluffy back: three small bumps
+    -0.30 0.26 0.07 tf mul 0.01 max 0 360 arc closepath -0.18 0.30 0.07 tf mul 0.01 max 0 360 arc closepath -0.05 0.31 0.06 tf mul 0.01 max 0 360 arc closepath
+    % neck: a thick round-capped stroke from the body to the head
+    % head and tuft
+    hx hy hr 0 360 arc closepath
+    hx 0.06 sub hy hr 0.8 mul add moveto hx 0.03 sub hy hr 0.8 mul add 0.09 tf mul add lineto hx 0.01 add hy hr 0.8 mul add 0.02 add lineto
+    hx 0.03 add hy hr 0.8 mul add 0.07 tf mul add lineto hx 0.05 add hy hr 0.8 mul add lineto closepath
+  } def
+  /neckp { newpath 0.14 0.20 moveto hx 0.03 sub hy 0.04 sub lineto } def
+  /paintall { % colour -> the union of body, neck and head in that colour
+    /pc exch def
+    gsave newpath { fr shape } cb-local pc cb-bfill grestore
+    gsave { fr neckp 1 setlinecap nw setlinewidth pc cb-rgb stroke } exec grestore
+  } def
+  base paintall
+  gsave newpath { fr shape } cb-local clip
+    newpath { fr -0.14 0.30 translate 1 0.55 scale 0 0 0.40 0 360 arc closepath } cb-local lit cb-bfill
+    newpath { fr hx 0.04 sub hy 0.05 add hr 0.6 mul 0 360 arc closepath } cb-local lit cb-bfill
+    newpath { fr -0.6 -0.2 1.2 0.26 cb-rect } cb-local dark cb-bfill
+    newpath { fr -0.36 0.33 moveto -0.20 0.39 -0.02 0.39 0.10 0.33 curveto } cb-local
+    lit /rim cb-pc 0.5 cb-mixa cb-rgb << /Width s 0.02 mul /Taper 0.6 >> pkribbon
+  grestore
+  % the beak (a warm accent) and an eye with a catch-light
+  /bang cb-dklook /up eq { 35 } { cb-dklook /down eq { -35 } { -5 } ifelse } ifelse def
+  newpath { fr hx hy translate bang rotate hr 0.8 mul 0.01 moveto hr 0.8 mul 0.13 add -0.02 lineto hr 0.8 mul -0.06 lineto closepath } cb-local
+  white { [0.92 0.46 0.20] } { [0.40 0.32 0.30] [0.80 0.46 0.28] g cb-mixa } ifelse cb-bfill
+  { fr hx hr 0.33 mul add hy hr 0.23 mul add transform } cb-local itransform
+  2 copy newpath s 0.032 mul 0 360 arc closepath [0.08 0.08 0.10] cb-bfill
+  exch s 0.011 mul add exch s 0.011 mul add newpath s 0.011 mul 0 360 arc closepath [1 1 1] cb-bfill
+  end
+} bind def
+
+% A grown swan, swimming: x y s (body length). cb-dkface sets its direction.
+/cb-swbow false cb-default       % true: the head bowed to the water (the reflection page)
+/cb-swanswim {
+  16 dict begin /s exch def /y exch def /x exch def
+  /fr { x y translate s cb-dkface neg mul s scale } def     % the path faces left
+  /bodyp { cb-swbow { cb-swim-bow-path } { cb-swim-body-path } ifelse } def
+  gsave newpath { fr bodyp } cb-local [0.97 0.96 0.94] cb-bfill grestore
+  gsave newpath { fr bodyp } cb-local clip
+    newpath { fr -0.6 -0.1 1.4 0.16 cb-rect } cb-local [0.80 0.82 0.90] cb-bfill
+    newpath { fr 0.05 0.18 moveto 0.20 0.26 0.36 0.22 0.46 0.16 curveto } cb-local
+    /rim cb-pc cb-rgb << /Width s 0.03 mul /Taper 0.6 >> pkribbon
+  grestore
+  cb-swbow {
+    newpath { fr -0.56 0.16 moveto -0.62 0.06 lineto -0.58 0.05 lineto -0.50 0.12 lineto closepath } cb-local [0.92 0.46 0.20] cb-bfill
+    { fr -0.50 0.20 transform } cb-local itransform
+  } {
+  newpath { fr cb-swim-beak-path } cb-local [0.92 0.46 0.20] cb-bfill
+  newpath { fr -0.57 0.556 0.018 0 360 arc closepath } cb-local [0.10 0.10 0.12] cb-bfill
+  { fr cb-swim-eye transform } cb-local itransform } ifelse
+  2 copy newpath s 0.016 mul 0 360 arc closepath [0.08 0.08 0.10] cb-bfill
+  exch s 0.006 mul add exch s 0.006 mul add newpath s 0.006 mul 0 360 arc closepath [1 1 1] cb-bfill
+  end
+} bind def
+
+% A swan flying, painted: x y s phase. Faces left (they fly south-west).
+/cb-swanfly {
+  12 dict begin /ph exch def /s exch def /y exch def /x exch def
+  /fr { x y translate s s scale } def
+  newpath { fr ph cb-swan-wing-path } cb-local [0.92 0.90 0.92] cb-bfill
+  newpath { fr cb-swan-body-path } cb-local [1.0 0.98 0.95] cb-bfill
+  gsave newpath { fr cb-swan-body-path } cb-local clip
+    newpath { fr -0.7 -0.12 1.4 0.12 cb-rect } cb-local [0.82 0.80 0.88] cb-bfill grestore
+  newpath { fr ph cb-swan-wing2-path } cb-local [1.0 0.98 0.95] cb-bfill
+  newpath { fr cb-swan-beak-path } cb-local [0.92 0.46 0.20] cb-bfill
+  end
+} bind def
+
+% The mother duck (a white farm duck) and her yellow ducklings, facing right.
+/cb-duckc [0.96 0.94 0.90] cb-default   % the duck's colour (a wild duck is brown)
+/cb-pduck { % x y s -> ()
+  10 dict begin /s exch def /y exch def /x exch def
+  /fr { x y translate s cb-dkface mul s scale } def
+  /sh { -0.48 0.16 moveto -0.40 0.00 -0.10 -0.04 0.20 -0.02 curveto 0.36 0.02 0.40 0.16 0.30 0.24 curveto
+        0.10 0.30 -0.20 0.30 -0.36 0.26 curveto closepath
+        0.20 0.20 moveto 0.22 0.36 0.24 0.44 0.30 0.48 curveto 0.36 0.40 0.34 0.30 0.30 0.20 curveto closepath
+        0.31 0.48 0.10 0 360 arc closepath } def
+  gsave newpath { fr sh } cb-local cb-duckc cb-bfill grestore
+  gsave newpath { fr sh } cb-local clip newpath { fr -0.6 -0.1 1.2 0.15 cb-rect } cb-local [0.80 0.80 0.86] cb-bfill grestore
+  newpath { fr 0.38 0.47 moveto 0.56 0.45 lineto 0.56 0.41 lineto 0.38 0.42 lineto closepath } cb-local [0.94 0.60 0.20] cb-bfill
+  { fr 0.33 0.51 transform } cb-local itransform newpath s 0.022 mul 0 360 arc closepath [0.08 0.08 0.1] cb-bfill
+  end
+} bind def
+/cb-pchick { % x y s -> a yellow duckling
+  10 dict begin /s exch def /y exch def /x exch def
+  /fr { x y translate s cb-dkface mul s scale } def
+  gsave newpath { fr -0.40 0.10 moveto -0.30 -0.02 0.20 -0.04 0.32 0.10 curveto 0.30 0.30 -0.20 0.36 -0.40 0.10 curveto closepath 0.24 0.38 0.17 0 360 arc closepath } cb-local
+  [0.98 0.84 0.36] cb-bfill grestore
+  newpath { fr 0.38 0.38 moveto 0.56 0.34 lineto 0.38 0.30 lineto closepath } cb-local [0.94 0.56 0.18] cb-bfill
+  { fr 0.28 0.42 transform } cb-local itransform newpath s 0.035 mul 0 360 arc closepath [0.08 0.08 0.1] cb-bfill
+  end
+} bind def
+
+% The hen, standing: x y (feet) s (height). Faces right.
+/cb-phen {
+  12 dict begin /s exch def /y exch def /x exch def
+  /fr { x y translate s cb-dkface mul s scale } def
+  newpath { fr -0.06 0.0 moveto -0.08 0.22 lineto 0.06 0.0 moveto 0.06 0.22 lineto } cb-local
+  [0.86 0.62 0.24] cb-rgb << /Width s 0.025 mul /Waver 0 >> pkliner
+  % tail feathers
+  [ [-0.62 0.86] [-0.66 0.74] [-0.60 0.62] ] { aload pop /ty exch def /tx exch def
+    newpath { fr -0.30 0.50 moveto tx ty lineto } cb-local [0.30 0.20 0.16] cb-rgb << /Width s 0.07 mul /Pressure { 180 mul sin } >> pkribbon } forall
+  gsave newpath { fr -0.36 0.46 moveto -0.36 0.16 0.30 0.12 0.30 0.44 curveto 0.30 0.60 0.20 0.72 0.16 0.78 curveto
+    0.10 0.70 -0.10 0.62 -0.36 0.46 curveto closepath 0.17 0.82 0.12 0 360 arc closepath } cb-local [0.70 0.36 0.20] cb-bfill grestore
+  gsave newpath { fr -0.36 0.46 moveto -0.36 0.16 0.30 0.12 0.30 0.44 curveto closepath } cb-local clip
+    newpath { fr -0.4 0.1 0.8 0.16 cb-rect } cb-local [0.54 0.26 0.16] cb-bfill grestore
+  newpath { fr 0.10 0.92 moveto 0.14 1.00 0.20 0.98 0.20 0.93 curveto 0.24 0.99 0.30 0.95 0.27 0.88 curveto closepath } cb-local [0.86 0.18 0.16] cb-bfill
+  newpath { fr 0.27 0.82 moveto 0.38 0.79 lineto 0.27 0.76 lineto closepath } cb-local [0.94 0.70 0.24] cb-bfill
+  newpath { fr 0.27 0.74 0.035 0 360 arc closepath } cb-local [0.86 0.18 0.16] cb-bfill
+  { fr 0.21 0.85 transform } cb-local itransform newpath s 0.022 mul 0 360 arc closepath [0.08 0.08 0.1] cb-bfill
+  end
+} bind def
+
+% The cat, sitting: x y (floor) s (height). Faces right; a curled tail.
+/cb-pcat {
+  12 dict begin /s exch def /y exch def /x exch def
+  /fr { x y translate s cb-dkface mul s scale } def
+  /body { -0.28 0.0 moveto -0.34 0.30 -0.20 0.62 0.02 0.66 curveto 0.20 0.62 0.24 0.30 0.20 0.0 curveto closepath
+          0.06 0.78 0.17 0 360 arc closepath
+          -0.06 0.88 moveto -0.04 1.04 lineto 0.06 0.92 lineto closepath
+           0.10 0.92 moveto 0.20 1.04 lineto 0.22 0.86 lineto closepath } def
+  newpath { fr -0.26 0.06 moveto -0.56 0.02 -0.62 0.24 -0.48 0.30 curveto } cb-local
+  [0.42 0.40 0.44] cb-rgb << /Width s 0.07 mul /Pressure { 0.4 mul 1 exch sub } >> pkribbon
+  gsave newpath { fr body } cb-local [0.42 0.40 0.44] cb-bfill grestore
+  gsave newpath { fr body } cb-local clip
+    newpath { fr -0.10 0.40 translate 1 1.6 scale 0 0 0.18 0 360 arc closepath } cb-local [0.56 0.54 0.56] cb-bfill grestore
+  [ [0.03 0.80] [0.15 0.80] ] { aload pop /ey exch def /ex exch def
+    newpath { fr ex ey translate 1 0.6 scale 0 0 0.035 0 360 arc closepath } cb-local [0.80 0.82 0.30] cb-bfill } forall
+  newpath { fr 0.11 0.72 0.02 0 360 arc closepath } cb-local [0.86 0.56 0.56] cb-bfill
+  end
+} bind def
+
+% ---------------------------------------------------------------- places
+% A band of ripe wheat from y0 to y1 across the page, gold strokes.
+/cb-pwheat { % y0 y1 -> ()
+  6 dict begin /y1 exch def /y0 exch def
+  newpath -9 y0 630 y1 y0 sub cb-rect [0.90 0.76 0.40] 0.85 cb-bigwash
+  newpath -9 y1 moveto 630 y1 lineto
+  << /Direction 90 /Length y1 y0 sub 0.5 mul /Spacing 3 /Scatter 6 /Bow 0.2 >> pkpull
+  [0.96 0.84 0.50] cb-rgb << /Width 1.6 /Taper 0.8 /Waver 0.3 >> pkliner
+  end
+} bind def
+
+% A haystack: x y (ground) w.
+/cb-phay { % x y w -> ()
+  6 dict begin /hw exch def /hy exch def /hx exch def
+  newpath hx hw 0.5 mul sub hy moveto hx hw 0.5 mul sub hy hw 0.5 mul add hx hw 0.2 mul sub hy hw 0.9 mul add hx hy hw 0.92 mul add curveto
+  hx hw 0.2 mul add hy hw 0.9 mul add hx hw 0.5 mul add hy hw 0.5 mul add hx hw 0.5 mul add hy curveto closepath
+  gsave [0.86 0.70 0.36] cb-bfill grestore
+  gsave clip newpath hx hw 0.15 mul add hy hw 0.5 mul 0 360 arc closepath [0.70 0.54 0.28] cb-bfill grestore
+  end
+} bind def
+
+% The old farmhouse, seen far off: x y (ground) w. A lit window when lit.
+/cb-plit false cb-default
+/cb-pfarm { % x y w -> ()
+  6 dict begin /fw exch def /fy exch def /fx exch def
+  newpath fx fy fw fw 0.55 mul cb-rect [0.86 0.80 0.72] cb-bfill
+  newpath fx fy fw 0.55 mul add moveto fx fw 0.5 mul add fy fw 0.95 mul add lineto fx fw add fy fw 0.55 mul add lineto closepath [0.62 0.34 0.26] cb-bfill
+  newpath fx fw 0.15 mul add fy fw 0.2 mul add fw 0.16 mul fw 0.16 mul cb-rect cb-plit { [0.99 0.80 0.40] } { [0.40 0.40 0.46] } ifelse cb-bfill
+  newpath fx fw 0.62 mul add fy fw 0.2 mul add fw 0.16 mul fw 0.16 mul cb-rect cb-plit { [0.99 0.80 0.40] } { [0.40 0.40 0.46] } ifelse cb-bfill
+  end
+} bind def
+
+% The crooked little cottage: x y (ground) w. Leans; one lit window.
+/cb-pcottage { % x y w -> ()
+  6 dict begin /cw exch def /cy exch def /cx exch def
+  newpath cx cy moveto cx cw add cy lineto cx cw 1.04 mul add cy cw 0.6 mul add lineto cx 0.04 cw mul add cy cw 0.62 mul add lineto closepath [0.62 0.54 0.48] cb-bfill
+  newpath cx 0.08 cw mul sub cy cw 0.58 mul add moveto cx cw 0.56 mul add cy cw 1.08 mul add lineto cx cw 1.14 mul add cy cw 0.56 mul add lineto closepath [0.42 0.36 0.30] cb-bfill
+  newpath cx cw 0.62 mul add cy cw 0.86 mul add cw 0.10 mul cw 0.28 mul cb-rect [0.36 0.30 0.28] cb-bfill   % chimney
+  newpath cx cw 0.18 mul add cy cw 0.24 mul add cw 0.22 mul cw 0.20 mul cb-rect [0.99 0.80 0.42] cb-bfill   % the lit window
+  { newpath cx cw 0.29 mul add cy cw 0.34 mul add moveto 0 0 rlineto << /Nozzle cw 0.5 mul /Density 60 /Speck 1.1 >> pkspray }
+  << /Soft 0.8 /Under [0.30 0.30 0.42] >> [0.98 0.78 0.46] cb-rgb pkwet
+  newpath cx cw 0.60 mul add cy cw 0.30 mul cw 0.48 mul cb-rect [0.30 0.24 0.22] cb-bfill                  % door
+  end
+} bind def
+
+% Rain over the whole page, slanting: n seed.
+/cb-prain { % n seed -> ()
+  4 dict begin /sd exch def /n exch def
+  -9 -9 630 630 screct << /Count n /Seed sd /MinSpacing 10
+    /Mark { pop pop newpath 2 copy moveto -8 -22 rlineto pop pop
+            [0.80 0.84 0.94] cb-rgb << /Width 1.1 /Taper 0.6 /Waver 0.1 >> pkliner } >> scatter
+  end
+} bind def
+
+% Falling snow: y0 y1 n seed.
+/cb-psnow { % y0 y1 n seed -> ()
+  6 dict begin /sd exch def /n exch def /y1 exch def /y0 exch def
+  -9 y0 630 y1 y0 sub screct << /Count n /Seed sd /MinSpacing 12
+    /Mark { pop pop newpath 1.2 frnd 2 mul add 0 360 arc closepath [1 1 1] cb-bfill } >> scatter
+  end
+} bind def
+
+% Big burdock leaves (the nest's shelter): x y (stem base) size angle.
+/cb-pburdock { % x y size angle -> ()
+  8 dict begin /ba exch def /bs exch def /by exch def /bx exch def
+  gsave bx by translate ba rotate
+  newpath 0 0 moveto bs -0.6 mul bs 0.5 mul bs -0.5 mul bs 1.2 mul 0 bs 1.4 mul curveto
+  bs 0.5 mul bs 1.2 mul bs 0.6 mul bs 0.5 mul 0 0 curveto closepath
+  /treenear cb-pc 0 get cb-bfill
+  newpath 0 0 moveto bs 0.1 mul bs 0.7 mul 0 bs 1.3 mul rlineto pop pop
+  newpath 0 0 moveto 0 bs 1.3 mul lineto /treenear cb-pc 2 get cb-rgb bs 40 div setlinewidth stroke
+  grestore
+  end
+} bind def
+
+% The nest: x y w, with n eggs (the big one last if big is true).
+/cb-pnest { % x y w -> ()
+  6 dict begin /nw exch def /ny exch def /nx exch def
+  newpath { nx ny translate 1 0.35 scale 0 0 nw 0.5 mul 0 360 arc closepath } cb-local [0.56 0.44 0.30] cb-bfill
+  newpath nx nw 0.5 mul sub ny moveto nx nw 0.5 mul add ny lineto
+  << /Direction 90 /Length nw 0.12 mul /Spacing 2.5 /Scatter 3 /Bow 0.4 >> pkpull
+  [0.72 0.58 0.38] cb-rgb << /Width 1.2 /Taper 0.7 /Waver 0.6 >> pkliner
+  end
+} bind def
+/cb-pegg { % x y h -> an egg, h tall
+  4 dict begin /eh exch def /ey exch def /ex exch def
+  newpath { ex ey translate 0.75 1 scale 0 eh 0.5 mul eh 0.5 mul 0 360 arc closepath } cb-local [0.94 0.92 0.84] cb-bfill
+  newpath { ex ey translate 0.75 1 scale eh -0.12 mul eh 0.62 mul eh 0.16 mul 0 360 arc closepath } cb-local [1 1 0.97] cb-bfill
+  end
+} bind def
+
+% Ice over the water, from the bottom to y0, with a circle of open water at
+% (cx, cy) radius r (r 0 for none), and crack lines.
+/cb-pice { % y0 cx cy r -> ()
+  8 dict begin /ir exch def /icy exch def /icx exch def /y0 exch def
+  gsave
+    newpath -9 -9 630 y0 9 add cb-rect
+    ir 0 gt { icx icy ir 0 360 arc closepath } if eoclip
+    newpath -9 -9 630 y0 9 add cb-rect [0.90 0.93 0.97] cb-bfill
+    newpath -9 y0 30 sub 630 30 cb-rect [0.80 0.84 0.92] 0.5 cb-bigwash
+    0 1 9 { pop newpath 620 frnd mul y0 frnd mul moveto 60 jit 30 jit rlineto 40 jit 20 jit rlineto
+      [0.70 0.76 0.88] cb-rgb << /Width 1.1 /Taper 0.7 /Waver 0.5 >> pkliner } for
+  grestore
+  ir 0 gt {
+    newpath icx icy ir 0 360 arc closepath [0.20 0.24 0.38] cb-bfill
+    newpath icx icy ir 0.96 mul 200 340 arc [0.40 0.46 0.62] cb-rgb << /Width 2 /Taper 0.5 >> pkribbon
+  } if
+  end
+} bind def
+
+% A hedge along the ground: x0 x1 y h.
+/cb-phedge { % x0 x1 y h -> ()
+  6 dict begin /hh exch def /hy exch def /x1 exch def /x0 exch def
+  /treenear cb-pc 0 get cb-rgb
+  newpath x0 hy hh 0.5 mul add moveto x1 hy hh 0.5 mul add lineto
+  << /Size hh 0.35 mul /Density 2.4 /Scatter hh 0.45 mul /Shadow 0.35 /Highlight 0.3 /Light 120 /HighlightColor /rim cb-pc >> pkdab
+  end
+} bind def

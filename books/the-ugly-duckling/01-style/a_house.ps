@@ -1,0 +1,42 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, style study A: the house watercolour
+/Seed where { pop } { /Seed 1 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+% sky: gold at the horizon to rose to violet
+200 [0.52 0.46 0.70] [0.98 0.78 0.52] cb-sky-wash
+newpath -9 330 630 300 cb-rect [0.95 0.62 0.58] 0.18 cb-bigwash
+470 236 34 cb-sun
+% far autumn trees
+[ [40 214 36 [0.78 0.42 0.24]] [96 220 44 [0.86 0.62 0.30]] [160 212 30 [0.70 0.36 0.22]] [380 216 40 [0.84 0.56 0.28]] [450 222 50 [0.74 0.40 0.24]] [540 214 38 [0.88 0.66 0.34]] ]
+{ aload pop /c exch def /r exch def /y exch def /x exch def
+  newpath x y r 0 360 arc closepath c 0.55 cb-wash } forall
+% water
+newpath -9 -9 630 214 cb-rect [0.42 0.46 0.66] 0.55 cb-bigwash
+newpath -9 140 630 60 cb-rect [0.98 0.78 0.52] 0.25 cb-bigwash
+-9 600 160 20 [0.96 0.90 0.80] 1 cb-waves
+% reeds
+[ 20 34 48 60 80 520 540 556 580 598 ] { /x exch def
+  newpath x -9 moveto x 6 jit add 180 40 jit add lineto [0.40 0.44 0.28] cb-rgb << /Width 3 /Taper 0.8 /Waver 0.3 >> pkliner } forall
+[ 30 60 540 590 ] { /x exch def newpath x 3 add 150 5 0 360 arc closepath [0.45 0.30 0.20] 0.8 cb-wash } forall
+% swans: a V of five, flying left
+[ [300 470 70 0.9] [360 440 62 -0.4] [420 412 56 0.6] [240 440 62 0.2] [190 412 56 -0.8] ] {
+  aload pop /ph exch def /s exch def /y exch def /x exch def
+  newpath { x y translate s s scale ph cb-swan-wing-path } cb-local gsave cb-paper cb-rgb fill grestore 0.9 cb-line
+  newpath { x y translate s s scale cb-swan-body-path } cb-local gsave cb-paper cb-rgb fill grestore
+  newpath { x y translate s s scale cb-swan-body-path } cb-local [0.80 0.84 0.96] 0.25 cb-wash
+  newpath { x y translate s s scale cb-swan-body-path } cb-local 0.9 cb-line
+  newpath { x y translate s s scale ph cb-swan-wing2-path } cb-local gsave cb-paper cb-rgb fill grestore 0.9 cb-line
+  newpath { x y translate s s scale cb-swan-beak-path } cb-local gsave [0.92 0.50 0.20] cb-rgb fill grestore
+} forall
+% the duckling, looking up
+/cb-dkup true def
+newpath { 170 96 translate 80 80 scale cb-duck-body-path } cb-local gsave cb-paper cb-rgb fill grestore
+newpath { 170 96 translate 80 80 scale cb-duck-body-path } cb-local [0.52 0.52 0.56] 0.7 cb-wash
+newpath { 170 96 translate 80 80 scale cb-duck-body-path } cb-local 1.4 cb-line
+newpath { 170 96 translate 80 80 scale cb-duck-beak-path } cb-local gsave [0.30 0.30 0.32] cb-rgb fill grestore
+{ 170 96 translate 80 80 scale cb-duck-eye transform } cb-local itransform 4 cb-dot
+cb-ink cb-rgb
+(One evening, great white birds flew over the marsh.) 60 584 492 /center cb-text pop
+showpage

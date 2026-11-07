@@ -1,0 +1,47 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, hero sheet
+% Stage 1 gate (the advisor's two tests): the transformation must read as
+% one bird, and the hen and the cat must hold up in the painted style.
+/Seed where { pop } { /Seed 1 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+/lab { cb-ink cb-rgb cb-font 10 cb-type /center cb-say } def
+% row 1: the four seasons, one little landscape each (the palette swap)
+0 1 3 { /i exch def /sn [ /summer /autumn /winter /spring ] i get def sn cb-season
+  gsave
+    /ox 12 i 150 mul add def
+    newpath ox 470 140 132 cb-rect clip
+    ox 470 translate 140 612 div 132 612 div scale
+    230 cb-psky 230 cb-pwater 0 612 236 cb-pmist
+    sn /winter eq { 120 230 220 cb-pbare 470 230 260 cb-pbare } { 120 226 240 false cb-ptree 470 226 280 false cb-ptree } ifelse
+    0 120 300 26 cb-preeds 520 612 280 20 cb-preeds
+  grestore
+  sn 20 string cvs 82 i 150 mul add 456 lab
+} for
+% row 2: one bird growing (cb-dkgrow), then the swan he becomes
+newpath 0 270 612 170 cb-rect [0.52 0.58 0.76] 0.5 cb-bigwash
+/summer cb-season /cb-dkgrow 0 def 70 320 92 cb-duckling (summer: hatched) 70 284 lab
+/autumn cb-season /cb-dkgrow 0.4 def /cb-dklook /up def 190 320 112 cb-duckling (autumn, looking up) 190 284 lab
+/winter cb-season /cb-dkgrow 0.8 def /cb-dklook /ahead def 320 320 128 cb-duckling (winter: nearly grown) 320 284 lab
+/spring cb-season /cb-dkgrow 0 def /cb-dklook /ahead def
+500 318 140 cb-swanswim (spring: a swan) 500 284 lab
+% the reflection moment: he bows his head and sees a swan
+gsave newpath 470 20 130 120 cb-rect clip
+  newpath 470 20 130 120 cb-rect [0.60 0.76 0.90] 0.9 cb-bigwash
+  /spring cb-season /cb-swbow true def /cb-dkface -1 def 545 80 100 cb-swanswim
+  gsave 545 78 translate 1 -1 scale -545 -78 translate 545 78 100 cb-swanswim grestore
+  newpath 470 20 130 58 cb-rect [0.60 0.76 0.90] 0.3 cb-bigwash /cb-dkface 1 def
+  /cb-swbow false def
+grestore
+(the reflection) 536 10 lab
+% row 3: the cast with legs, and the flock
+/summer cb-season
+newpath 0 150 460 110 cb-rect [0.60 0.74 0.88] 0.35 cb-bigwash
+60 172 70 cb-pduck 112 170 26 cb-pchick 140 170 24 cb-pchick (mother duck, ducklings) 96 156 lab
+200 160 90 cb-phen (the hen) 210 146 lab
+/cb-dkface -1 def 300 160 96 cb-pcat /cb-dkface 1 def (the cat) 300 146 lab
+/autumn cb-season
+newpath 360 160 100 100 cb-rect [0.94 0.70 0.56] 0.8 cb-bigwash
+400 220 50 0.8 cb-swanfly 430 196 44 -0.5 cb-swanfly (the flock) 410 146 lab
+showpage
