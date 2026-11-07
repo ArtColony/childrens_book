@@ -58,7 +58,7 @@
     /k exch def
     newpath gx gy gr k mul 0 360 arc closepath cb-gold 0.07 cb-bigwash
   } forall
-  newpath gx gy gr 0.14 mul 0 360 arc closepath [1 0.95 0.75] 0.9 cb-wash
+  newpath gx gy gr 0.10 mul 0 360 arc closepath [1 0.95 0.75] 0.45 cb-wash
   } ifelse
   end
 } bind def
@@ -98,7 +98,7 @@
   cb-tiptoe { /y y h 0.04 mul add def } if
   /lw h 70 div 0.7 max 2.4 min def
   /frame { x y translate h cb-face mul h scale } def
-  /hand cb-arm /top eq { [0.20 1.10] } { cb-arm /up eq { [0.36 0.86] } { cb-arm /out eq { [0.27 0.44] } { [0.07 0.30] } ifelse } ifelse } ifelse def
+  /hand cb-arm /top eq { [0.31 1.08] } { cb-arm /up eq { [0.36 0.86] } { cb-arm /out eq { [0.27 0.44] } { [0.07 0.30] } ifelse } ifelse } ifelse def
 
   % lamplight first, centred on the lantern's glass, so she stands in it
   cb-lamp cb-lit and {
@@ -162,7 +162,7 @@
 
   % arm: a sleeve from the near shoulder to the hand (raised, it passes in
   % front of the face's edge, never across it)
-  /sh cb-arm dup /up eq exch /top eq or { [0.06 0.50] } { [-0.01 0.50] } ifelse def
+  /sh cb-arm /top eq { [0.10 0.50] } { cb-arm /up eq { [0.06 0.50] } { [-0.01 0.50] } ifelse } ifelse def
   newpath { frame sh aload pop moveto hand aload pop lineto } cb-local
   cb-coat 0.85 shade setrgbcolor << /Width h 0.075 mul /Pressure { pop 1 } >> pkribbon
   newpath { frame sh aload pop moveto hand aload pop lineto } cb-local lw 0.6 mul cb-line
