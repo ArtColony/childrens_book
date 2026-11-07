@@ -154,8 +154,9 @@
 
 % ---------------------------------------------------------------- boats in a row
 /cb-moored { % [ [x y s [sail] face] ... ] -> () draws in the given order (back first)
+  cb-face exch
   { aload pop /cb-face exch def cb-boat } forall
-  /cb-face 1 def
+  /cb-face exch def
 } bind def
 
 % ---------------------------------------------------------------- nets
@@ -197,10 +198,10 @@
   /cb-mn exch def
   cb-mn 0 gt {
     0 1 cb-mn 1 sub { /cb-mi exch def
-      /cb-face -1 def
+      cb-face /cb-face -1 def
       cb-moorings cb-mi get aload pop cb-sails cb-mi get cb-boat
+      /cb-face exch def
     } for
-    /cb-face 1 def
   } if
 } bind def
 
@@ -220,5 +221,5 @@
   100 cb-DECK 100 cb-lamppost
 } bind def
 /cb-hook-lamp { % lit -> () the old lamp hanging on its hook
-  /cb-lit exch def cb-hookx cb-hooky 26 cb-lantern /cb-lit false def
+  cb-lit exch /cb-lit exch def cb-hookx cb-hooky 26 cb-lantern /cb-lit exch def
 } bind def

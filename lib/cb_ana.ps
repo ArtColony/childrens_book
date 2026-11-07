@@ -291,11 +291,11 @@
   } if
   end
 } bind def
-/cb-lamp-at-lit { /cb-lit true def cb-lantern /cb-lit false def } bind def
+/cb-lamp-at-lit { cb-lit 4 1 roll /cb-lit true def cb-lantern /cb-lit exch def } bind def
 
 % Grandpa's little blue boat, with him in it.
 /cb-gpboat { % x y s -> ()
-  /cb-hullc [0.42 0.64 0.90] def 3 copy cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def
+  cb-hullc 4 1 roll /cb-hullc [0.42 0.64 0.90] def 3 copy cb-gpblue cb-boat 4 -1 roll /cb-hullc exch def
   /cb-gpb-s exch def /cb-gpb-y exch def /cb-gpb-x exch def
   cb-gpb-x cb-gpb-s 0.45 mul cb-face mul add cb-gpb-y cb-gpb-s 0.30 mul add
   cb-gpb-s 1.5 mul cb-grandpa-bust

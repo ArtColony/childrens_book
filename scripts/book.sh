@@ -42,15 +42,20 @@ bind() { # dir pdf
     for p in "${pages[@]}"; do echo "save $(psstr "$p") run restore"; done
   } > "$tmp/book.ps"
   start=$(date +%s)
-  pscat --page 612x612 --lint-strict --pdf "$pdf" "$tmp/book.ps"
+  # build beside the target and move it into place only once it checks out,
+  # so a failed build never replaces a good PDF (Codex review)
+  local part="$pdf.part.pdf"
+  pscat --page 612x612 --lint-strict --pdf "$part" "$tmp/book.ps"
   secs=$(( $(date +%s) - start ))
   rm -rf "$tmp"
   # one PDF page per page file (counts /Type /Page objects, not /Pages)
-  n="$(LC_ALL=C grep -a -o '/Type */Page[^s]' "$pdf" | wc -l | tr -d ' ')"
+  n="$(LC_ALL=C grep -a -o '/Type */Page[^s]' "$part" | wc -l | tr -d ' ')"
   if [ "$n" != "${#pages[@]}" ]; then
-    echo "book: expected ${#pages[@]} pages, $pdf has $n" >&2
+    echo "book: expected ${#pages[@]} pages, got $n; $pdf left unchanged" >&2
+    rm -f "$part"
     return 1
   fi
+  mv -f "$part" "$pdf"
   echo "book: ${#pages[@]} pages in ${secs}s -> $pdf ($(du -h "$pdf" | cut -f1))"
 }
 

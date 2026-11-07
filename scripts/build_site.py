@@ -49,14 +49,23 @@ def inline(text, link):
 
     text = re.sub(r"`([^`]+)`", keep_code, text)
     text = html.escape(text, quote=False)
+
+    def url(u):
+        # attribute-safe, and only ordinary schemes (Codex review: no
+        # attribute injection, no javascript: links)
+        u = html.unescape(u)
+        if re.match(r"[a-zA-Z][a-zA-Z0-9+.-]*:", u) and not re.match(r"(https?|mailto):", u):
+            u = "#"
+        return html.escape(link(u), quote=True)
+
     text = re.sub(
         r"!\[([^\]]*)\]\(([^)\s]+)\)",
-        lambda m: '<img src="%s" alt="%s" loading="lazy">' % (link(m.group(2)), m.group(1)),
+        lambda m: '<img src="%s" alt="%s" loading="lazy">' % (url(m.group(2)), m.group(1).replace('"', "&quot;")),
         text,
     )
     text = re.sub(
         r"\[([^\]]+)\]\(([^)\s]+)\)",
-        lambda m: '<a href="%s">%s</a>' % (link(m.group(2)), m.group(1)),
+        lambda m: '<a href="%s">%s</a>' % (url(m.group(2)), m.group(1)),
         text,
     )
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
@@ -170,8 +179,12 @@ def render_list(lines, link):
     out = ["<%s>" % tag]
     for it in items:
         first, rest = it[0], it[1:]
-        sub = [r for r in rest if re.match(r"\s*([-*]|\d+\.) ", r)]
-        cont = [r.strip() for r in rest if not re.match(r"\s*([-*]|\d+\.) ", r)]
+        # everything from the first nested bullet on belongs to the nested
+        # list, continuation lines included (Codex review); lines before it
+        # continue this item
+        k = next((j for j, r in enumerate(rest) if re.match(r"\s*([-*]|\d+\.) ", r)), len(rest))
+        cont = [r.strip() for r in rest[:k]]
+        sub = rest[k:]
         text = " ".join([first] + cont)
         cls = ""
         m = re.match(r"\[( |x)\] (.*)", text)
@@ -236,7 +249,16 @@ def first_para(md_path):
 
 
 def build(dist):
+    # Only ever delete a directory this script made: never the repo, an
+    # ancestor of it, or a source directory inside it (Codex review).
+    real = os.path.realpath(dist)
+    root = os.path.realpath(ROOT)
+    if real == root or root.startswith(real + os.sep) or (
+            real.startswith(root + os.sep) and os.path.relpath(real, root).split(os.sep)[0] != "dist"):
+        sys.exit("site: refusing to build into %s (use dist/ or a directory outside the repo)" % dist)
     if os.path.isdir(dist):
+        if not os.path.exists(os.path.join(dist, ".nojekyll")):
+            sys.exit("site: %s exists and isn't a previous site build; not deleting it" % dist)
         shutil.rmtree(dist)
     os.makedirs(dist)
     shutil.copy(os.path.join(ROOT, "scripts", "site.css"), dist)
@@ -272,7 +294,7 @@ def build(dist):
                     target = readme
             if target in pages:
                 href = os.path.relpath(pages[target], out_dir or ".")
-            elif target.startswith("books/") and os.path.isfile(os.path.join(ROOT, target)):
+            elif target.startswith("books/") and os.path.isfile(os.path.join(ROOT, target)) and published(target):
                 # a book's own asset (PDF, preview, sheet): copied beside its pages
                 href = os.path.relpath(target[len("books/"):], out_dir or ".")
             else:
@@ -283,6 +305,15 @@ def build(dist):
         return link
 
     generated = {}
+
+    def published(target):
+        # the same rule the asset copier below uses (Codex review: never link
+        # locally to a file the site doesn't carry)
+        parts = target.split("/")
+        name = parts[-1]
+        if len(parts) == 3:
+            return name.endswith((".pdf", ".png"))
+        return len(parts) == 4 and parts[2] in ("previews", "03-storyboard", "storyboard") and name.endswith(".png")
     top_nav = [("index.html", "Books"), ("process.html", "The process"), ("pscat-notes.html", "pscat notes")]
 
     # a generated index of each book's reviews, in stage order
@@ -293,10 +324,10 @@ def build(dist):
         items = []
         for r in sorted(os.listdir(rdir)):
             if r.endswith(".md"):
-                items.append("- [%s](reviews/%s)" % (title_of(os.path.join(rdir, r)), r))
+                items.append("- [%s](%s)" % (title_of(os.path.join(rdir, r)), r))
         md = ("# Reviews\n\nEvery review from the panel of persona agents, saved as written, "
               "in stage order. What each one changed is logged in "
-              "[the checkpoints](checkpoints.md).\n\n" + "\n".join(items) + "\n")
+              "[the checkpoints](../checkpoints.md).\n\n" + "\n".join(items) + "\n")
         src = "books/%s/reviews/README.md" % b
         pages[src] = "%s/reviews.html" % b
         generated[src] = md
@@ -336,7 +367,7 @@ def build(dist):
             p = os.path.join(src, name)
             if name.endswith((".pdf", ".png")):
                 shutil.copy(p, dst)
-            elif name in ("previews",) or (name == "03-storyboard" and os.path.isdir(p)):
+            elif name in ("previews", "storyboard", "03-storyboard") and os.path.isdir(p):
                 for f in os.listdir(p):
                     if f.endswith(".png"):
                         os.makedirs(os.path.join(dst, name), exist_ok=True)

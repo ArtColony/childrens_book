@@ -224,3 +224,34 @@ then found a real bug on the last count.
 
 **Checkpoint 4 passed.** Strict lint, 19 pages, a reproducible bind, and
 every panel point adopted or declined with a reason.
+
+### Codex review of the finished book
+
+*[Codex](reviews/04-book-codex.md), a different model family, run read-only.
+It reviewed the first revised book.* It scored the book **6.5/10** and
+independently found the p17 counting bug (fixed in round 2, #71). Its code
+findings were all fixed, and both books still rebuild byte-identical:
+
+| # | Finding | Fix |
+|---|---|---|
+| 77 | **High:** the site builder deleted its output directory without checking, so `build_site.py .` would destroy the repo | It refuses the repo, its ancestors and source directories, and deletes only a directory it built (one marked by `.nojekyll`) |
+| 78 | Markdown could inject HTML attributes, and unsafe URL schemes passed through | Attribute values are escaped; only http, https and mailto pass |
+| 79 | The generated review index linked to `reviews/reviews/…` | Links are relative to the index's own location |
+| 80 | Links to unpublished files (e.g. `hero_sheet.ps`) were made local | Local links come from the same rule as the asset copier; anything else goes to GitHub |
+| 81 | Nested-list continuation text moved into the parent item | A nested list keeps its own continuation lines |
+| 82 | Helpers overwrote the caller's options (`cb-lit`, `cb-hullc`, `cb-face`) | They restore what they found |
+| 83 | A failed bind could replace the committed PDF | It builds to `*.part.pdf` and moves into place only after the page check |
+| 84 | Table cells split on `|` inside code spans | **Known, not fixed:** no document uses one |
+
+## Checkpoint 5: Reflection
+
+*Artifact: [05-reflection.md](05-reflection.md).*
+
+- [x] Section 1 was written from the pages before re-reading the ideation.
+- [x] Unintended readings are named and judged: the structural *rescue*
+      reading (kept, explained), "Ten is fog" taken literally (kept), and
+      gender roles (logged).
+- [x] Every "what we'd change" item is either done or logged as a decision
+      not to.
+
+**Done.**
