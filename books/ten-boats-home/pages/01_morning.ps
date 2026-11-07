@@ -10,9 +10,9 @@ cb-harbour-back
 /cb-face 1 def
 % one long line from the pier's end out to the horizon, biggest (nearest) first;
 % the little blue one is last out, nearest the pier, and smallest for its place
-[ [590 296 8] [548 290 9] [592 276 11] [540 266 12] [586 250 14] [520 238 16] [574 220 18] [500 204 20] [556 186 22] ]
+[ [592 298 7] [530 294 8] [470 290 9] [580 278 10] [505 270 11] [430 264 12] [560 248 14] [470 236 15] [580 214 18] ]
 0 1 8 { /i exch def dup i get aload pop cb-sails i get cb-boat } for pop
-/cb-boatlight true def 470 168 13 cb-gpblue cb-boat /cb-boatlight false def
+/cb-boatlight true def /cb-hullc [0.42 0.64 0.90] def 500 176 12 cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def /cb-boatlight false def
 cb-harbour-front
 false cb-hook-lamp
 40 cb-DECK cb-RAIL add 70 52 cb-nets

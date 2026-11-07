@@ -29,6 +29,7 @@
 /cb-lit false cb-default
 /cb-step false cb-default
 /cb-boatlight false cb-default
+/cb-hullc [0.95 0.93 0.88] cb-default   % hull colour (Grandpa's boat is blue all over)
 /cb-glowr 0.8 cb-default
 /cb-worry false cb-default        % Ana: a worried brow
 /cb-grin false cb-default         % Ana: a wide grin
@@ -37,8 +38,8 @@
 
 /cb-coat   [0.84 0.27 0.22] def
 /cb-boots  [0.97 0.78 0.26] def
-/cb-skin   [0.98 0.84 0.72] def
-/cb-hair   [0.36 0.22 0.15] def
+/cb-skin   [0.76 0.53 0.38] def          % the family's warm brown skin
+/cb-hair   [0.17 0.11 0.09] def
 /cb-gold   [1.00 0.80 0.36] def          % the book's one accent: lamplight
 /cb-navy   [0.20 0.27 0.45] def
 /cb-capblue [0.25 0.42 0.70] def
@@ -46,6 +47,7 @@
 /cb-hull   [0.95 0.93 0.88] def
 /cb-gpblue [0.30 0.55 0.85] def          % Grandpa's little blue boat
 /cb-mamacoat [0.36 0.52 0.56] def        % Mama: a slate-teal coat, quieter than Ana's red
+/cb-mamahand [0.24 0.55] cb-default     % where Mama's hand reaches, in her heights (a hand on Ana's shoulder)
 
 % ---------------------------------------------------------------- the lamp
 /cb-glow { % x y r -> ()
@@ -54,11 +56,14 @@
     newpath gx gy gr 0 360 arc closepath gsave cb-gold cb-rgb 0.25 setalpha fill grestore
     cb-gold 0.7 shade setrgbcolor 1 setlinewidth [4 3] 0 setdash stroke [] 0 setdash
   } {
-  [1.0 0.66 0.40] {
+  % many faint rings in a pale warm gold, so the light feathers out instead of
+  % banding, and reads lighter than the dark around it rather than mixing to khaki
+  [1.0 0.84 0.70 0.57 0.45 0.34 0.24] {
     /k exch def
-    newpath gx gy gr k mul 0 360 arc closepath cb-gold 0.07 cb-bigwash
+    newpath gx gy gr k mul 0 360 arc closepath [1.0 0.90 0.64] 0.06 cb-bigwash
   } forall
-  newpath gx gy gr 0.10 mul 0 360 arc closepath [1 0.95 0.75] 0.45 cb-wash
+  newpath gx gy gr 0.16 mul 0 360 arc closepath [1.0 0.95 0.78] 0.25 cb-wash
+  newpath gx gy gr 0.08 mul 0 360 arc closepath [1.0 0.98 0.88] 0.5 cb-wash
   } ifelse
   end
 } bind def
@@ -117,13 +122,6 @@
     newpath { frame bx 0.0 0.12 0.13 0.03 rrect } cb-local lw cb-line
   } forall
 
-  % the far arm, behind her body: with the lamp she always holds it in both hands
-  cb-lamp cb-arm /down ne and {
-    newpath { frame -0.05 0.50 moveto hand aload pop 0.02 sub exch 0.04 sub exch lineto } cb-local
-    cb-coat 0.7 shade setrgbcolor << /Width h 0.07 mul /Pressure { pop 1 } >> pkribbon
-    newpath { frame -0.05 0.50 moveto hand aload pop 0.02 sub exch 0.04 sub exch lineto } cb-local lw 0.6 mul cb-line
-  } if
-
   % hood behind the head
   newpath { frame -0.02 0.70 0.15 0 360 arc closepath } cb-local
   gsave cb-paper cb-rgb fill grestore
@@ -134,6 +132,16 @@
   newpath { frame cb-ana-coat } cb-local cb-coat 0.75 cb-wash
   newpath { frame cb-ana-coat } cb-local lw cb-line
   newpath { frame 0.0 0.52 moveto 0.01 0.35 0.0 0.2 -0.01 0.12 curveto } cb-local lw 0.6 mul cb-line
+  % the far arm, across the front of her coat: with the lamp she always holds
+  % it in both hands, and both sleeves must show (the finished-book panel)
+  cb-lamp cb-arm /down ne and {
+    /fs cb-arm /top eq { [0.07 0.48] } { cb-arm /up eq { [0.03 0.48] } { [0.0 0.45] } ifelse } ifelse def
+    newpath { frame fs aload pop moveto hand aload pop 0.02 sub exch 0.035 sub exch lineto } cb-local
+    cb-coat 0.78 shade setrgbcolor << /Width h 0.068 mul /Pressure { pop 1 } >> pkribbon
+    newpath { frame fs aload pop moveto hand aload pop 0.02 sub exch 0.035 sub exch lineto } cb-local lw 0.6 mul cb-line
+    newpath { frame hand aload pop 0.02 sub exch 0.035 sub exch 0.027 0 360 arc closepath } cb-local
+    gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
+  } if
   [0.44 0.32 0.20] { /by exch def
     newpath { frame 0.04 by 0.014 0 360 arc closepath } cb-local cb-ink cb-rgb fill } forall
 
@@ -150,15 +158,17 @@
   % eye, cheek, mouth (and a worried brow)
   { frame 0.095 0.70 transform } cb-local itransform h 26 div cb-dot
   cb-worry {
-    newpath { frame 0.065 0.765 moveto 0.13 0.745 lineto } cb-local lw 0.7 mul cb-line
+    newpath { frame 0.060 0.775 moveto 0.090 0.770 0.115 0.760 0.135 0.740 curveto } cb-local lw 1.1 mul cb-line
   } if
   newpath { frame 0.085 0.645 0.028 0 360 arc closepath } cb-local cb-pink 0.6 cb-wash
-  cb-grin {
+  cb-worry {
+    newpath { frame 0.118 0.622 0.016 0 360 arc closepath } cb-local gsave [0.35 0.15 0.12] cb-rgb fill grestore
+  } { cb-grin {
     newpath { frame 0.085 0.635 moveto 0.10 0.595 0.135 0.595 0.145 0.632 curveto closepath } cb-local
     gsave [0.75 0.30 0.30] cb-rgb fill grestore lw 0.6 mul cb-line
   } {
     newpath { frame 0.105 0.625 moveto 0.115 0.615 0.125 0.615 0.135 0.625 curveto } cb-local lw 0.6 mul cb-line
-  } ifelse
+  } ifelse } ifelse
 
   % arm: a sleeve from the near shoulder to the hand (raised, it passes in
   % front of the face's edge, never across it)
@@ -271,7 +281,7 @@
   newpath { f -0.10 0.42 moveto -0.10 1.35 lineto -0.62 0.42 lineto closepath } cb-local lw cb-line
   % hull
   newpath { f cb-boat-hull } cb-local gsave cb-paper cb-rgb fill grestore
-  newpath { f cb-boat-hull } cb-local cb-hull 0.85 cb-wash
+  newpath { f cb-boat-hull } cb-local cb-hullc 0.85 cb-wash
   newpath { f -0.97 0.20 moveto 1.0 0.20 lineto 0.98 0.15 lineto -0.95 0.15 lineto closepath } cb-local
   sail 0.8 cb-wash
   newpath { f cb-boat-hull } cb-local lw 1.1 mul cb-line
@@ -285,7 +295,7 @@
 
 % Grandpa's little blue boat, with him in it.
 /cb-gpboat { % x y s -> ()
-  3 copy cb-gpblue cb-boat
+  /cb-hullc [0.42 0.64 0.90] def 3 copy cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def
   /cb-gpb-s exch def /cb-gpb-y exch def /cb-gpb-x exch def
   cb-gpb-x cb-gpb-s 0.45 mul cb-face mul add cb-gpb-y cb-gpb-s 0.30 mul add
   cb-gpb-s 1.5 mul cb-grandpa-bust
@@ -329,8 +339,9 @@
   { f 0.075 0.895 transform } cb-local itransform h 34 div cb-dot
   newpath { f 0.065 0.85 0.02 0 360 arc closepath } cb-local cb-pink 0.6 cb-wash
   % arm, reaching forward (a hand on Ana's shoulder, or to the lamp)
-  newpath { f 0.0 0.72 moveto 0.10 0.62 0.18 0.56 0.24 0.55 curveto } cb-local
+  /mhx cb-mamahand 0 get def /mhy cb-mamahand 1 get def
+  newpath { f 0.0 0.72 moveto 0.10 0.66 mhx 0.7 mul mhy 0.06 add mhx mhy curveto } cb-local
   cb-mamacoat 0.85 shade setrgbcolor << /Width h 0.055 mul /Pressure { pop 1 } >> pkribbon
-  newpath { f 0.24 0.55 0.022 0 360 arc closepath } cb-local gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
+  newpath { f mhx mhy 0.022 0 360 arc closepath } cb-local gsave cb-skin cb-rgb fill grestore lw 0.6 mul cb-line
   end
 } bind def

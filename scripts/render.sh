@@ -35,7 +35,11 @@ if ! command -v pscat >/dev/null 2>&1; then
 fi
 want="$(cat .pscat-version)"
 have="$(pscat --version | awk '{print $2}')"
-[ "$have" = "$want" ] || echo "render: warning: pscat $have, but .pscat-version pins $want" >&2
+if [ "$have" != "$want" ]; then
+  # the pin is what makes the committed PDFs reproducible: refuse, unless told
+  echo "render: pscat $have, but .pscat-version pins $want (CB_ALLOW_PSCAT=1 to override)" >&2
+  [ "${CB_ALLOW_PSCAT:-}" = 1 ] || exit 2
+fi
 
 # a repo lib/ file named like a built-in would shadow pscat's own
 for f in lib/*.ps; do
@@ -80,12 +84,12 @@ for page in "${files[@]}"; do
     {
       echo "%!PS-Adobe-3.0"
       for d in "${defs[@]}"; do echo "/${d%%=*} ${d#*=} def"; done
-      echo "($page) run"
+      printf '(%s) run\n' "$(printf '%s' "$page" | sed 's/[\\()]/\\&/g')"
     } > "$prelude"
   fi
   if [ ${#sweep[@]} -gt 0 ]; then
     target="$dest/$name-sweep.png"
-    args=("${sweep[@]}" --png "$dest/$name-frame.png" --contact-sheet "$target")
+    args=("${sweep[@]}" --lint-strict --png "$dest/$name-frame.png" --contact-sheet "$target")
   else
     target="$dest/$name.png"
     args=(--lint-strict --png "$target")

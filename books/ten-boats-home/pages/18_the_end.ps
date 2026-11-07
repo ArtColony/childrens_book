@@ -9,11 +9,11 @@ cb-harbour-back
 newpath 0 0 moveto
 cb-HZ 20 add 590 18 131 cb-stars
 9 cb-moored-n
-/cb-face -1 def /cb-boatlight true def cb-tenth aload pop cb-gpblue cb-boat /cb-boatlight false def /cb-face 1 def
+/cb-face -1 def /cb-boatlight true def /cb-hullc [0.42 0.64 0.90] def cb-tenth aload pop cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def /cb-boatlight false def /cb-face 1 def
 cb-harbour-front true cb-hook-lamp
 cb-hookx cb-hooky 14 sub 34 cb-glow
 % the three of them walking home, small, toward the lit windows
 /cb-face -1 def
-40 cb-DECK 74 cb-grandpa 70 cb-DECK 48 cb-ana 98 cb-DECK 68 cb-mama
+/cb-step true def 50 cb-DECK 80 cb-grandpa 84 cb-DECK 52 cb-ana 114 cb-DECK 74 cb-mama /cb-step false def
 /cb-face 1 def
 showpage

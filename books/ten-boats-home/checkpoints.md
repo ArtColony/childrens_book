@@ -152,3 +152,52 @@ invisible in the manuscript:
 
 **Checkpoint 3 passed** after round 2 (the stop rule: two rounds). The
 round-2 sheet was checked against every row above. **Unlocks painting.**
+
+## Checkpoint 4: Book
+
+*Reviews of the first painted pass, all fresh readers given the pages
+rasterized from the print PDF:
+[editor](reviews/04-book-writer.md) (Opus),
+[artist](reviews/04-book-artist.md) (Sonnet),
+[parent](reviews/04-book-parent.md) (Sonnet),
+[child](reviews/04-book-child.md) (Haiku). Then the advisor.*
+
+**Mechanical checks, which passed:** every page renders under strict lint; one
+PDF page per file (19); 0.6 MB a page (budget 1 MB); it binds in about 13 s;
+binding twice gives the same bytes.
+
+**Value check.** Rough mode predicted positions but not values. Painted, the
+p8 fog bank became a hard white cloud, p14's blue boat fogged to grey, and
+p16's glow crowded the text. All three were fixed before the panel saw the
+book, and rough mode was then calibrated to the paint's real opacity (see
+`docs/process.md`).
+
+**The panel's verdict on the first painted pass:** the editor gave **6.5/10**,
+"the text is about 7.5; the pictures pull it down". The child counted every
+boat correctly through ten, then asked again **"Why is it eleven?"**
+
+| # | Point (reviewer) | Decision | What changed |
+|---|---|---|---|
+| 50 | **"Eleven" is still ambiguous**: the lamp sat *above* the row, not in it (child, parent, editor) | **Adopt, in the art** | p17 is rebuilt: ten boats in one row, and in the *same* row, at the same spacing, the lamp stands on the last mooring post. The family is whole on the pier, Ana grinning and pointing along the row. The words stay. The parent's "if you count my lamp" is declined: explaining a joke kills it |
+| 51 | **The payoff is the weakest version of the refrain** (editor); "And this one is Grandpa's" reads as ten *plus* Grandpa's (parent) | **Adopt** | p15: "*Ten!* Little. Blue. *Grandpa's.*" It inverts "Not little. Not blue. Not Grandpa's." word for word, and fixes the arithmetic |
+| 52 | **The reunion is staged at a distance:** a speck of a boat, no Grandpa (editor, artist) | **Adopt** | p15 is close and low: a big blue boat with Grandpa waving, two lamps answering each other |
+| 53 | **Two lamps at once:** the old lamp still on its hook while Ana holds it (artist, editor) | **Adopt** | A real continuity bug: p15 drew the harbour's hook lamp. The hook is empty from p10 until the end page |
+| 54 | **The fear is never drawn:** the same placid face at "Where is Grandpa?" (editor, artist) | **Adopt** | `cb-worry` gives a raised, slanted brow and a small open mouth, used on p9 |
+| 55 | **Ana reads as holding the lamp in one hand** (artist): the far arm was hidden behind her coat | **Adopt** | The far arm crosses the front of the coat, a second sleeve and hand on the handle |
+| 56 | **The glow is muddy khaki**, built from hard concentric bands (artist) | **Adopt** | Seven faint rings in a pale warm gold, plus a two-step core. It reads as light, lighter than the fog around it |
+| 57 | **Mama's hand never touches Ana** at the pier's end (parent) | **Adopt** | `cb-mamahand` aims her hand at Ana's shoulder on pp. 12–15 and the cover, and she is drawn over the glow so she isn't faded |
+| 58 | **The middle sags:** three pages of instructions; "Then Ana thinks of Grandpa's lamp" tells a thought (editor) | **Adopt** | p10: "Ana looks up at the old lamp." p11: "Mama lights it. *Click!* And out they go, into the fog." |
+| 59 | p2's "She waits for one most of all" clashes with the next page's "One!" (parent); the sentence is long (child) | **Adopt** | "Most of all, she waits for Grandpa's boat. It is little. It is blue. And it carries a lamp, just like the old lamp on the pier." |
+| 60 | **Representation:** everyone has the same peach skin (parent) | **Adopt** | The family has warm brown skin and dark hair; the hero sheet is re-rendered |
+| 61 | The cover shows Grandpa's boat, which spoils the reveal (parent) | **Adopt** | The cover shows Ana and Mama with the lit lamp, and no boat |
+| 62 | p7's boats vanish, which reads as a continuity break (editor); the gulls read as petals (artist) | **Adopt** | p7 returns to the harbour view with the nine moored. The gulls have folded grey wings, dark tips and beaks |
+| 63 | p8's fog bank is a ball (artist) | **Adopt** | Low, wide, flat banks of mist that thicken toward the empty mooring |
+| 64 | Foreground boats sit under the page number; dark text on mid-violet (artist) | **Adopt** | Boats raised; p5's text is cream |
+| 65 | p17's sky is lighter than the night before it (artist) | **Adopt** | The night pages use a dark night fog; p17 is a clear deep night |
+| 66 | Grandpa's boat reads grey in the fog (artist) | **Adopt** | It is blue all over, hull and sail (`cb-hullc`) |
+| 67 | "swallows" will wake a 4-year-old (parent) | **Decline** | The child reviewers loved the suspense, and it resolves within four pages. The fog's soft drawing keeps it gentle |
+| 68 | "Light it, quick!" is panicky (parent) | **Decline** | It is the one moment of urgency, and the editor kept it. Mama's calm *Click!* answers it |
+| 69 | Add "Ten boats. One lamp. Goodnight." to the end page (parent) | **Decline** | The editor's and artist's case for a wordless coda stands: the child finds the blue boat in its mooring and the lamp on its hook |
+| 70 | Mama is carer, Grandpa is captain (parent) | **Noted** | Mama mends nets (she fishes too) and does the one dangerous job, the match. A fuller fix is a stage 1 cast question, logged for the reflection |
+
+**Draft 4:** 192 words.

@@ -1,6 +1,7 @@
 # Stage 2: Manuscript
 
-*Draft 3, revised after two rounds of the stage 2 review panel. Draft 1 and the reviews
+*Draft 4: draft 3 from two stage 2 panels, then four lines revised by the
+finished-book panel at stage 4. Draft 1 and the reviews
 are in [`reviews/`](reviews/) and in git history. The decisions are logged in
 [checkpoints.md](checkpoints.md#checkpoint-2-manuscript).*
 
@@ -9,8 +10,8 @@ are in [`reviews/`](reviews/) and in git history. The decisions are logged in
 > Ten boats sail out in the morning. Every evening, Ana counts them home,
 > while Mama mends the nets.
 >
-> She waits for one most of all. It is little, and it is blue, and it
-> carries a lamp just like the old lamp on the pier. It is Grandpa's.
+> Most of all, she waits for Grandpa's boat. It is little. It is blue. And
+> it carries a lamp, just like the old lamp on the pier.
 >
 > Red sail. *One!* Not Grandpa's.
 >
@@ -27,11 +28,10 @@ are in [`reviews/`](reviews/) and in git history. The decisions are logged in
 > The fog swallows the boats. It swallows the pier. "Where is Grandpa?"
 > Ana whispers.
 >
-> Then Ana thinks of Grandpa's lamp. She lifts the old lamp from its hook.
-> "Mama! Light it, quick!"
+> Ana looks up at the old lamp. She lifts it from its hook. "Mama! Light it,
+> quick!"
 >
-> Mama lights it. *Click* goes the little glass door. And out they go, into
-> the fog.
+> Mama lights it. *Click!* And out they go, into the fog.
 >
 > At the very end, Ana holds the lamp up high. Nothing. Only fog.
 >
@@ -40,7 +40,7 @@ are in [`reviews/`](reviews/) and in git history. The decisions are logged in
 > Out in the fog, something blinks back. A little light. A little boat. A
 > little *blue* boat.
 >
-> *Ten!* Ten boats home. And this one is Grandpa's.
+> *Ten!* Little. Blue. *Grandpa's.*
 >
 > He lifts Ana up, lamp and all. "Ten boats home," says Grandpa, "and one
 > little light."
@@ -50,7 +50,7 @@ are in [`reviews/`](reviews/) and in git history. The decisions are logged in
 The end page has no words: the lamp is back on its hook, still lit, and
 all ten boats are home.
 
-**Word count:** 206 (`wc -w`), against 244 in draft 1. No page is over 25
+**Word count:** 192 (`wc -w`; draft 1 was 244). No page is over 25
 words, and every sentence on the fog-to-lamp pages (pp. 8–13) is 11 words
 or fewer.
 
@@ -78,12 +78,12 @@ contradictions in these columns.
 | 7 | The gulls go quiet. Ana waits for ten. | Ana small, alone in the frame's centre at the rail, the empty violet sea; the gulls settled on posts | W | late dusk | 9 (moored, edge) | hook | start | yes, behind |
 | 8 | But ten is not a boat. Ten is fog. | The same view as p6, fog rolling over it; the nine boats faint but countable | W | fog | 9, faint | hook | start | yes |
 | 9 | The fog swallows the boats … "Where is Grandpa?" | Ana close, worried; behind her, the boats and the pier half gone in fog | C | fog | 9, vanishing | hook, unlit, top of frame | start | her hand on Ana's shoulder |
-| 10 | Ana thinks of Grandpa's lamp … lifts the old lamp from its hook | Ana on tiptoe lifting the unlit lamp off its hook herself; Mama turning, matches in hand | M | fog | 0 | Ana's hands, unlit | start | yes, turning |
-| 11 | Mama lights it. *Click* … out they go, into the fog. | Ana walking → with the lit lamp in both hands, its glass door shut; Mama a step behind, a hand near her | M | fog, one gold light | 0 | Ana's hands, lit | walking out | yes, behind |
+| 10 | Ana looks up at the old lamp … lifts it from its hook | Ana on tiptoe lifting the unlit lamp off its hook herself; Mama turning, matches in hand | M | fog | 0 | Ana's hands, unlit | start | yes, turning |
+| 11 | Mama lights it. *Click!* … out they go, into the fog. | Ana walking → with the lit lamp in both hands, its glass door shut; Mama a step behind, a hand near her | M | fog, one gold light | 0 | Ana's hands, lit | walking out | yes, behind |
 | 12 | At the very end … Nothing. Only fog. | Ana at the pier's end, lamp up, a small glow swallowed by fog; Mama beside her | W | fog-night | 0 | held up | end | yes, beside |
 | 13 | So she holds it higher. | **The heart's page:** the same place, tiptoe, arms straight up; the glow is the biggest light in the book | W | fog-night, gold | 0 | held highest | end, tiptoe | yes, small, beside |
 | 14 | Something blinks back … a little *blue* boat | The blue boat coming ← out of the fog, its own lantern lit; Ana's light at the right edge | M | fog-night | 1 (blue) | Ana's hands (edge) | end | yes (edge) |
-| 15 | *Ten!* … this one is Grandpa's. | All ten boats seen together; the blue one coming alongside the pier's end with its own lamp lit; Mama catches his rope; Ana's lamp and his answer each other | W | fog thinning | **10** | Ana's hands | end | yes, catching the rope |
+| 15 | *Ten!* Little. Blue. *Grandpa's.* | Close and low: the little blue boat (blue hull and sail) alongside, Grandpa waving, its lamp and Ana's answering each other; the nine moored, small, behind | M | night, fog parting | **10** (9 far + 1 near) | Ana's hands | end | yes, catching the rope |
 | 16 | He lifts Ana up … "and one little light." | Grandpa on the pier lifting Ana high, the lamp in her hands lighting both their faces; Mama with the rope | M | night, gold | 10 (behind) | Ana's hands, held high | in Grandpa's arms | yes |
 | 17 | "*Eleven*," says Ana. | Close on Ana in Grandpa's arms, grinning, holding up the lamp like the eleventh thing counted; ten masts behind | C | night, clearing | 10 (behind) | Ana's hands | in Grandpa's arms | edge |
 | 18 | *(no words)* | The lamp back on its hook, lit; ten boats moored; the three walking home ← small in the distance | W | night, a few stars | 10 | hook, lit | walking home | yes |
@@ -109,9 +109,9 @@ little over. Accepted for a square single-page format.
 - **6 → 7:** the count stalls. "Ana waits for ten" is the held breath.
 - **7 → 8:** ***But ten is not a boat. Ten is fog.*** The break lands on the
   number itself, and the missing tenth *is* the fog.
-- **9 → 10:** she *thinks of Grandpa's lamp*. The idea is hers, earned on
-  p2: two lamps, one on the pier and one on the boat, so a light can call a
-  light.
+- **9 → 10:** she *looks up at the old lamp*. The idea is hers, earned on
+  p2 (Grandpa's boat "carries a lamp, just like the old lamp on the pier")
+  and shown, not told: two lamps, so a light can call a light.
 - **12 → 13:** "Nothing. Only fog." becomes *So she holds it higher.* Her
   second choice is braver than her first, and it costs her the turn.
 - **13 → 14:** the answer blinks back, light to light.
@@ -121,7 +121,7 @@ little over. Accepted for a square single-page format.
 
 ## The heart, checked again
 
-- **Acted:** Ana thinks of the lamp (p10), lifts it from its hook herself
+- **Acted:** Ana looks up at the lamp (p10), lifts it from its hook herself
   (p10), carries it into the fog (p11), holds it up (p12), and when nothing
   happens, holds it higher (p13). Every physical act of the rescue-that-isn't
   is hers except the match. No narrator states a moral.

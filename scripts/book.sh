@@ -17,6 +17,15 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root"
 out="${CB_RENDERS:-renders}"
 command -v pscat >/dev/null 2>&1 || { echo "book: pscat not found on PATH; see README.md" >&2; exit 2; }
+want="$(cat .pscat-version)"
+have="$(pscat --version | awk '{print $2}')"
+if [ "$have" != "$want" ]; then
+  # the pin is what makes the committed PDFs reproducible: refuse, unless told
+  echo "book: pscat $have, but .pscat-version pins $want (CB_ALLOW_PSCAT=1 to override)" >&2
+  [ "${CB_ALLOW_PSCAT:-}" = 1 ] || exit 2
+fi
+# a path as a PostScript string literal: escape \ ( )
+psstr() { printf '(%s)' "$(printf '%s' "$1" | sed 's/[\\()]/\\&/g')"; }
 
 bind() { # dir pdf
   local dir="$1" pdf="$2" tmp n start secs
@@ -30,7 +39,7 @@ bind() { # dir pdf
     echo "%!PS-Adobe-3.0"
     [ -n "$title" ] && echo "%%Title: $title"
     echo "%%Pages: ${#pages[@]}"
-    for p in "${pages[@]}"; do echo "save ($p) run restore"; done
+    for p in "${pages[@]}"; do echo "save $(psstr "$p") run restore"; done
   } > "$tmp/book.ps"
   start=$(date +%s)
   pscat --page 612x612 --lint-strict --pdf "$pdf" "$tmp/book.ps"

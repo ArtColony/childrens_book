@@ -4,12 +4,12 @@
 /Seed where { pop } { /Seed 116 def } ifelse  Seed srand
 (lib/cb_book.ps) run
 cb-ground
-/night cb-light
+/night cb-light /cb-fogc [0.40 0.44 0.53] def
 240 cb-harbour-sky
 % ten boats home, behind
 /cb-face -1 def
 0 1 8 { /i exch def 40 i 52 mul add 250 13 cb-sails i get cb-boat } for
-/cb-boatlight true def 520 250 10 cb-gpblue cb-boat /cb-boatlight false def
+/cb-boatlight true def /cb-hullc [0.42 0.64 0.90] def 520 250 10 cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def /cb-boatlight false def
 /cb-face 1 def
 -9 700 70 110 cb-pier
 0 600 0.2 cb-fog

@@ -1,24 +1,22 @@
 # childrens_book
 
-***Moss Goes to the Sea***, a picture book written, illustrated and typeset
-entirely in PostScript, and rendered with
-[pscat](https://github.com/PSCatLabs/pscat) into a print-ready PDF.
-An [ArtColony](https://github.com/ArtColony) project.
+Picture books written, illustrated and typeset entirely in PostScript, and
+rendered with [pscat](https://github.com/PSCatLabs/pscat) into print-ready
+PDFs. An [ArtColony](https://github.com/ArtColony) project, and an
+experiment in **making long creative artifacts in explicit stages**:
+ideation → manuscript → storyboard → book → reflection, each with a
+checkpoint and a review panel of persona agents.
 
-**[Read the book (PDF)](moss-goes-to-the-sea.pdf)**: 15 pages, 8.5 × 8.5 in, vector throughout.
+**Site:** <https://artcolony.github.io/childrens_book/>: the books, the
+process, every stage document and every review.
 
-![cover](previews/00_cover.png)
-
-A small snail named Moss hears from a gull that the sea is big and blue and
-sings all day. She sets off to hear it, slowly, past the cabbages, under the
-gate, through grass as tall as trees and through the rain. When she arrives
-at night, the sea sings *hush … hush … hush*. She falls asleep in her
-shell, and finds she can still hear it there.
-
-| | | |
+| | Book | |
 |---|---|---|
-| ![](previews/01_home.png) | ![](previews/02_gull.png) | ![](previews/06_meadow.png) |
-| ![](previews/08_ladybird.png) | ![](previews/09_dusk.png) | ![](previews/11_the_sea.png) |
+| ![](books/ten-boats-home/previews/00_cover.png) | **[Ten Boats Home](books/ten-boats-home/)**: a counting book. Ana counts the fishing boats home, and the tenth is fog. Made with every stage and panel. [PDF](books/ten-boats-home/ten-boats-home.pdf) | |
+| ![](books/moss-goes-to-the-sea/previews/00_cover.png) | **[Moss Goes to the Sea](books/moss-goes-to-the-sea/)**: a small snail goes, slowly, to hear the sea sing. Made before the process existed; [its reflection](books/moss-goes-to-the-sea/05-reflection.md) says what that cost. [PDF](books/moss-goes-to-the-sea/moss-goes-to-the-sea.pdf) | |
+
+**[The process](docs/process.md)**: the stages, their checkpoints, the
+"heart" that runs through them, and the review panel.
 
 ## How it's made
 
@@ -45,36 +43,6 @@ painting library (`lib/paintkit.ps`), wrapped in a small house style:
 pscat write them as one multi-page PDF. The PDF keeps real transparency for
 the washes. The text is drawn as vector outlines, so it prints sharply but
 can't be searched; see `docs/pscat-issues.md`.
-
-## The story
-
-> **1.** In a corner of the garden, under a big green leaf, lived a small snail named Moss.
->
-> **2.** One morning a gull landed on the fence. "I have just come from the sea," said the gull. "It is big and blue, and all day long it sings."
->
-> **3.** "I would like to hear the sea sing," said Moss. So she packed nothing at all, because a snail carries her house with her, and off she went.
->
-> **4.** She went past the cabbages. *Slowly.*
->
-> **5.** She went under the gate. *Slowly.*
->
-> **6.** She went through the meadow, where the grass was as tall as trees. *Slowly, slowly.*
->
-> **7.** Then it began to rain. Moss did not mind one bit. Snails like rain.
->
-> **8.** "Where are you going?" asked a ladybird. "To hear the sea sing," said Moss. "That is very far for a snail," said the ladybird. "Then I will go very far," said Moss.
->
-> **9.** The sun went down. The stars came out. Moss kept going.
->
-> **10.** At last the grass turned to sand, and the sand ran all the way down to the water.
->
-> **11.** There was the sea, big and silver under the moon. And it sang: *hush . . . hush . . . hush.*
->
-> **12.** Moss listened until her eyes grew heavy.
->
-> **13.** Then she curled up inside her shell, the way snails do. And there, in her own small house, she could still hear the sea singing: *hush . . . hush . . . hush.*
->
-> *The End*
 
 ## Setup
 

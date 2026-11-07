@@ -7,12 +7,12 @@ cb-ground
 /fog cb-light
 cb-harbour-back 9 cb-moored-n
 cb-HZ 80 sub 470 0.40 cb-fog
-% the fog stands where the tenth boat should be: a soft bank on the empty mooring
-% (many faint, wide, overlapping washes, so the bank has no edge of its own)
-[ [0 0 95] [-50 16 70] [-25 40 60] [10 -20 80] [-70 -6 55] [-10 60 50] [-40 -30 62] ] {
-  aload pop /fr exch def /fdy exch def /fdx exch def
-  newpath cb-tenth 0 get fdx add cb-tenth 1 get 20 add fdy add fr 0 360 arc closepath
-  [0.88 0.88 0.87] 0.11 cb-bigwash
+% the fog stands where the tenth boat should be: low, wide banks of mist that
+% thicken toward the empty mooring (flat ellipses, never a ball)
+[ [0 10 150 26] [-30 34 120 22] [10 -8 130 18] [-60 18 110 20] [0 56 90 16] ] {
+  aload pop /fry exch def /frx exch def /fdy exch def /fdx exch def
+  newpath { cb-tenth 0 get fdx add cb-tenth 1 get 20 add fdy add translate frx fry scale 0 0 1 0 360 arc closepath } cb-local
+  [0.88 0.88 0.87] 0.16 cb-bigwash
 } forall
 cb-harbour-front false cb-hook-lamp
 40 cb-DECK cb-RAIL add 70 52 cb-nets

@@ -48,10 +48,11 @@
 /cb-rough false cb-default      % storyboard mode: big washes become flat grey masses
 /cb-bigwash { % [rgb] alpha -> (fills current path)
   cb-rough {
-    % a flat grey mass at the colour's own lightness, as translucent as the
-    % wash would be, so layering (fog over boats) still reads in a thumbnail
+    % a flat grey mass at the colour's own lightness and at the opacity the
+    % painted wash reaches (four layers of alpha a: 1 - (1-a)^4), so a
+    % thumbnail predicts the painted page's values, not just its positions
     gsave
-    1.6 mul 1 min setalpha
+    1 exch sub dup mul dup mul 1 exch sub setalpha
     aload pop 0.11 mul exch 0.59 mul add exch 0.30 mul add setgray fill
     grestore newpath
   } {
@@ -79,11 +80,17 @@
 % Run proc, which builds a path in a local frame (translate/scale/rotate
 % freely inside it), then restore the page CTM so the path is painted with
 % page-sized brushes. proc -> (the path stays current)
-/cb-lm matrix def
+% A small stack of saved matrices, so cb-local calls may nest (Codex review:
+% one shared matrix let an inner call overwrite the outer's). The depth lives
+% in userdict, so a local dict on the dict stack can't shadow it.
+/cb-lms [ 0 1 15 { pop matrix } for ] def
+/cb-lmd 0 def
 /cb-local {
-  cb-lm currentmatrix pop
+  cb-lms cb-lmd get currentmatrix pop
+  userdict /cb-lmd cb-lmd 1 add put
   exec
-  cb-lm setmatrix
+  userdict /cb-lmd cb-lmd 1 sub put
+  cb-lms cb-lmd get setmatrix
 } bind def
 
 % ---------------------------------------------------------------- type
@@ -140,15 +147,17 @@
     /more exch def
     para w cb-lines {
       /lstr exch def
+      lstr stringwidth pop w gt { cb-text-overflow-word-wider-than-column } if
       align /center eq
         { x w lstr stringwidth pop sub 2 div add y moveto }
         { x y moveto } ifelse
       lstr show
       /y y lead sub def
     } forall
-    para length 0 eq { /y y lead sub def } if
     more not { exit } if
   } loop
+  % refuse text that runs off the bottom of the page (Codex review)
+  y lead add 30 lt { cb-text-overflow-below-page } if
   y lead add cb-size 0.3 mul sub
   end
 } bind def

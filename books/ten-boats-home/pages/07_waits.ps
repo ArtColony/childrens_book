@@ -5,13 +5,13 @@
 (lib/cb_book.ps) run
 cb-ground
 /dusk cb-light
-% a lonelier beat: the camera turns from the harbour to the open sea
-cb-HZ cb-harbour-sky
--9 650 cb-DECK cb-RAIL cb-pier
-% the gulls have settled on the rail posts
-[380 460 540] { cb-DECK cb-RAIL add 1 add 20 cb-gull-sit } forall
-70 cb-DECK 150 cb-mama
-300 cb-DECK 100 cb-ana
+cb-harbour-back 9 cb-moored-n
+cb-harbour-front false cb-hook-lamp
+% the gulls have settled on the rail posts, and the sea beyond is empty
+[260 340 420] { cb-DECK cb-RAIL add 2 add 20 cb-gull-sit } forall
+40 cb-DECK cb-RAIL add 70 52 cb-nets
+30 cb-DECK 150 cb-mama
+170 cb-DECK 100 cb-ana
 cb-paper cb-rgb
 (The gulls go quiet. Ana waits for ten.) 56 584 500 /center cb-text pop
 /cb-foliorgb cb-paper def 7 cb-folio

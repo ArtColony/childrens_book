@@ -186,6 +186,14 @@ scripts/sheet.py renders/<slug>/03-storyboard renders/<slug>-storyboard.png
 **Unlocks:** painting. The painted page is the storyboard page with the
 grey masses replaced by paint. Keep the composition.
 
+**Rough mode must predict values, not just positions.** In *Ten Boats Home*,
+the first storyboard rendered each wash as one flat fill at 1.6× its alpha,
+while the paint lays four layers (≈ 1 − (1 − a)⁴). The painted fog came out
+denser and the glow brighter than the thumbnails showed, which are exactly
+the things the storyboard review had been tuning. Rough mode now uses the
+paint's own opacity. Generally: a cheap preview is only a valid checkpoint
+for the properties it actually models, so write down which those are.
+
 ## 4. Book: `pages/NN_*.ps` and `<slug>.pdf`
 
 **Input.** The approved storyboard.
