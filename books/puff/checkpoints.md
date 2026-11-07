@@ -111,3 +111,11 @@ choreographed".
 
 Codex found no stack, graphics-state or cross-book leaks. Both earlier PDFs
 are still byte-identical (Moss `c50ed404…`, Ten Boats Home `339b07ad…`).
+
+**Advisor gates.** The brief asked for an advisor review at each stage.
+*Puff* had one at the start (which set the explicit-message process, the
+stop rule and the art direction) and one at the end. The stages in between
+were gated by the panels and the lesson test, not by the advisor. That was a
+gap, and *The Ugly Duckling* calls the advisor at every stage. Hashes
+re-verified on the final commit: Moss `c50ed404…`, Ten Boats Home
+`339b07ad…`.
