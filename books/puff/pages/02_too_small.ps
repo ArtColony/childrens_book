@@ -1,0 +1,29 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 2: too small
+/Seed where { pop } { /Seed 12 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+120 cb-sky cb-skylite cb-sky-wash
+[150 170 140 180 160 150] 0.45 cb-mountains
+30 290 290 150 80 7 cb-rainfall
+270 470 270 150 60 8 cb-rainfall
+[110 120 104 112 100 106] 0.9 cb-field
+[60 66 52 70 58] cb-grassdk 0.25 cb-hill
+/cb-cloudc cb-bigc def /cb-cheek false def
+/cb-mood /rumble def /cb-lookx 1 def 160 340 290 cb-puff
+/cb-mood /grand def 370 315 240 cb-puff
+/cb-cloudc cb-paper def /cb-cheek true def
+/cb-mood /hope def /cb-lookx -1 def /cb-looky 0 def 522 462 92 cb-puff
+/cb-mood /calm def /cb-lookx 0 def
+cb-ink cb-rgb
+(The big clouds rumbled and rolled, and when they rained, the whole land drank.) 60 590 492 /center cb-text pop
+cb-fontit 18 cb-type
+(\252I want to rain too!\272) 506 404 /center cb-say
+(said Puff.) 506 384 /center cb-say
+(\252You?\272) 120 236 30 cb-voicec cb-rumble
+cb-ink cb-rgb cb-font 16 cb-type (rumbled the big clouds.) 230 240 /left cb-say
+(Too small.) 220 182 42 cb-voicec cb-rumble
+(Too small.) 430 140 30 cb-voicec cb-rumble
+2 cb-folio
+showpage

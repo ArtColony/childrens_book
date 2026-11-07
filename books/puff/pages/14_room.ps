@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 14: room for Puff
+/Seed where { pop } { /Seed 24 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+120 cb-sky cb-skylite cb-sky-wash
+[140 160 140 170 150] 0.45 cb-mountains
+[110 120 104 116 110] 1 cb-field
+-9 104 621 116 30 cb-grassdk cb-grass
+/cb-cloudc cb-bigc def /cb-cheek false def
+/cb-mood /calm def /cb-lookx 1 def 100 300 240 cb-puff /cb-lookx -1 def 512 300 240 cb-puff
+/cb-cloudc cb-paper def /cb-cheek true def
+/cb-mood /joy def /cb-lookx 0 def 306 318 110 cb-puff /cb-mood /calm def
+/cb-flmood /joy def 76 -50 220 cb-sunflower /cb-flmood /calm def
+cb-ink cb-rgb
+(\252We were wrong,\272 rumbled the big clouds. \252Sorry, Puff.\272) 60 590 492 /center cb-text pop
+(No one is too small to help.) 306 470 31 cb-voicec cb-rumble
+cb-ink cb-rgb cb-fontit 22 cb-type (\252Come and rain with us!\272) 306 426 /center cb-say
+cb-font 18 cb-type
+(And they made room for her,) 306 240 /center cb-say
+(right in the middle.) 306 218 /center cb-say
+14 cb-folio
+showpage

@@ -1,0 +1,16 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 7: one little leaf
+/Seed where { pop } { /Seed 17 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+0 cb-sky [0.88 0.90 0.88] cb-sky-wash
+[190 180 176 184 188] 0.05 cb-field
+-9 10 621 160 22 19 cb-cracks
+newpath { 290 120 translate 1 0.28 scale 0 0 120 0 360 arc closepath } cb-local [0.50 0.42 0.32] 0.25 cb-bigwash
+/cb-droop 0.75 def /cb-droopr 0 def 290 120 230 cb-sprout /cb-droop 0 def /cb-droopr -1 def
+/cb-mood /hope def /cb-looky -1 def 306 532 200 cb-puff /cb-mood /calm def /cb-looky 0 def
+cb-ink cb-rgb cb-fontit 30 cb-type
+(And one little leaf lifted up.) 330 420 20 cb-sayrot
+7 cb-folio
+showpage

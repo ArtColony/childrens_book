@@ -1,0 +1,20 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 9: standing tall
+/Seed where { pop } { /Seed 19 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+150 cb-sky [0.95 0.88 0.76] cb-sky-wash
+[150 140 156 146 152] 0.55 cb-field
+-9 140 621 146 22 cb-grassdk cb-grass
+/cb-droop 0 def 190 120 240 cb-sprout
+-9 70 621 60 30 [0.40 0.60 0.32] cb-grass
+/cb-mood /thin def /cb-wisp 0.6 def /cb-looky -1 def 440 450 120 cb-puff
+/cb-wisp 0 def /cb-mood /calm def /cb-looky 0 def
+cb-ink cb-rgb
+/cb-size 20 def
+(Puff rained until the seedling stood up tall.) 330 380 240 /left cb-text pop
+(She was thin now, and sleepy.\nBut she was smiling.) 330 300 240 /left cb-text pop
+/cb-size 21 def
+9 cb-folio
+showpage

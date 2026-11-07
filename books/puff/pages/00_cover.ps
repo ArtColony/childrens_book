@@ -1,0 +1,18 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, cover
+/Seed where { pop } { /Seed 1 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+110 cb-sky cb-skylite cb-sky-wash
+[96 104 92 108 100] 0.5 cb-mountains
+[118 108 100 96 104 112] 0.0 cb-field
+-9 0 621 100 14 3 cb-cracks
+-9 104 621 98 22 cb-strawdk cb-grass
+/cb-droop 0.4 def 296 64 84 cb-sprout /cb-droop 0 def
+330 196 15 cb-drop 342 160 15 cb-drop 352 124 15 cb-drop
+/cb-mood /hope def /cb-looky -1 def 306 300 250 cb-puff /cb-mood /calm def /cb-looky 0 def
+(Puff) 306 470 150 cb-paper cb-rumble
+cb-ink cb-rgb cb-fontit 15 cb-type
+(a picture book painted in PostScript) 306 440 /center cb-say
+showpage

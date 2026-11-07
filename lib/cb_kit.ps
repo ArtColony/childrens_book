@@ -177,3 +177,86 @@
   cb-font findfont 11 scalefont setfont cb-foliorgb cb-rgb
   20 string cvs cb-W 2 div 22 showctr
 } bind def
+
+% ---------------------------------------------------------------- display type
+% Picture-book type that moves with the picture: words placed where things
+% happen, sized to how they sound. All take the current colour unless noted.
+
+/cb-type { exch findfont exch scalefont setfont } bind def   % font size -> ()
+
+% (s) x y align -> ()   align is /left /center or /right; uses the current font.
+% With cb-halo true, a paper-coloured halo goes under the letters, so a word
+% stays readable over rain or grass.
+/cb-halo false cb-default
+/cb-say {
+  4 dict begin /al exch def /yy exch def /xx exch def /ss exch def
+  /ww ss stringwidth pop def
+  /xx al /center eq { xx ww 2 div sub } { al /right eq { xx ww sub } { xx } ifelse } ifelse def
+  cb-halo {
+    gsave newpath xx yy moveto ss false charpath
+    cb-paper cb-rgb 1 setlinejoin currentfont /FontMatrix get 0 get 1000 mul 0.09 mul setlinewidth stroke grestore
+  } if
+  xx yy moveto ss show
+  end
+} bind def
+
+% (s) x y angle -> the string centred on (x, y), turned by angle degrees.
+/cb-sayrot {
+  4 dict begin /an exch def /yy exch def /xx exch def /ss exch def
+  gsave xx yy translate an rotate ss 0 0 /center cb-say grestore
+  end
+} bind def
+
+% Heavy, wobbling letters for a big voice (the big clouds' "Too small").
+% (s) x y size [fill] -> centred on x. The wobble is fixed per letter, so a
+% page always sets it the same way.
+/cb-rumble {
+  10 dict begin /fc exch def /sz exch def /yy exch def /xx exch def /ss exch def
+  cb-titlefont sz cb-type
+  /xx xx ss stringwidth pop sz 0.06 mul ss length 1 sub mul add 2 div sub def
+  0 1 ss length 1 sub {
+    /i exch def /ch ss i 1 getinterval def
+    gsave
+      xx yy i 2.3 mul sin sz 0.07 mul mul add translate
+      i 1.7 mul 40 add sin 6 mul rotate
+      newpath 0 0 moveto ch true charpath
+      gsave fc cb-rgb fill grestore
+      cb-ink cb-rgb sz 28 div setlinewidth 1 setlinejoin stroke
+    grestore
+    /xx xx ch stringwidth pop add sz 0.06 mul add def
+  } for
+  end
+} bind def
+
+% Letters that bob along a wave, for joy ("round again!").
+% (s) x y size amp -> centred on x, current font face cb-fontit, current colour.
+/cb-bounce {
+  10 dict begin /amp exch def /sz exch def /yy exch def /xx exch def /ss exch def
+  cb-fontit sz cb-type
+  /xx xx ss stringwidth pop 2 div sub def
+  0 1 ss length 1 sub {
+    /i exch def /ch ss i 1 getinterval def
+    gsave xx yy i 50 mul sin amp mul add translate i 50 mul cos 8 mul rotate
+      0 0 moveto ch show grestore
+    /xx xx ch stringwidth pop add def
+  } for
+  end
+} bind def
+
+% (s) cx cy r -> the string along the top of a circle, centred over it,
+% reading left to right (the current font and colour).
+/cb-arcstr {
+  6 dict begin /rr exch def /cy exch def /cx exch def /ss exch def
+  /span ss stringwidth pop rr div 57.2958 mul def
+  newpath cx cy rr 90 span 2 div add 90 span 2 div sub arcn
+  ss pathtext newpath
+  end
+} bind def
+
+% [(word) ...] x y dx dy -> the words set one after another, each moved by
+% (dx, dy) from the last: a staircase for "up, up, up", a fall for "plip".
+/cb-steps {
+  6 dict begin /dy exch def /dx exch def /yy exch def /xx exch def
+  { xx yy /center cb-say /xx xx dx add def /yy yy dy add def } forall
+  end
+} bind def

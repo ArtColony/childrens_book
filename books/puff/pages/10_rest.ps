@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 10: rest
+/Seed where { pop } { /Seed 20 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+130 [0.20 0.22 0.46] [0.96 0.66 0.50] cb-sky-wash
+newpath -9 290 630 340 cb-rect [0.16 0.18 0.40] 0.5 cb-bigwash
+340 590 14 10 cb-stars
+gsave newpath 110 520 20 0 360 arc closepath clip newpath -9 -9 630 630 cb-rect 120 528 18 0 360 arc closepath eoclip
+newpath 80 490 60 60 cb-rect cb-moon 0.9 cb-wash grestore
+[150 140 150 136 144] [0.30 0.44 0.32] 0.8 cb-hill
+-9 130 621 136 18 [0.24 0.38 0.28] cb-grass
+-9 60 621 56 26 [0.22 0.34 0.26] cb-grass
+/cb-droop 0 def 200 120 110 cb-sprout
+/cb-mood /sleep def /cb-cloudc [0.99 0.88 0.82] def /cb-wisp 0.15 def 390 236 120 cb-puff
+/cb-mood /calm def /cb-cloudc cb-paper def /cb-wisp 0 def
+cb-paper cb-rgb cb-fontit 20 cb-type
+(That night, Puff rested over the wet field.) 390 236 168 cb-arcstr
+/cb-foliorgb cb-paper def
+10 cb-folio
+showpage

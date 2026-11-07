@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 8: pitter patter
+/Seed where { pop } { /Seed 18 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+140 cb-sky [0.78 0.84 0.90] cb-sky-wash
+[130 150 140 160 150] 0.45 cb-mountains
+220 450 355 95 110 23 cb-rainfall
+[110 104 100 106 112] 0.30 cb-field
+newpath { 330 80 translate 1 0.22 scale 0 0 150 0 360 arc closepath } cb-local [0.46 0.48 0.32] 0.12 cb-bigwash
+-9 104 621 108 20 cb-grassdk cb-grass
+/cb-droop 0.3 def 330 84 110 cb-sprout /cb-droop 0 def
+/cb-mood /push def 335 410 230 cb-puff /cb-mood /calm def
+cb-ink cb-rgb cb-font 21 cb-type
+(\252It helped!\272 said Puff.) 50 570 /left cb-say
+(So she squeezed harder.) 562 540 /right cb-say
+/cb-halo true def cb-fontit 28 cb-type
+[(Pitter,) (patter,) (pitter,) (patter.)] 110 318 124 -34 cb-steps
+/cb-halo false def
+8 cb-folio
+showpage
