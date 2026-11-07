@@ -1,0 +1,28 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 3: left behind
+/Seed where { pop } { /Seed 13 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+150 cb-sky [0.90 0.90 0.86] cb-sky-wash
+520 520 30 cb-sun
+[200 230 270 240 210 190 180] 0.55 cb-mountains
+[190 176 184 170 178 172] [0.56 0.70 0.42] 0.55 cb-hill
+[140 128 118 110 116 108] 0.0 cb-field
+-9 0 621 100 22 5 cb-cracks
+-9 118 621 108 18 cb-strawdk cb-grass
+/cb-cloudc cb-bigc def /cb-cheek false def
+70 330 120 cb-puff 160 300 96 cb-puff
+/cb-cloudc cb-paper def /cb-cheek true def
+/cb-mood /sad def /cb-lookx -1 def 430 310 90 cb-puff
+/cb-mood /calm def /cb-lookx 0 def
+478 306 -1 cb-puffmarks
+cb-ink cb-rgb cb-font 21 cb-type
+(Off they rolled to the far mountains.) 50 564 /left cb-say
+cb-fontit 19 cb-type
+(Puff puffed and puffed,) 430 400 /center cb-say
+(but she could not keep up.) 430 376 /center cb-say
+[0.72 0.36 0.16] cb-rgb cb-font 21 cb-type
+(The sun grew hot.) 480 512 /right cb-say
+3 cb-folio
+showpage

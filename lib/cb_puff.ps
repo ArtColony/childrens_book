@@ -7,7 +7,7 @@
 % (x, y) is the middle of the cloud and w its width in points: about 60 for
 % Puff, 240-400 for a big cloud. Options, read at call time (re-def them
 % between calls, then reset):
-%   cb-mood   /calm /hope /sad /push /thin /joy /wow /grand /rumble
+%   cb-mood   /calm /hope /sad /push /thin /sleep /joy /wow /grand /rumble
 %             (default /calm)
 %   cb-cloudc the cloud's colour (default cb-paper; the big clouds are
 %             cb-bigc)
@@ -174,11 +174,12 @@
   } def
 
   cb-mood /calm eq { ex neg fy openeye ex fy openeye 1.1 cheeks /smile mouth } if
-  cb-mood /hope eq { ex neg fy openeye ex fy openeye -0.4 brows 1.1 cheeks /smile mouth } if
+  cb-mood /hope eq { ex neg fy openeye ex fy openeye 0.5 brows 1.1 cheeks /smile mouth } if
   cb-mood /sad  eq { ex neg fy openeye ex fy openeye 0.9 brows 0.9 cheeks /frown mouth } if
-  cb-mood /wow  eq { ex neg fy openeye ex fy openeye -0.8 brows 1.1 cheeks /oh mouth } if
+  cb-mood /wow  eq { ex neg fy openeye ex fy openeye 0.7 brows 1.1 cheeks /oh mouth } if
   cb-mood /push eq { ex neg fy false shuteye ex fy false shuteye 0.7 brows 1.9 cheeks /line mouth } if
-  cb-mood /thin eq { ex neg fy false shuteye ex fy false shuteye 0.9 cheeks /smile mouth } if
+  cb-mood /thin eq { ex neg fy openeye ex fy openeye 0.9 cheeks /smile mouth } if
+  cb-mood /sleep eq { ex neg fy false shuteye ex fy false shuteye 1.0 cheeks /smile mouth } if
   cb-mood /joy  eq { ex neg fy true shuteye ex fy true shuteye 1.4 cheeks /grin mouth } if
   cb-mood /grand eq { ex neg fy openeye ex fy openeye lids -0.5 brows /line mouth } if
   cb-mood /rumble eq { ex neg fy openeye ex fy openeye lids -0.9 brows /rumble mouth } if
@@ -197,11 +198,16 @@
   end
 } bind def
 
-% The seedling: x y h. Option cb-droop 0 (upright) .. 1 (flat, wilted).
+% The seedling: x y h. Option cb-droop 0 (upright) .. 1 (flat, wilted);
+% cb-droopr, when 0 or more, droops the right leaf alone (one leaf lifting).
 /cb-droop 0 cb-default
+/cb-droopr -1 cb-default
 /cb-sprout {
   10 dict begin /sh exch def /sy exch def /sx exch def
   /dr cb-droop def
+  % a small mound of earth, so the stem is planted, not standing on the line
+  newpath { sx sy translate 1 0.22 scale 0 0 sh 0.30 mul 0 180 arc closepath } cb-local
+  [0.52 0.38 0.26] 0.55 cb-wash
   /tx sx sh 0.55 mul dr mul add def
   /ty sy sh 1 dr 0.55 mul sub mul add def
   % the stem
@@ -210,7 +216,8 @@
   % two leaves at the tip, hanging when wilted
   [ -1 1 ] {
     /sd exch def
-    /la 90 sd 55 mul sub dr sd 0 gt { 95 } { -40 } ifelse mul sub def
+    /dl sd 0 gt cb-droopr 0 ge and { cb-droopr } { dr } ifelse def
+    /la 90 sd 55 mul sub dl sd 0 gt { 95 } { -40 } ifelse mul sub def
     newpath tx ty moveto
     tx la sd 25 mul add cos sh 0.35 mul mul add ty la sd 25 mul add sin sh 0.35 mul mul add
     tx la sd 25 mul sub cos sh 0.45 mul mul add ty la sd 25 mul sub sin sh 0.45 mul mul add
@@ -218,14 +225,14 @@
     tx la sd 30 mul sub cos sh 0.2 mul mul add ty la sd 30 mul sub sin sh 0.2 mul mul add
     tx la sd 40 mul sub cos sh 0.1 mul mul add ty la sd 40 mul sub sin sh 0.1 mul mul add
     tx ty curveto closepath
-    [0.48 0.74 0.36] dr 0.45 mul 1 exch sub shade 3 array astore 0.75 cb-wash
+    [0.48 0.74 0.36] dl 0.45 mul 1 exch sub shade 3 array astore 0.75 cb-wash
     newpath tx ty moveto
     tx la sd 25 mul add cos sh 0.35 mul mul add ty la sd 25 mul add sin sh 0.35 mul mul add
     tx la sd 25 mul sub cos sh 0.45 mul mul add ty la sd 25 mul sub sin sh 0.45 mul mul add
     tx la cos sh 0.6 mul mul add ty la sin sh 0.6 mul mul add curveto
     tx la sd 30 mul sub cos sh 0.2 mul mul add ty la sd 30 mul sub sin sh 0.2 mul mul add
     tx la sd 40 mul sub cos sh 0.1 mul mul add ty la sd 40 mul sub sin sh 0.1 mul mul add
-    tx ty curveto closepath sh 40 div 0.6 max cb-line
+    tx ty curveto closepath sh 90 div 0.5 max cb-line
   } forall
   end
 } bind def
@@ -278,5 +285,132 @@
   newpath fx fe 0.75 mul sub cy fe 0.45 mul sub moveto
   fx fe 0.4 mul sub cy fe 1.2 mul sub fx fe 0.4 mul add cy fe 1.2 mul sub fx fe 0.75 mul add cy fe 0.45 mul sub curveto
   cb-paper cb-rgb << /Width fr 14 div 1 max /Waver 0 >> pkliner
+  end
+} bind def
+
+% ---------------------------------------------------------------- Puff's world
+/cb-greenc [0.50 0.72 0.36] def
+
+% Far blue mountains along the horizon: [heights] alpha.
+/cb-mountains { % [h0 .. hn] alpha -> ()
+  4 dict begin /ma exch def /mh exch def
+  newpath -9 -9 moveto
+  /dx cb-W 18 add mh length 1 sub div def
+  0 1 mh length 1 sub { /i exch def -9 i dx mul add mh i get lineto } for
+  cb-W 9 add -9 lineto closepath
+  [0.55 0.62 0.78] ma cb-bigwash
+  end
+} bind def
+
+% The field: a rolling ground through [heights], coloured between straw (t=0)
+% and green (t=1).
+/cb-field { % [heights] t -> ()
+  4 dict begin /ft exch def /fh exch def
+  fh cb-straw cb-greenc ft cb-mixa 0.65 cb-hill
+  end
+} bind def
+
+% Dry cracks on the ground, in a box: x y w h n seed.
+/cb-cracks { % x y w h n seed -> ()
+  4 dict begin /sd exch def /n exch def
+  screct << /Count n /Seed sd /MinSpacing 30
+    /Mark { pop pop newpath 2 copy moveto
+            8 jit 10 add 3 jit rlineto 6 jit 5 add 4 jit 2 sub rlineto pop pop
+            cb-strawdk cb-rgb << /Width 1.1 /Taper 0.5 /Waver 0.5 >> pkliner } >> scatter
+  end
+} bind def
+
+% Rain falling from a cloud: x0 x1 (the cloud's base span) ytop ybot n seed.
+/cb-rainfall { % x0 x1 ytop ybot n seed -> ()
+  8 dict begin /sd exch def /n exch def /yb exch def /yt exch def /x1 exch def /x0 exch def
+  x0 yb x1 x0 sub yt yb sub screct << /Count n /Seed sd /MinSpacing 9
+    /Mark { pop pop newpath 2 copy moveto -3 -16 rlineto pop pop
+            cb-dropc cb-rgb << /Width 1.8 /Taper 0.6 /Waver 0.2 >> pkliner } >> scatter
+  end
+} bind def
+
+% Soft mist rising from the ground at y0 to y1, across x0..x1: pale columns.
+/cb-mist { % x0 x1 y0 y1 n -> ()
+  % Soft wisps rising in n swaying columns: a chain of pale round puffs, each
+  % bigger and fainter than the one below, so it reads as mist, not smoke
+  % or flame (the educator's note).
+  10 dict begin /n exch def /y1 exch def /y0 exch def /x1 exch def /x0 exch def
+  0 1 n 1 sub {
+    /i exch def
+    /mx x0 x1 x0 sub i 0.5 add n div mul add def
+    0 1 7 { /j exch def
+      /wy y0 y1 y0 sub j 7 div mul add def
+      /wx mx j 55 mul i 90 mul add sin 12 mul add def
+      /wr 9 j 2.5 mul add def
+      newpath { wx wy translate 1.4 1 scale 0 0 wr 0 360 arc closepath } cb-local
+      [1 1 1] 0.20 j 0.016 mul sub cb-bigwash } for
+  } for
+  end
+} bind def
+
+% A rainbow: centre x y, outer radius r.
+/cb-rainbow { % x y r -> ()
+  6 dict begin /rr exch def /ry exch def /rx exch def
+  /bw rr 0.07 mul def
+  [ [0.92 0.42 0.40] [0.96 0.66 0.36] [0.98 0.88 0.45] [0.55 0.80 0.48] [0.45 0.65 0.90] [0.62 0.50 0.82] ]
+  { /bc exch def
+    newpath rx ry rr 0 180 arc rx ry rr bw sub 180 0 arcn closepath bc 0.5 cb-wash
+    /rr rr bw sub def } forall
+  end
+} bind def
+
+% A tiny far farmhouse with a red roof, and a round tree: x y s (s = house width).
+/cb-farm { % x y s -> ()
+  6 dict begin /hs exch def /hy exch def /hx exch def
+  newpath hx hy hs hs 0.6 mul cb-rect [0.96 0.92 0.84] 0.8 cb-wash
+  newpath hx hy hs hs 0.6 mul cb-rect hs 40 div 0.5 max cb-line
+  newpath hx hs 0.1 mul sub hy hs 0.6 mul add moveto hx hs 0.5 mul add hy hs 1.05 mul add lineto
+  hx hs 1.1 mul add hy hs 0.6 mul add lineto closepath
+  gsave cb-red 0.75 cb-wash grestore hs 40 div 0.5 max cb-line
+  newpath hx hs 1.6 mul add hy hs 0.75 mul add hs 0.45 mul 0 360 arc closepath
+  gsave [0.36 0.58 0.32] 0.75 cb-wash grestore hs 40 div 0.5 max cb-line
+  newpath hx hs 1.6 mul add hy moveto 0 hs 0.35 mul rlineto hs 30 div 0.6 max cb-line
+  end
+} bind def
+
+% Mist as soft wisps that rise and curl from the ground toward a point:
+% x0 x1 (where they leave the ground) y0, tx ty (where they go), n.
+/cb-wisps { % x0 x1 y0 tx ty n -> ()
+  12 dict begin /n exch def /ty exch def /tx exch def /y0 exch def /x1 exch def /x0 exch def
+  0 1 n 1 sub { /i exch def
+    /sx x0 x1 x0 sub i 0.5 add n div mul add def
+    /ex tx i n 1 sub 2 div sub 14 mul add def
+    /bend i 2 mod 0 eq { 40 } { -40 } ifelse def
+    /w 14 i 3 mod 6 mul add def
+    [ [w 2.2 mul 0.16] [w 1.3 mul 0.24] [w 0.6 mul 0.34] ] { aload pop /al exch def /ww exch def
+      newpath sx y0 moveto
+      sx bend add y0 ty y0 sub 0.35 mul add
+      ex bend sub ty y0 sub 0.15 mul sub ty y0 sub 0.75 mul y0 add
+      ex ty curveto
+      gsave al setalpha 1 1 1 setrgbcolor
+      << /Width ww /Pressure { 180 mul sin 0.85 mul 0.15 add } >> pkribbon grestore
+    } forall
+  } for
+  end
+} bind def
+
+% Little puff marks trailing behind something moving: x y dir (1 = trail to the left).
+/cb-puffmarks { % x y dir -> ()
+  6 dict begin /dd exch def /py exch def /px exch def
+  [ [18 4 7] [34 -6 5] [48 6 4] ] { aload pop /pr exch def /oy exch def /ox exch def
+    newpath px ox dd mul sub py oy add pr 0 360 arc closepath
+    gsave cb-paper 0.85 cb-wash grestore 0.8 cb-line } forall
+  end
+} bind def
+
+% A thought bubble: three small circles from (x0,y0) up to a cloud at (x,y),
+% w wide and h tall, painted paper-white with an ink rim.
+/cb-thought { % x0 y0 x y w h -> ()
+  10 dict begin /th exch def /tw exch def /ty exch def /tx exch def /y0 exch def /x0 exch def
+  [ [0.15 3] [0.35 5] [0.6 8] ] { aload pop /tr exch def /tt exch def
+    newpath x0 tx x0 sub tt mul add y0 ty th 0.5 mul sub y0 sub tt mul add tr 0 360 arc closepath
+    gsave cb-paper cb-rgb fill grestore 0.9 cb-line } forall
+  newpath { tx ty translate tw th 0.62 div scale 0.31 [0.04 0.04 0.06 0.10 0.12 0.11 0.10 0.06] cb-cloudpath } cb-local
+  gsave cb-paper cb-rgb fill grestore 1.1 cb-line
   end
 } bind def

@@ -1,0 +1,20 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: Puff, page 5: the only cloud
+/Seed where { pop } { /Seed 15 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+90 cb-sky cb-skylite cb-sky-wash
+[80 86 82 90 84] 0.45 cb-mountains
+[70 66 62 64 68] 0.0 cb-field
+newpath { 400 52 translate 1 0.25 scale 0 0 34 0 360 arc closepath } cb-local cb-strawdk 0.35 cb-wash
+/cb-droop 1 def 396 52 34 cb-sprout /cb-droop 0 def
+/cb-mood /sad def /cb-looky -1 def 250 270 62 cb-puff /cb-mood /calm def /cb-looky 0 def
+272 300 400 410 170 70 cb-thought
+cb-ink cb-rgb cb-fontit 17 cb-type
+(\252Too small,\272) 400 420 /center cb-say
+(thought Puff.) 400 400 /center cb-say
+(\252Too small.\272) 400 380 /center cb-say
+cb-font 16 cb-type (Puff was the only cloud in the sky.) 250 222 /center cb-say
+5 cb-folio
+showpage
