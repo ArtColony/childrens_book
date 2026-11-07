@@ -1,0 +1,73 @@
+# The Ugly Duckling: checkpoint log
+
+## Checkpoint 1: interpretation, style and hero sheet
+
+- [x] **Source:** a public-domain edition was identified (Stickney, Ginn
+  1886/1914; Gutenberg #32571). Its translator is unnamed, and that is
+  stated.
+- [x] **Tale chosen by what the medium paints well:** birds, water, reeds,
+  four seasons, and almost no people.
+- [x] **Interpretation:** Andersen's "born of a swan's egg" line is
+  dropped, because it says worth comes from birth. The message is
+  explicit: *you are not wrong for being different; you are still
+  growing.*
+- [x] **Style studies:** three looks of one scene. **B, painted**, was
+  picked by the art director and agreed by the advisor. The studies were
+  sent to the reader.
+- [x] **Hero sheet, advisor test 1:** the growth row reads as one bird
+  (fresh child agent: "the same bird, getting bigger"). This needed a
+  second pass. The first sheet swapped a grey chick for a white chick that
+  never appears in the story. The advisor caught it, and `cb-dkgrow` fixed
+  it.
+- [x] **Hero sheet, advisor test 2:** the hen and the cat hold up as flat
+  lit shapes, so the cottage stays.
+- [x] **Seasons** are one table (`cb-season`) and read as palette swaps.
+- Duckling fixes from the first sheet:
+  - The neck was too long and he read as a goose: now a chick, with a big
+    head, a short thick neck and a tuft.
+  - A gap at the neck joint showed the background: the neck is now a
+    stroke in the body colour.
+  - The rim light on the fluff read as orange spots: it is now half-mixed
+    with the lit colour.
+  - The swan's black beak knob was too big.
+- **Advisor gates:** called at the opening plan, at the style pick and hero
+  sheet (above), and next at the retelling and the finished book.
+
+## Checkpoint 2: the retelling
+
+Panel on draft 1 (465 words): child, parent, and editor (6/10).
+**Lesson gate on draft 1:**
+
+- **Child:** "…keep going until you find friends who think you're
+  wonderful, and then you turn out to be a swan!"
+- **Parent:** "…you were never ugly, only different and still growing."
+
+The child's last clause is the trap the parent named: the transformation
+reads as the reward.
+
+| # | Point | Decision |
+|---|---|---|
+| 1 | Parent: "still growing" is the "you'll be beautiful later" trap; use "a swan all along". Editor: "still growing" is the real lesson; "a swan all along" leans back toward Andersen's birth line | **The editor's line, the parent's ending.** "You were different. And you were still growing." keeps growth, not birth. The last words became an invitation, "Come, swim with us", so the reward is belonging, not beauty (the parent's point) |
+| 2 | Editor: the swans speak unprompted; let him speak first, and don't end on "the ugly duckling" | **Accepted.** His whisper (adapted from Andersen's last line) comes first, and theirs is the answer |
+| 3 | Editor: drop "only" | **Accepted** |
+| 4 | Editor: cut the old woman (a person), make p7 wordless, fold the setting into p8 | **Accepted.** Three wordless pages now (7, 13, 18) |
+| 5 | Editor: cut what the art shows (p1 list, p10 leaves, p14's five beats, p16's caption) | **Accepted.** p16 is now "And there in the water was a swan." |
+| 6 | Editor: p14 gives the reveal away ("strong" wings, a white bird flying) | **Accepted,** in text and art: he stays a grey shape in flight against the light |
+| 7 | Parent: "not a clumsy grey bird any more" agrees with the bullies | **Cut** (also by the editor) |
+| 8 | Parent: no adult fixes the bullying; let the mother's "look how well he swims" come back | **Accepted:** p12 ends "His mother had always said he swam well." He saves himself with the gift she named |
+| 9 | Parent: use "ugly" only in the bullies' mouths | **Mostly.** It appears on pp. 4 and 6 (the bullies), and in p17 his own whisper, which the swans answer at once |
+| 10 | Child: burdock, marsh, nonsense | "Burdock" is cut. "Marsh" is shown on p5. "Nonsense" is kept: the hen's voice carries it |
+| 11 | Editor: aim for 280–320 words | **Partly: 376.** The cottage comedy and the winter line about his mother were kept on purpose |
+
+**Lesson gate on draft 2 (fresh readers, text only): passed.**
+
+- **Child:** "Even when you look different, you can still be lovely, and you
+  might be growing into something really wonderful."
+- **Adult:** "Being different isn't being worthless; what looks ugly may
+  simply be unfinished, and you grow into who you truly are." Asked what
+  the reward is: "belonging plus self-recognition and growth, more than
+  beauty alone."
+
+The draft 1 trap ("and then you turn out to be a swan!") is gone. The
+adult's remaining hesitations (the pecking, the all-night swim, the cold
+wild ducks) are the tale's own stakes, and they are kept, each to one line.

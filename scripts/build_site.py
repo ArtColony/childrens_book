@@ -30,6 +30,8 @@ SITE_TITLE = "Picture books in PostScript"
 STAGES = [  # (source name, page name, label)
     ("README.md", "index.html", "The book"),
     ("01-ideation.md", "ideation.html", "1 · Ideation"),
+    ("01-interpretation.md", "interpretation.html", "1 · Interpretation"),  # a retold classic
+    ("01-style.md", "style.html", "1b · Style"),
     ("02-manuscript.md", "manuscript.html", "2 · Manuscript"),
     ("03-storyboard.md", "storyboard.html", "3 · Storyboard"),
     ("checkpoints.md", "checkpoints.html", "Checkpoints"),

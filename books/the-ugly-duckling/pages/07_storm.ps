@@ -1,0 +1,18 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, page 7: the storm
+/Seed where { pop } { /Seed 17 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+cb-ground
+/summer cb-season
+120 [0.22 0.24 0.36] [0.44 0.42 0.52] cb-sky-wash
+newpath -9 -9 630 140 cb-rect [0.24 0.28 0.26] 0.9 cb-bigwash
+/cb-plit true def 230 120 180 cb-pcottage /cb-plit false def
+40 120 160 cb-pbare
+520 120 200 cb-pbare
+260 7 cb-prain
+/cb-dkgrow 0.25 def 200 120 50 cb-duckling /cb-dkgrow 0 def
+/cb-foliorgb cb-paper def
+7 cb-folio
+showpage

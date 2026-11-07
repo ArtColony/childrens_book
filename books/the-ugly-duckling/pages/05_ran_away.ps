@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, page 5: he ran away
+/Seed where { pop } { /Seed 15 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+cb-ground
+/summer cb-season
+240 cb-psky
+300 621 238 50 cb-ptreeline
+newpath 300 150 330 90 cb-rect /waterhi cb-pc cb-bfill
+330 150 160 cb-pglints
+newpath -9 -9 630 160 cb-rect [0.48 0.64 0.32] 0.9 cb-bigwash
+-9 150 621 156 18 cb-grassdk cb-grass
+-20 300 170 90 cb-phedge
+-9 60 621 50 22 [0.40 0.56 0.28] cb-grass
+/cb-dkgrow 0.1 def 400 90 70 cb-duckling /cb-dkgrow 0 def
+cb-ink cb-rgb
+(His mother hushed them, but they would not stop.) 60 572 492 /center cb-text pop
+cb-fontit 21 cb-type
+(So one morning the grey duckling ran away,) 300 330 -4 cb-sayrot
+(under the hedge and out into the wide marsh.) 330 304 -4 cb-sayrot
+5 cb-folio
+showpage

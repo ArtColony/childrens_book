@@ -1,0 +1,61 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Ugly Duckling, style study B: painted landscape
+/Seed where { pop } { /Seed 2 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-ground
+% underpainting, so the brush's broken edges show colour, not paper
+200 [0.50 0.42 0.66] [0.98 0.84 0.58] cb-sky-wash
+newpath -9 -9 630 215 cb-rect [0.46 0.44 0.66] 0.85 cb-bigwash
+% sky: broad loaded strokes, violet at the top to gold at the horizon
+/bands [ [600 [0.42 0.38 0.62] [0.50 0.42 0.66]] [550 [0.56 0.44 0.66] [0.72 0.50 0.62]] [500 [0.80 0.54 0.60] [0.88 0.60 0.56]]
+         [450 [0.92 0.64 0.54] [0.95 0.70 0.52]] [400 [0.96 0.74 0.50] [0.98 0.80 0.52]] [350 [0.98 0.82 0.54] [0.99 0.86 0.60]]
+         [300 [0.99 0.86 0.60] [0.99 0.90 0.68]] [250 [0.99 0.90 0.66] [0.98 0.86 0.62]] ] def
+bands { aload pop /c2 exch def /c1 exch def /y exch def
+  newpath -20 y moveto 640 y 6 jit add lineto
+  << /Width 64 /Depletion 0.05 /Charge 1 /Colors [c1 c2] /ColorMix 0.8 >> pkbroad } forall
+% the sun, low, with a soft glow
+{ newpath 470 236 moveto << /Nozzle 70 /Density 120 /Speck 1.1 >> pkspray } << /Soft 0.8 /Under [0.99 0.88 0.62] >> [0.99 0.80 0.50] cb-rgb pkwet
+newpath 470 236 30 0 360 arc closepath [0.99 0.84 0.50] cb-rgb fill
+% far trees: dabbed clumps of rust and ochre
+[ [30 214 [0.72 0.36 0.22]] [90 222 [0.86 0.60 0.28]] [150 212 [0.66 0.32 0.20]] [370 216 [0.82 0.52 0.26]] [440 224 [0.70 0.36 0.22]] [530 216 [0.88 0.64 0.32]] [590 212 [0.74 0.42 0.24]] ]
+{ aload pop /c exch def /y exch def /x exch def c cb-rgb
+  newpath x 30 sub y moveto x 30 add y 10 add lineto
+  << /Size 13 /Density 2.2 /Scatter 22 /Shadow 0.35 /Highlight 0.35 /Light 135 /HighlightColor [0.99 0.86 0.56] >> pkdab } forall
+% mist along the foot of the trees
+{ newpath -10 206 moveto 620 206 lineto << /Nozzle 16 /Density 260 /Speck 1.1 >> pkspray } << /Soft 0.85 /Under [0.86 0.66 0.48] >> [0.98 0.88 0.76] cb-rgb pkwet
+% water: horizontal strokes, cooler and darker toward us
+0 1 9 { /i exch def
+  newpath -20 200 i 22 mul sub moveto 640 200 i 22 mul sub 4 jit add lineto
+  << /Width 30 /Depletion 0.03 /Colors [[0.56 0.52 0.72] [0.40 0.40 0.62]] /ColorMix 0.6 >> pkbroad } for
+% the sun's path on the water
+0 1 14 { /i exch def /yy 196 i 12 mul sub def
+  newpath 470 i 3 mul sub 8 jit add yy moveto 30 i 3 mul add 0 rlineto
+  [0.99 0.84 0.56] cb-rgb << /Width 3 /Taper 0.6 /Waver 0.2 >> pkliner } for
+% reeds and cattails, dark against the light
+[ 12 26 40 52 66 84 506 522 540 558 574 592 604 ] { /x exch def
+  newpath x -9 moveto x 8 jit add 170 50 jit add lineto
+  [0.26 0.28 0.18] cb-rgb << /Width 3.5 /Taper 0.85 /Waver 0.4 >> pkliner } forall
+[ [22 150] [58 176] [532 160] [584 140] ] { aload pop /yy exch def /xx exch def
+  newpath xx yy 18 sub moveto xx 1 add yy 18 add lineto [0.40 0.24 0.14] cb-rgb << /Width 9 /Pressure { 180 mul sin 0.6 mul 0.4 add } >> pkribbon } forall
+% swans: unlined, form from light (a warm top, a cool belly)
+[ [300 470 70 0.9] [360 440 62 -0.4] [420 412 56 0.6] [240 440 62 0.2] [190 412 56 -0.8] ] {
+  aload pop /ph exch def /s exch def /y exch def /x exch def
+  newpath { x y translate s s scale ph cb-swan-wing-path } cb-local [0.94 0.90 0.90] cb-rgb fill
+  newpath { x y translate s s scale cb-swan-body-path } cb-local [1.00 0.97 0.92] cb-rgb fill
+  newpath { x y translate s s scale -0.2 -0.04 moveto 0.0 -0.09 0.2 -0.06 0.3 -0.03 curveto 0.1 -0.02 -0.1 -0.01 -0.2 -0.04 curveto closepath } cb-local [0.74 0.70 0.84] cb-rgb fill
+  newpath { x y translate s s scale ph cb-swan-wing2-path } cb-local [1.00 0.96 0.90] cb-rgb fill
+  newpath { x y translate s s scale cb-swan-beak-path } cb-local [0.90 0.46 0.18] cb-rgb fill
+} forall
+% the duckling: grey, unlined, a warm rim from the sunset
+/cb-dkup true def
+newpath { 170 96 translate 80 80 scale cb-duck-body-path } cb-local [0.46 0.46 0.50] cb-rgb fill
+newpath { 170 96 translate 80 80 scale 0 0.06 translate 0.95 0.9 scale cb-duck-body-path } cb-local [0.56 0.54 0.56] cb-rgb fill
+newpath { 170 96 translate 80 80 scale cb-duck-beak-path } cb-local [0.24 0.24 0.26] cb-rgb fill
+{ 170 96 translate 80 80 scale cb-duck-eye transform } cb-local itransform newpath 2.4 0 360 arc closepath 0.1 0.1 0.12 setrgbcolor fill
+% his reflection: the body flipped, darker, broken by ripples
+gsave 0.45 setalpha newpath { 170 92 translate 80 -50 scale cb-duck-body-path } cb-local [0.32 0.32 0.46] cb-rgb fill grestore
+0 1 3 { /i exch def newpath 140 i 8 mul sub 84 i 9 mul sub moveto 70 i 6 mul add 0 rlineto [0.58 0.56 0.76] cb-rgb << /Width 2.2 /Taper 0.5 >> pkliner } for
+cb-ink cb-rgb
+(One evening, great white birds flew over the marsh.) 60 584 492 /center cb-text pop
+showpage
