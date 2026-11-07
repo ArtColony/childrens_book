@@ -12,7 +12,7 @@ process, every stage document and every review.
 
 | | Book | |
 |---|---|---|
-| ![](books/the-ugly-duckling/previews/00_cover.png) | **[The Ugly Duckling](books/the-ugly-duckling/)**: Andersen's tale, retold from a public-domain edition and painted with no ink lines, through four seasons. The art came first: three style studies before a word was set. *First painted draft.* [PDF](books/the-ugly-duckling/the-ugly-duckling.pdf) | |
+| ![](books/the-ugly-duckling/previews/00_cover.png) | **[The Ugly Duckling](books/the-ugly-duckling/)**: Andersen's tale, retold from a public-domain edition and painted with no ink lines, through four seasons. The art came first: three style studies before a word was set. [PDF](books/the-ugly-duckling/the-ugly-duckling.pdf) | |
 | ![](books/puff/previews/00_cover.png) | **[Puff](books/puff/)**: the smallest cloud is told she's too small to rain, until a seedling needs her. An explicit-message book, with words laid out to move with the pictures. [PDF](books/puff/puff.pdf) | |
 | ![](books/ten-boats-home/previews/00_cover.png) | **[Ten Boats Home](books/ten-boats-home/)**: a counting book. Ana counts the fishing boats home, and the tenth is fog. Made with every stage and panel. [PDF](books/ten-boats-home/ten-boats-home.pdf) | |
 | ![](books/moss-goes-to-the-sea/previews/00_cover.png) | **[Moss Goes to the Sea](books/moss-goes-to-the-sea/)**: a small snail goes, slowly, to hear the sea sing. Made before the process existed; [its reflection](books/moss-goes-to-the-sea/05-reflection.md) says what that cost. [PDF](books/moss-goes-to-the-sea/moss-goes-to-the-sea.pdf) | |

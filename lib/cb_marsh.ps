@@ -82,8 +82,10 @@
 % Mist lying along the horizon: x0 x1 y.
 /cb-pmist { % x0 x1 y -> ()
   6 dict begin /my exch def /x1 exch def /x0 exch def
-  { newpath x0 my moveto x1 my lineto << /Nozzle 14 /Density 150 /Speck 1.0 >> pkspray }
-  << /Soft 0.9 /Under /skylo cb-pc >> /mist cb-pc cb-rgb pkwet
+  % A soft band, then the spray. (pkwet around the spray cost about 1 MB of
+  % PDF per call; a wash band gives the same halo for a few KB.)
+  newpath x0 my 10 sub x1 x0 sub 20 cb-rect /mist cb-pc 0.35 cb-bigwash
+  newpath x0 my moveto x1 my lineto /mist cb-pc cb-rgb << /Nozzle 14 /Density 150 /Speck 1.0 >> pkspray
   end
 } bind def
 
@@ -134,7 +136,7 @@
     /rx x0 x1 x0 sub frnd mul add def
     /hh rh 0.55 frnd 0.6 mul add mul def
     /sway 30 jit def
-    newpath rx -9 moveto rx sway 0.3 mul add hh 0.5 mul rx sway add hh lineto lineto
+    newpath rx -9 moveto rx sway add hh rx sway 0.3 mul add hh 0.5 mul lineto lineto
     i 3 mod 0 eq { /reedhi cb-pc } { /reed cb-pc } ifelse cb-rgb
     << /Width 3.2 /Taper 0.9 /Waver 0.35 >> pkliner
     i 4 mod 1 eq {
@@ -374,7 +376,6 @@
   newpath 0 0 moveto bs -0.6 mul bs 0.5 mul bs -0.5 mul bs 1.2 mul 0 bs 1.4 mul curveto
   bs 0.5 mul bs 1.2 mul bs 0.6 mul bs 0.5 mul 0 0 curveto closepath
   /treenear cb-pc 0 get cb-bfill
-  newpath 0 0 moveto bs 0.1 mul bs 0.7 mul 0 bs 1.3 mul rlineto pop pop
   newpath 0 0 moveto 0 bs 1.3 mul lineto /treenear cb-pc 2 get cb-rgb bs 40 div setlinewidth stroke
   grestore
   end
@@ -398,6 +399,7 @@
 
 % Ice over the water, from the bottom to y0, with a circle of open water at
 % (cx, cy) radius r (r 0 for none), and crack lines.
+/cb-icelo 0 cb-default   % cracks are drawn only above this y (keep them out of text)
 /cb-pice { % y0 cx cy r -> ()
   8 dict begin /ir exch def /icy exch def /icx exch def /y0 exch def
   gsave
@@ -405,7 +407,7 @@
     ir 0 gt { icx icy ir 0 360 arc closepath } if eoclip
     newpath -9 -9 630 y0 9 add cb-rect [0.90 0.93 0.97] cb-bfill
     newpath -9 y0 30 sub 630 30 cb-rect [0.80 0.84 0.92] 0.5 cb-bigwash
-    0 1 9 { pop newpath 620 frnd mul y0 frnd mul moveto 60 jit 30 jit rlineto 40 jit 20 jit rlineto
+    0 1 9 { pop newpath 620 frnd mul y0 cb-icelo sub frnd mul cb-icelo add moveto 60 jit 30 jit rlineto 40 jit 20 jit rlineto
       [0.70 0.76 0.88] cb-rgb << /Width 1.1 /Taper 0.7 /Waver 0.5 >> pkliner } for
   grestore
   ir 0 gt {

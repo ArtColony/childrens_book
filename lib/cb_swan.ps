@@ -24,12 +24,13 @@
 % The far wing uses the phase as given; the near wing (wing2) is the same
 % shape a little forward, in the opposite part of the beat.
 /cb-swan-wingshape { % dx H -> path   (H = wing height, signed)
-  /cb-swH exch def /cb-swdx exch def
+  2 dict begin /cb-swH exch def /cb-swdx exch def
   -0.10 cb-swdx add 0.05 moveto
   -0.13 cb-swdx add 0.05 0.30 cb-swH mul add  -0.09 cb-swdx add 0.05 0.58 cb-swH mul add  -0.03 cb-swdx add 0.05 0.66 cb-swH mul add curveto
   0.08 cb-swdx add 0.05 0.80 cb-swH mul add  0.22 cb-swdx add 0.05 0.98 cb-swH mul add  0.34 cb-swdx add 0.05 1.00 cb-swH mul add curveto
   0.27 cb-swdx add 0.05 0.70 cb-swH mul add  0.27 cb-swdx add 0.05 0.30 cb-swH mul add  0.22 cb-swdx add 0.05 curveto
   closepath
+  end
 } bind def
 /cb-swan-wing-path { 0 exch 0.55 mul cb-swan-wingshape } bind def          % phase -> path
 /cb-swan-wing2-path { -0.04 exch -0.45 mul cb-swan-wingshape } bind def    % phase -> path

@@ -8,9 +8,10 @@ growing all along.*
 
 ![cover](previews/00_cover.png)
 
-> **Status: first painted draft.** Stages 1–4 are done. The finished-book
-> review panel, a Codex review and the stage 5 reflection are still to
-> come.
+> **Status: finished, first painted edition.** All five stages are done. The
+> finished-book review (artist, a cold child, a cold adult, and a Claude code
+> review standing in for Codex) is in [checkpoint 4](checkpoints.md), and the
+> [reflection](05-reflection.md) lists what a second painting pass would do.
 
 The fourth book in this repo, and an experiment in **separating the art
 from the storytelling**. The story already exists (a public-domain 1886
@@ -28,6 +29,7 @@ stages went into the look:
 | 1b Style | [01-style.md](01-style.md) | Three looks of the autumn flock scene. **Painted** won. The [hero sheet](hero_sheet.png) proves the duckling reads as one bird growing |
 | 2 Retelling | [02-manuscript.md](02-manuscript.md) | Our wording, with three pages left wordless. The parent and the editor disagreed about the last line; the ending is now about belonging, not beauty |
 | 3–4 Book | [`pages/`](pages/), [`the-ugly-duckling.pdf`](the-ugly-duckling.pdf) | Painted directly and reviewed on a [contact sheet](sheet.png) |
+| 5 Reflection | [05-reflection.md](05-reflection.md) | Every reader heard "different, and growing"; the art scored 7/10, best on the wordless pages |
 
 Every decision is in [checkpoints.md](checkpoints.md), and every review is
 in [`reviews/`](reviews/).

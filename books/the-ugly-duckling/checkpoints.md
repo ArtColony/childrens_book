@@ -71,3 +71,37 @@ reads as the reward.
 The draft 1 trap ("and then you turn out to be a swan!") is gone. The
 adult's remaining hesitations (the pecking, the all-night swim, the cold
 wild ducks) are the tale's own stakes, and they are kept, each to one line.
+
+## Checkpoint 4: the finished book
+
+Panel on the 19 painted pages: artist (Sonnet), a cold child (Haiku) and a
+cold adult (Sonnet), page images only. **Codex was unavailable**, so its
+review of the code was done by a Claude code reviewer (Opus), given the
+code and CLAUDE.md but none of our notes ([process](../../docs/process.md)).
+A Codex pass can still be run later.
+
+**Lesson gate on the finished book (images only): passed.**
+
+- **Child:** "Even when you are different and other people are mean, you
+  can keep going and grow up to be wonderful."
+- **Adult:** "Being different isn't the same as being bad, and you'll find
+  where you belong while you're still growing."
+
+Artist score: **7/10.** The strongest pages are p13, p14 and p7, all of
+them nearly wordless.
+
+| # | Point | Decision |
+|---|---|---|
+| 1 | All three: text collides with art on p8 (the cat's ear), p15 (a tree trunk), p16 (the mirrored line through the swan), p18 (the credits on the reeds) | **Fixed.** p16's mirrored line is cut: it was the page's one type move, and it fought the reflection, which is the point of the page |
+| 2 | Artist and adult: "all alone." on p6 is tiny and lost in the reeds; the grey "No." lines on p8 are faint | **Fixed:** larger, darker, set in open water |
+| 3 | Artist: on p11 the duckling is bigger than on p12 (growth reads backwards), the line touches his head, and the swans are specks | **Fixed:** duckling 280 → 210, swans about twice the size, the line lifted |
+| 4 | Artist: "Crack!" is dark on dark leaves; the cover title is at the trim | **Fixed:** cream, set by the nest; the title is lowered |
+| 5 | Code review: ice cracks (p12) and snow fall into the text | **Fixed:** `cb-icelo` keeps the cracks low; the snow stops at y 500 |
+| 6 | Code review: **the 21 MB PDF is `cb-pmist`**, about 1 MB of vector spray per call, from `pkwet` | **Fixed:** a soft wash band under a plain spray. **13 MB** now; the horizon looks the same |
+| 7 | Code review: the reed path went base → tip → middle, so every reed was a hooked double stroke | **Fixed** (point order). The reeds now taper to the tip |
+| 8 | Code review: `cb-swan-wingshape` wrote into the current dict; dead code in `cb-ptree` | **Fixed** |
+| 9 | Code review: Palatino on every page, not the house NewCenturySchlbk | **Kept**: the painted style is a different book voice (see the [style note](01-style.md)). Recorded here as a per-book choice |
+| 10 | Artist: p16 should show the *grey* duckling bowing above and the swan only in the water | **Declined.** The retelling's order is welcome first (p15, still grey), then recognition (p16). The white bird above and below is the reveal |
+| 11 | Artist: p5 bird too small, p9 doorway reads as a wall, p17 swans cropped, the sparkly horizon repeats, ear tufts read as cat ears | **Deferred** to a second painting pass (listed in the reflection) |
+| 12 | Adult: wordless p7 and p13 leave the parent to narrate; the cruelty ("ugly", "no use at all") | **Kept.** The wordless pages were the artist's strongest. The cruelty is the tale's stakes, each one line, and the swans answer it |
+| 13 | Child: p13 unclear ("night or snow?") | **Kept** for now: p12 sets it up on the facing page. Noted for the second pass |

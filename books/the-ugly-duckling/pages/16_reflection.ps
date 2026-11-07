@@ -10,13 +10,12 @@ cb-ground
 -10 620 334 cb-pmist
 /cb-swbow true def /cb-dkface -1 def
 gsave 0 300 translate 1 -1 scale 0 -300 translate 330 300 320 cb-swanswim grestore
-newpath -9 0 630 300 cb-rect [0.56 0.74 0.90] 0.25 cb-bigwash
+newpath -9 0 630 300 cb-rect [0.56 0.74 0.90] 0.12 cb-bigwash
 0 1 8 { /i exch def newpath 160 i 9 mul sub 280 i 26 mul sub moveto 300 i 14 mul add 0 rlineto /glint cb-pc cb-rgb << /Width 2 /Taper 0.6 >> pkliner } for
 330 300 320 cb-swanswim
 /cb-swbow false def /cb-dkface 1 def
 cb-ink cb-rgb
 (The duckling bowed his head too.) 60 572 492 /center cb-text pop
 cb-fontit 30 cb-type (And there in the water was a swan.) 306 500 /center cb-say
-gsave 0 487 translate 1 -1 scale 0 -487 translate 0.35 setalpha (And there in the water was a swan.) 306 500 /center cb-say grestore
 16 cb-folio
 showpage

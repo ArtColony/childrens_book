@@ -95,6 +95,11 @@ Who reviews which stage:
 | 4 Book | artist, child, parent | advisor, then a **Codex** review of the finished book and its code: a different model family, for a read not anchored on ours |
 | 5 Reflection | writer | none |
 
+**While Codex is unavailable** (from *The Ugly Duckling* on), the Codex
+review is replaced by a Claude code reviewer (Opus, given the code and the
+conventions but not our notes) and by the advisor. Each book's checkpoints
+say which review it had, so a Codex pass can be run later.
+
 The reviewers run in parallel and never see each other's notes. Each review
 is saved under `books/<slug>/reviews/<stage>-<reviewer>.md`, and
 `checkpoints.md` records what each review changed and what was declined,
