@@ -103,7 +103,7 @@ wordless pages and a near-wordless one let the art lead.
 | 3 | The grey duckling in the water, swimming well; his mother watching | summer | 0 | M | none |
 | 4 | The duck yard: ducks pecking and the hen chasing him | summer | 0 | M | "How big and ugly he is!" in jagged, crowding letters |
 | 5 | Wide: a small grey bird running under the hedge toward the open marsh | summer | 0.1 | W | the words run with him, left to right |
-| 6 | The wild ducks on the open marsh, the duckling apart in the reeds | late summer | 0.2 | W | "all alone" set small and apart |
+| 6 | The wild ducks on the open marsh, the duckling apart in the reeds | late summer | 0.2 | W | "all alone" set apart, in the open water |
 | 7 | *(wordless)* The cottage at dusk in a storm: rain, one lit window, the duckling small at the door | late summer, storm | 0.25 | W | wordless |
 | 8 | Inside: the hen and the cat face the duckling; the questions | late summer | 0.25 | M | the hen's and the cat's lines placed by each speaker |
 | 9 | The duckling at the cottage door, looking out at the wide water | late summer | 0.3 | M | none |
@@ -113,7 +113,7 @@ wordless pages and a near-wordless one let the art lead.
 | 13 | *(wordless)* From above: a dark circle of open water in white ice, snow falling, the duckling in it | winter night | 0.75 | W, top-down | wordless |
 | 14 | Spring: the ice broken, the duckling rising over the marsh, **kept grey and in shadow** against the bright sky (the reveal waits for p16) | spring | 0.8, a dark shape in flight | W | the words climb with the flight |
 | 15 | The apple-blossom garden: three swans gliding toward him, bowing | spring | swan | M | "Welcome" set small, by the bowing heads |
-| 16 | **The heart's page:** he bows and sees a swan in the water; the reflection is the biggest image in the book | spring | swan (bowed) | C | the text mirrored by the water's edge |
+| 16 | **The heart's page:** he bows and sees a swan in the water; the reflection is the biggest image in the book | spring | swan (bowed) | C | none (the mirrored line was cut at checkpoint 4: it fought the reflection) |
 | 17 | The four swans together on the water, sun on them | spring | swan | M | "You were never ugly…" set apart, large |
 | 18 | *(wordless)* Four swans flying over the spring marsh | spring | swan | W | wordless |
 
