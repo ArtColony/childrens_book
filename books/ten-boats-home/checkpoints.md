@@ -222,6 +222,8 @@ then found a real bug on the last count.
 | 75 | Stiff figures; the face doesn't act fear and joy (editor, three panels) | **Logged as the book's ceiling** | This is the house style's limit: profile figures built from simple shapes. The next book should prove expressive faces and bodies on its hero sheet *before* writing (a stage 1 lesson; see the reflection) |
 | 76 | Mama's hand on Ana in nearly every frame dilutes "I can, though I'm small" (editor) | **Keep** | This is the parent's safety requirement and the editor's heart requirement pulling against each other. Safety wins in a book for 3–6s; Ana still makes every choice |
 
+**Verified:** a fresh child agent shown only the final p17 counted ten boats by colour, then "the glowy light on the pole, that's eleven!", and asked "Did she count the light?" ([check](reviews/04-book-r3-child-eleven.md)). #71 is confirmed.
+
 **Checkpoint 4 passed.** Strict lint, 19 pages, a reproducible bind, and
 every panel point adopted or declined with a reason.
 

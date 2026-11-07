@@ -81,7 +81,7 @@ contradictions in these columns.
 | 11 | Mama lights it. *Click!* … out they go, into the fog. | Ana walking → with the lit lamp in both hands, its glass door shut; Mama a step behind, a hand near her | M | fog, one gold light | 0 | Ana's hands, lit | walking out | yes, behind |
 | 12 | At the very end … Nothing. Only fog. | Ana at the pier's end, lamp up, a small glow swallowed by fog; Mama beside her | W | fog-night | 0 | held up | end | yes, beside |
 | 13 | So she holds it higher. | **The heart's page:** the same place, tiptoe, arms straight up; the glow is the biggest light in the book | W | fog-night, gold | 0 | held highest | end, tiptoe | yes, small, beside |
-| 14 | Something blinks back … a little *blue* boat | The blue boat coming ← out of the fog, its own lantern lit; Ana's light at the right edge | M | fog-night | 1 (blue) | Ana's hands (edge) | end | yes (edge) |
+| 14 | Something blinks back … a little *blue* boat | Out in the fog, only a light: the blue boat a ghost in thicker fog, its colour and Grandpa kept for the turn; Ana's light at the left edge, Mama's hand on her | M | fog-night | 1 (ghost) | Ana's hands | end | yes, hand on Ana |
 | 15 | *Ten!* Little. Blue. *Grandpa's.* | Close and low: the little blue boat (blue hull and sail) alongside, Grandpa waving, its lamp and Ana's answering each other; the nine moored, small, behind | M | night, fog parting | **10** (9 far + 1 near) | Ana's hands | end | yes, catching the rope |
 | 16 | Grandpa lifts Ana up. "I saw your light … Ten boats home." | Grandpa on the pier lifting Ana high, the lamp in her hands lighting both their faces; Mama with the rope | M | night, gold | 10 (behind) | Ana's hands, held high | in Grandpa's arms | yes |
 | 17 | "*Eleven*," says Ana. | Close on Ana in Grandpa's arms, grinning, holding up the lamp like the eleventh thing counted; ten masts behind | C | night, clearing | 10 (behind) | Ana's hands | in Grandpa's arms | edge |
@@ -114,9 +114,10 @@ little over. Accepted for a square single-page format.
 - **12 → 13:** "Nothing. Only fog." becomes *So she holds it higher.* Her
   second choice is braver than her first, and it costs her the turn.
 - **13 → 14:** the answer blinks back, light to light.
-- **16 → 17:** Grandpa counts "ten boats home, and one little light". Ana
-  counts past the title: ***"Eleven."*** The child who counted everyone
-  counts herself, and the book ends on her voice.
+- **16 → 17:** Grandpa says "I saw your light. Ten boats home." He credits
+  the light without counting it. Ana counts past the title: ***"Eleven."***
+  The child who counted everyone counts her light in, and the book ends on
+  her voice.
 
 ## The heart, checked again
 

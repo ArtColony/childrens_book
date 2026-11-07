@@ -5,3 +5,6 @@ renders/
 .DS_Store
 .playwright-mcp/
 dist/
+
+# an interrupted bind leaves its half-built PDF here
+*.part.pdf

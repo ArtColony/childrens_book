@@ -81,7 +81,8 @@ These never need to be said in the book, so they are said here:
 ## 5. What we'd change, and the ceiling
 
 **Scores:** the editor's score went 5 → 6.5 (manuscript) → 6.5 (first
-painted pass) → **7** (finished book). Codex scored the earlier pass
+painted pass) → **7** (after the stage 4 revision; round 2's three fixes were
+not re-scored). Codex scored the earlier pass
 6.5. The text was judged about 7.5 by the end. **The pictures are the
 ceiling:** three panels independently said the figures are too stiff to
 act fear and joy. Profile figures built from circles and ribbons can show
@@ -100,8 +101,9 @@ where a character is and what she holds, but barely what she feels.
   missed what the panels caught. The manuscript panels missed what the
   storyboard showed. The storyboard missed what paint changed.
 - **The child reviewer was the most useful one,** because it was literal.
-  "Who is the eleven?" was asked four times by four fresh child agents, and
-  each time the answer had to be fixed in the *picture*, not the words. A
+  "Who is the eleven?" was asked by three fresh child agents in turn
+  (storyboard, finished book, round 2), and each time the answer had to be
+  fixed in the *picture*, not the words. A
   five-year-old counting boats with a finger is a better test than any
   editor.
 - **Fresh reviewers mattered.** The editor who suggested a change would
