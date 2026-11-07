@@ -14,11 +14,14 @@ newpath -9 -9 630 160 cb-rect [0.48 0.64 0.32] 0.9 cb-bigwash
 -9 150 621 156 18 cb-grassdk cb-grass
 -20 300 170 90 cb-phedge
 -9 60 621 50 22 [0.40 0.56 0.28] cb-grass
-/cb-dkgrow 0.1 def 400 90 70 cb-duckling /cb-dkgrow 0 def
+/cb-dkgrow 0.1 def 300 112 92 cb-duckling /cb-dkgrow 0 def
+% he is running: three quick strokes behind him
+0 1 2 { /i exch def newpath 240 i 9 mul sub 128 i 12 mul add moveto -34 i 6 mul add 0 rlineto
+  [0.92 0.96 0.80] cb-rgb << /Width 2.6 /Taper 0.8 >> pkliner } for
 cb-ink cb-rgb
 (His mother hushed them, but they would not stop.) 60 572 492 /center cb-text pop
 cb-fontit 21 cb-type
-(So one morning the grey duckling ran away,) 300 330 -4 cb-sayrot
-(under the hedge and out into the wide marsh.) 330 304 -4 cb-sayrot
+(So one morning the grey duckling ran away,) 300 420 -4 cb-sayrot
+(under the hedge and out into the wide marsh.) 330 394 -4 cb-sayrot
 5 cb-folio
 showpage

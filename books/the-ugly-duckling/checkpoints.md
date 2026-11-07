@@ -105,3 +105,18 @@ them nearly wordless.
 | 11 | Artist: p5 bird too small, p9 doorway reads as a wall, p17 swans cropped, the sparkly horizon repeats, ear tufts read as cat ears | **Deferred** to a second painting pass (listed in the reflection) |
 | 12 | Adult: wordless p7 and p13 leave the parent to narrate; the cruelty ("ugly", "no use at all") | **Kept.** The wordless pages were the artist's strongest. The cruelty is the tale's stakes, each one line, and the swans answer it |
 | 13 | Child: p13 unclear ("night or snow?") | **Kept** for now: p12 sets it up on the facing page. Noted for the second pass |
+
+## Checkpoint 5: the second painting pass
+
+The art items deferred at checkpoint 4, painted:
+
+| Page | Was | Now |
+|---|---|---|
+| all | two-pointed head tufts read as a cat's ears | one soft wisp of down, which fades as he grows |
+| 5 | a small dot standing mid-lawn | a bigger bird running out from under the hedge, toward the water; the words lifted clear of the hedge |
+| 6 | the same mid-page horizon as five other pages | a high horizon: a wide marsh, and a small bird in it |
+| 9 | a brown slab that read as a wall | the lamp-lit wall, the door frame, the open door with its latch, and a doorstep in the spilled light |
+| 17 | four equal swans, two cropped | the young swan in front and largest; nobody cropped; the trees clear of the text |
+
+Kept: p13 (the child's "night or snow?"). p12 sets it up on the page before.
+Moss, Ten Boats Home and Puff still rebind byte-identical.

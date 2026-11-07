@@ -10,9 +10,14 @@ cb-ground
 200 cb-pwater 420 200 90 cb-pglints
 newpath 420 214 26 0 360 arc closepath [0.99 0.90 0.60] cb-bfill
 -10 620 204 cb-pmist
-newpath -9 -9 200 630 cb-rect [0.40 0.32 0.28] cb-bfill
-newpath 160 -9 40 630 cb-rect [0.30 0.24 0.22] cb-bfill
-/cb-dkgrow 0.3 def 280 110 130 cb-duckling /cb-dkgrow 0 def
+newpath -9 -9 129 630 cb-rect [0.86 0.74 0.56] cb-bfill            % the cottage wall inside, lamp-lit
+newpath -9 -9 129 630 cb-rect [0.70 0.56 0.40] 0.4 cb-bigwash
+newpath 120 -9 moveto 120 640 lineto 150 640 lineto 150 -9 lineto closepath [0.36 0.26 0.20] cb-bfill   % the frame
+newpath 120 40 moveto 40 0 lineto 40 520 lineto 120 470 lineto closepath [0.50 0.34 0.24] cb-bfill     % the open door
+newpath 108 250 5 0 360 arc closepath [0.86 0.72 0.36] cb-bfill                                         % its latch
+newpath 150 -9 moveto 150 70 lineto 440 70 lineto 380 -9 lineto closepath [0.99 0.88 0.60] 0.35 cb-bigwash  % light spilling out
+newpath 150 -9 moveto 150 60 lineto 360 60 lineto 330 -9 lineto closepath [0.62 0.48 0.34] cb-bfill      % the doorstep
+/cb-dkgrow 0.3 def 260 66 130 cb-duckling /cb-dkgrow 0 def
 500 621 220 18 cb-preeds
 cb-ink cb-rgb
 (\252But I love to swim,\272 said the duckling, \252and to dive to the bottom of the water.\272 \252What nonsense!\272 said the hen. So the duckling went back out into the wide world.) 220 584 360 /left cb-text pop

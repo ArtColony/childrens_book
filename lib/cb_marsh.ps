@@ -179,8 +179,10 @@
     % neck: a thick round-capped stroke from the body to the head
     % head and tuft
     hx hy hr 0 360 arc closepath
-    hx 0.06 sub hy hr 0.8 mul add moveto hx 0.03 sub hy hr 0.8 mul add 0.09 tf mul add lineto hx 0.01 add hy hr 0.8 mul add 0.02 add lineto
-    hx 0.03 add hy hr 0.8 mul add 0.07 tf mul add lineto hx 0.05 add hy hr 0.8 mul add lineto closepath
+    % one soft wisp of down, leaning back (two points read as a cat's ears)
+    hx 0.05 sub hy hr 0.75 mul add moveto
+    hx 0.04 sub hy hr 0.9 mul add 0.06 tf mul add  hx 0.08 sub hy hr 0.9 mul add 0.09 tf mul add  hx 0.10 sub hy hr 0.9 mul add 0.08 tf mul add curveto
+    hx 0.04 sub hy hr 0.9 mul add 0.04 tf mul add  hx 0.00 add hy hr 0.9 mul add 0.01 add  hx 0.02 add hy hr 0.75 mul add curveto closepath
   } def
   /neckp { newpath 0.14 0.20 moveto hx 0.03 sub hy 0.04 sub lineto } def
   /paintall { % colour -> the union of body, neck and head in that colour
