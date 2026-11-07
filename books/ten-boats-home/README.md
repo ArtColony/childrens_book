@@ -61,6 +61,6 @@ Every decision is in [checkpoints.md](checkpoints.md), and every review in
 >
 > **15.** *Ten!* Little. Blue. *Grandpa's.*
 >
-> **16.** He lifts Ana up, lamp and all. "Ten boats home," says Grandpa, "and one little light."
+> **16.** Grandpa lifts Ana up. "I saw your light," he says. "Ten boats home."
 >
 > **17.** "*Eleven*," says Ana.

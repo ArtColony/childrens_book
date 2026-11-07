@@ -201,3 +201,26 @@ boat correctly through ten, then asked again **"Why is it eleven?"**
 | 70 | Mama is carer, Grandpa is captain (parent) | **Noted** | Mama mends nets (she fishes too) and does the one dangerous job, the match. A fuller fix is a stage 1 cast question, logged for the reflection |
 
 **Draft 4:** 192 words.
+
+### Finished book, round 2
+
+*Fresh reviews of the revised book: [editor](reviews/04-book-r2-writer.md)
+(Opus), [child](reviews/04-book-r2-child.md) (Haiku); a Codex review was also
+run.*
+
+The editor's score rose from **6.5 to 7/10**: "the structure, the refrain and
+its flip, the 'Ten is fog' turn and the light-and-sky art are all at a
+professional level". The child matched every count from one to ten, and
+then found a real bug on the last count.
+
+| # | Point (reviewer) | Decision | What changed |
+|---|---|---|---|
+| 71 | **p17: "I count eight boats and one lamp. That's nine."** Two boats in the row were hidden behind the grown-ups' heads (child) | **Adopt** | The row is raised clear of everyone's heads: ten boats and the lamp, eleven things in one line, and nothing in front of them |
+| 72 | **The joke is explained before Ana makes it:** "and one little light" (editor) | **Adopt** | p16: "Grandpa lifts Ana up. 'I saw your light,' he says. 'Ten boats home.'" Grandpa credits the light; Ana finds the eleven herself. The "lamp and all" description is cut |
+| 73 | **The reveal is spent a page early:** the blue boat clearly drawn on the blink page (editor) | **Adopt in the art, keep the words** | On p14 the boat is now a ghost in thicker fog, and only its light is sharp; its colour and Grandpa arrive on the turn. The words stay: "A little light. A little boat. A little *blue* boat." is the line three readers named as the book's music, and it narrows like the fog thinning |
+| 74 | Slow the count; merge the middle pages (editor) | **Decline for this edition** | That would restructure the book around one reader's preference. Two counting pages are deliberately quick, a speeding count while the sun goes down, and earlier panels found the middle pages earned by the lamp |
+| 75 | Stiff figures; the face doesn't act fear and joy (editor, three panels) | **Logged as the book's ceiling** | This is the house style's limit: profile figures built from simple shapes. The next book should prove expressive faces and bodies on its hero sheet *before* writing (a stage 1 lesson; see the reflection) |
+| 76 | Mama's hand on Ana in nearly every frame dilutes "I can, though I'm small" (editor) | **Keep** | This is the parent's safety requirement and the editor's heart requirement pulling against each other. Safety wins in a book for 3–6s; Ana still makes every choice |
+
+**Checkpoint 4 passed.** Strict lint, 19 pages, a reproducible bind, and
+every panel point adopted or declined with a reason.

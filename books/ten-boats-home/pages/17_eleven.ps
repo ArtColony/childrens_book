@@ -5,23 +5,24 @@
 (lib/cb_book.ps) run
 cb-ground
 /night cb-light
-330 cb-harbour-sky
-% the count laid out for a finger: ten boats in one row, and in the same row,
-% at the same spacing, the lamp set on the last mooring post: the eleventh
+380 cb-harbour-sky
+% the count laid out for a finger: ten boats in one row, high and clear of
+% everyone's heads, and in the same row, at the same spacing, the lamp on the
+% last mooring post: the eleventh
 /cb-face -1 def
-0 1 8 { /i exch def 40 i 47 mul add 262 17 cb-sails i get cb-boat } for
-/cb-boatlight false def 40 9 47 mul /cb-hullc [0.42 0.64 0.90] def add 262 14 cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def
+0 1 8 { /i exch def 40 i 47 mul add 330 17 cb-sails i get cb-boat } for
+/cb-hullc [0.42 0.64 0.90] def 40 9 47 mul add 330 14 cb-gpblue cb-boat /cb-hullc [0.95 0.93 0.88] def
 /cb-face 1 def
 /cb-lx 40 10 47 mul add def
-newpath cb-lx 3 sub 230 6 44 cb-rect cb-wood-c 0.75 shade 3 array astore 0.9 cb-wash
-newpath cb-lx 3 sub 230 6 44 cb-rect 0.8 cb-line
-cb-lx 286 30 cb-glow
-/cb-lit true def cb-lx 300 28 cb-lantern /cb-lit false def
--9 650 90 60 cb-pier
-% the family, whole, on the pier: Ana points along the row, grinning
-/cb-mamahand [0.20 0.50] def 120 90 240 cb-mama /cb-mamahand [0.24 0.55] def
-230 90 270 cb-grandpa
-/cb-arm /out def /cb-grin true def 360 90 170 cb-ana /cb-arm /down def /cb-grin false def
+newpath cb-lx 3 sub 298 6 44 cb-rect cb-wood-c 0.75 shade 3 array astore 0.9 cb-wash
+newpath cb-lx 3 sub 298 6 44 cb-rect 0.8 cb-line
+cb-lx 354 34 cb-glow
+/cb-lit true def cb-lx 368 28 cb-lantern /cb-lit false def
+-9 650 70 50 cb-pier
+% the family, whole, on the pier below the row: Ana points along it, grinning
+/cb-mamahand [0.20 0.50] def 120 70 190 cb-mama /cb-mamahand [0.24 0.55] def
+220 70 210 cb-grandpa
+/cb-arm /out def /cb-grin true def 330 70 140 cb-ana /cb-arm /down def /cb-grin false def
 cb-paper cb-rgb
 cb-fontit findfont 46 scalefont setfont (\252Eleven,\272) 306 540 showctr
 cb-font findfont cb-size scalefont setfont (says Ana.) 306 500 showctr

@@ -42,8 +42,7 @@ are in [`reviews/`](reviews/) and in git history. The decisions are logged in
 >
 > *Ten!* Little. Blue. *Grandpa's.*
 >
-> He lifts Ana up, lamp and all. "Ten boats home," says Grandpa, "and one
-> little light."
+> Grandpa lifts Ana up. "I saw your light," he says. "Ten boats home."
 >
 > "*Eleven*," says Ana.
 
@@ -84,7 +83,7 @@ contradictions in these columns.
 | 13 | So she holds it higher. | **The heart's page:** the same place, tiptoe, arms straight up; the glow is the biggest light in the book | W | fog-night, gold | 0 | held highest | end, tiptoe | yes, small, beside |
 | 14 | Something blinks back … a little *blue* boat | The blue boat coming ← out of the fog, its own lantern lit; Ana's light at the right edge | M | fog-night | 1 (blue) | Ana's hands (edge) | end | yes (edge) |
 | 15 | *Ten!* Little. Blue. *Grandpa's.* | Close and low: the little blue boat (blue hull and sail) alongside, Grandpa waving, its lamp and Ana's answering each other; the nine moored, small, behind | M | night, fog parting | **10** (9 far + 1 near) | Ana's hands | end | yes, catching the rope |
-| 16 | He lifts Ana up … "and one little light." | Grandpa on the pier lifting Ana high, the lamp in her hands lighting both their faces; Mama with the rope | M | night, gold | 10 (behind) | Ana's hands, held high | in Grandpa's arms | yes |
+| 16 | Grandpa lifts Ana up. "I saw your light … Ten boats home." | Grandpa on the pier lifting Ana high, the lamp in her hands lighting both their faces; Mama with the rope | M | night, gold | 10 (behind) | Ana's hands, held high | in Grandpa's arms | yes |
 | 17 | "*Eleven*," says Ana. | Close on Ana in Grandpa's arms, grinning, holding up the lamp like the eleventh thing counted; ten masts behind | C | night, clearing | 10 (behind) | Ana's hands | in Grandpa's arms | edge |
 | 18 | *(no words)* | The lamp back on its hook, lit; ten boats moored; the three walking home ← small in the distance | W | night, a few stars | 10 | hook, lit | walking home | yes |
 
