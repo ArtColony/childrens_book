@@ -354,7 +354,7 @@
   /bw rr 0.07 mul def
   [ [0.92 0.42 0.40] [0.96 0.66 0.36] [0.98 0.88 0.45] [0.55 0.80 0.48] [0.45 0.65 0.90] [0.62 0.50 0.82] ]
   { /bc exch def
-    newpath rx ry rr 0 180 arc rx ry rr bw sub 180 0 arcn closepath bc 0.5 cb-wash
+    newpath rx ry rr 0 180 arc rx ry rr bw sub 180 0 arcn closepath bc 0.32 cb-wash
     /rr rr bw sub def } forall
   end
 } bind def
@@ -414,3 +414,4 @@
   gsave cb-paper cb-rgb fill grestore 1.1 cb-line
   end
 } bind def
+/cb-voicec [0.34 0.37 0.50] def   % the big clouds' voice: dark slate letters

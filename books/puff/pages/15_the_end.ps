@@ -5,7 +5,7 @@
 (lib/cb_book.ps) run
 cb-ground
 120 cb-sky cb-skylite cb-sky-wash
-gsave 0.6 setalpha 306 100 270 cb-rainbow grestore
+306 100 270 cb-rainbow
 [130 150 140 160 150] 0.45 cb-mountains
 30 190 410 120 50 31 cb-rainfall
 420 580 410 120 50 32 cb-rainfall
@@ -15,13 +15,13 @@ gsave 0.6 setalpha 306 100 270 cb-rainbow grestore
 60 120 9 cb-pink cb-flower 560 124 10 [0.75 0.65 0.95] cb-flower
 /cb-flmood /joy def 470 30 120 cb-sunflower /cb-flmood /calm def
 /cb-cloudc cb-bigc def /cb-cheek false def
-/cb-mood /calm def 110 460 230 cb-puff 502 460 230 cb-puff
+/cb-mood /joy def 110 460 230 cb-puff 502 460 230 cb-puff
 /cb-cloudc cb-paper def /cb-cheek true def
 /cb-mood /joy def 306 480 100 cb-puff /cb-mood /calm def
 cb-ink cb-rgb cb-titlefont 44 cb-type
 (The End) 306 100 150 cb-arcstr
-40 6 532 40 cb-panel
-cb-ink cb-rgb cb-font 10 cb-type
+130 8 352 32 cb-panel
+cb-ink cb-rgb cb-font 8.5 cb-type
 (Puff. Written, painted and set in PostScript, rendered with pscat.) 306 30 /center cb-say
 (An ArtColony project: github.com/ArtColony/childrens_book) 306 16 /center cb-say
 showpage

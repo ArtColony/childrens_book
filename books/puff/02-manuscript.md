@@ -1,6 +1,8 @@
 # Stage 2: Manuscript
 
-*Draft 2: draft 1 revised by the stage 2 panel. Draft 1 and the reviews are
+*Draft 3: draft 1 was revised by the stage 2 panel, and one line was added
+from the finished-book panel (p12: the seedling "grew and grew", so the
+sunflower isn't a surprise). Draft 1 and the reviews are
 in [`reviews/`](reviews/) and in git history. The decisions are logged in
 [checkpoints.md](checkpoints.md#checkpoint-2-manuscript).*
 
@@ -39,8 +41,8 @@ in [`reviews/`](reviews/) and in git history. The decisions are logged in
 > **11.** In the morning, soft mist rose up, up, up, and Puff drank it in.
 > The water she gave had come back to her. Puff was round again!
 >
-> **12.** Weeks went by. The big clouds came rolling home. "Who watered
-> you?" they rumbled.
+> **12.** Weeks went by. The little seedling grew and grew. Then the big
+> clouds came rolling home. "Who watered you?" they rumbled.
 >
 > **13.** "Puff did," said the sunflower. "Puff?" rumbled the big clouds.
 > "Too small. Too small." "Not too small," said the sunflower. "*Just
@@ -53,7 +55,7 @@ in [`reviews/`](reviews/) and in git history. The decisions are logged in
 The end page has no words: Puff raining with the big clouds over the green
 field, the sunflower turned up to her, and a rainbow.
 
-**Word count:** 261 (draft 1 was about 310; story text
+**Word count:** 268 (draft 1 was about 310; story text
 only, without page numbers). Every sentence is 14 words or fewer.
 
 ## Page plan

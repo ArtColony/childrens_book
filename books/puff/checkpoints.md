@@ -49,3 +49,65 @@ changes:
 | 12 | Parent: Puff is included only after proving herself | **Logged, not changed.** The apology names the clouds' mistake, not Puff's success |
 | 13 | Educator: exactly three drops in the art on pp. 6–7 and the cover | **Art rule** |
 | 14 | Educator: the note says the clouds say "too small" on pp. 2, 5 and 6 | **Fixed** in the message check |
+
+## Checkpoints 3–4: storyboard and book
+
+**No separate rough storyboard.** Every page renders in about a second and
+the medium is proven, so the pages were painted directly and judged as a
+sequence on the contact sheet. The sheet is the storyboard. Fixes made at
+the sheet stage:
+
+- a paper gap under the cover's sky;
+- the mist drawn as flames, then as columns, and finally as rising wisps;
+- the seedling too small on its first page;
+- a hard-edged wet patch.
+
+**Panel round 1** (artist 6.5/10, child, cold adult). **Gate passed:** the
+child said *"Even a tiny cloud can help, so you don't have to be big to
+help!"*; the adult said *"Being small doesn't mean you can't help…"*.
+
+| Point | Decision |
+|---|---|
+| p5 shows two far clouds, but the text says "the only cloud" (child and adult) | **Fixed**: the far clouds are removed |
+| Puff's brows read as cross (cover, p4) | **Fixed**: hope and wow brows now lift at the inner ends |
+| p9 "thin" not visible | **Fixed**: smaller and wispier, eyes open, smiling (the editor's safe-cost rule) |
+| p6 seedling cropped, drops miss it | **Fixed** |
+| The seedling floats on the ground line | **Fixed**: a mound of earth under every seedling |
+| p10 "night" with no night | **Fixed**: indigo sky, stars, crescent moon |
+| Puff tiny at the emotional peaks | **Fixed**: 250 pt on the cover, 130 on p4, 140 on p13 |
+| The sunflower shrinks from p13 to p14 | **Fixed**: large in the foreground on p14 |
+| p1 farm speck | **Replaced** by the edge of a huge cloud, for scale |
+| The cover shows the happy end | **Fixed**: the green spot is gone |
+| "rumbled" unknown (child, twice) | **Kept.** The big clouds' heavy type and open mouths teach it |
+
+**The reader's request: "Be more creative with the layout of text and
+images."** Every page was re-set. New display-type tools in `cb_kit`:
+
+- `cb-say`: placed lines, with an optional paper halo;
+- `cb-sayrot`: a turned line;
+- `cb-rumble`: heavy wobbling capitals;
+- `cb-bounce`: bobbing letters;
+- `cb-arcstr`: a line along an arc;
+- `cb-steps`: a staircase or fall of words.
+
+**Panel round 2** (artist: art 6.5, layout 7; child; Codex 7.5). **Gate
+passed again:** the child said *"Even a very small cloud can help the whole
+world when she keeps trying."* The child got lost in the reading order on
+six pages, and the artist said the text was "scattered, not
+choreographed".
+
+| Point | Decision |
+|---|---|
+| Reading order lost (pp. 3, 5, 11, 12, 13) | **Fixed.** One reading path per page: top to bottom, and only one creative move per page. p11 became one calm block plus the hero line. The p3 sun line moved last. The p5 narration moved to the top |
+| The big clouds' hollow letters were illegible | **Fixed**: dark slate fill (`cb-voicec`) |
+| p2 "Too small. Too small." | **Echo:** two lines, the second smaller and lower |
+| p8 pitter/patter read out of order | **Fixed**: one descending staircase |
+| p10 arc text on low-contrast peach | **Fixed**: the arc is wider and rides the night sky |
+| p13 "Just right." should be the hero line | **Fixed**: 52 pt, with air around it |
+| p12: where did the sunflower come from? (child) | **Text change:** "The little seedling grew and grew." (draft 3) |
+| Codex: the rainbow ignored the caller's `setalpha` (`pkwash` sets its own alpha) | **Fixed** in `cb-rainbow` (the wash strength is lowered); the caller's `setalpha` is removed |
+| Codex: Puff's line on p2 ran to the page edge | **Fixed** |
+| Artist: the plain horizon pages lack Moss's depth | **Partly.** Foreground grass and the huge cloud edge help. Flat skies remain the ceiling (see the reflection) |
+
+Codex found no stack, graphics-state or cross-book leaks. Both earlier PDFs
+are still byte-identical (Moss `c50ed404…`, Ten Boats Home `339b07ad…`).
