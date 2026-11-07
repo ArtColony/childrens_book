@@ -24,6 +24,7 @@
   /sunset  [ [0.52 0.52 0.80] [0.98 0.62 0.45] [0.38 0.44 0.66] ]
   /dusk    [ [0.30 0.29 0.55] [0.74 0.52 0.64] [0.24 0.30 0.52] ]
   /fog     [ [0.60 0.62 0.67] [0.80 0.80 0.80] [0.46 0.52 0.58] ]
+  /fognight [ [0.20 0.23 0.33] [0.36 0.40 0.50] [0.18 0.22 0.31] ]
   /night   [ [0.16 0.20 0.40] [0.30 0.32 0.56] [0.13 0.20 0.36] ]
 >> def
 /cb-lightname /gold cb-default
@@ -33,7 +34,8 @@
   /cb-seac exch def /cb-skylow exch def /cb-skytop exch def
 } bind def
 /gold cb-light
-/cb-lit-windows { cb-lightname dup /dusk eq exch dup /fog eq exch /night eq or or } bind def
+/cb-lit-windows { cb-lightname dup /dusk eq exch dup /fog eq exch dup /fognight eq exch /night eq or or or } bind def
+/cb-fogc [0.86 0.86 0.85] cb-default   % fog colour; night fog is a darker, cooler grey
 
 % ---------------------------------------------------------------- sky and sea
 /cb-harbour-sky { % horizon -> ()
@@ -132,7 +134,7 @@
 % ---------------------------------------------------------------- fog
 /cb-fog { % y0 y1 k -> () pale, warm-grey bands, densest in the middle
   8 dict begin /k exch def /y1 exch def /y0 exch def
-  /fc [0.86 0.86 0.85] def
+  /fc cb-fogc def
   0 1 5 { /i exch def
     /t i 5 div def
     newpath -9 y0 y1 y0 sub t mul 0.5 mul add cb-W 18 add y1 y0 sub 1 t 0.5 mul sub mul cb-rect
@@ -172,13 +174,14 @@
 % the same moorings fill up one by one, and an empty post waits for the tenth.
 /cb-sails [                       % arrival order: none blue, none small
   [0.86 0.33 0.28] [0.35 0.62 0.45] [0.90 0.75 0.40] [0.96 0.95 0.92] [0.92 0.60 0.66]
-  [0.30 0.62 0.62] [0.62 0.45 0.75] [0.62 0.45 0.32] [0.95 0.58 0.25]
+  [0.66 0.80 0.30] [0.62 0.45 0.75] [0.62 0.45 0.32] [0.95 0.58 0.25]
 ] def
-/cb-moorings [                    % x y s, back row first (arrivals 1-5), then front (6-9)
-  [150 262 18] [235 262 18] [320 262 18] [405 262 18] [490 262 18]
-  [110 212 24] [205 212 24] [300 212 24] [395 212 24]
-] def
-/cb-tenth [500 214 20] def          % the empty mooring that waits for Grandpa's little boat
+/cb-moorings [                    % x y s, back row first (arrivals 1-5), then front (6-9);
+  [160 282 20] [245 282 20] [330 282 20] [415 282 20] [500 282 20]   % all above the pier
+  [195 244 26] [290 244 26] [385 244 26] [475 244 26]                % rail and clear of
+] def                                                                % the post and figures
+/cb-tenth [572 246 15] def        % the empty mooring that waits for Grandpa's little boat:
+                                  % smaller than any of the nine (it is "little")
 /cb-HZ 300 def /cb-DECK 150 def /cb-RAIL 70 def /cb-PEND 470 def
 
 /cb-moored-n { % n -> () the first n arrivals, moored (they face left: they came home)

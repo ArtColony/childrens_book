@@ -6,13 +6,15 @@
 cb-ground
 /fog cb-light
 cb-harbour-back 9 cb-moored-n
-cb-HZ 60 sub 470 0.55 cb-fog
-% the fog stands where the tenth boat should be
-newpath cb-tenth 0 get cb-tenth 1 get 30 add 46 0 360 arc closepath [0.90 0.90 0.89] 0.55 cb-bigwash
-newpath cb-tenth 0 get cb-tenth 1 get 30 add 30 0 360 arc closepath [0.92 0.92 0.91] 0.55 cb-bigwash
+cb-HZ 80 sub 470 0.40 cb-fog
+% the fog stands where the tenth boat should be: a soft bank on the empty mooring
+[ [0 0 70] [-30 20 50] [30 26 52] [0 48 44] [-10 -12 56] ] {
+  aload pop /fr exch def /fdy exch def /fdx exch def
+  newpath cb-tenth 0 get fdx add cb-tenth 1 get 20 add fdy add fr 0 360 arc closepath
+  [0.90 0.90 0.89] 0.30 cb-bigwash
+} forall
 cb-harbour-front false cb-hook-lamp
-0 cb-DECK 30 add 0.3 cb-fog
-55 cb-DECK cb-RAIL add 40 44 cb-nets
+40 cb-DECK cb-RAIL add 70 52 cb-nets
 30 cb-DECK 150 cb-mama
 170 cb-DECK 100 cb-ana
 cb-ink cb-rgb

@@ -117,3 +117,38 @@ was not re-scored; the editor's own estimate was that A–C make it "an 8".
 What remains is music on every page, and that is best judged again at the
 storyboard, when words and pictures can be read together. **Unlocks the
 storyboard.**
+
+## Checkpoint 3: Storyboard
+
+*Artifacts: [03-storyboard.md](03-storyboard.md) and the
+[contact sheet](storyboard_sheet.png). Reviews:
+[artist](reviews/03-storyboard-artist.md) (Sonnet, all 19 images),
+[educator](reviews/03-storyboard-educator.md) (Sonnet, counted every boat),
+[child](reviews/03-storyboard-child.md) (Haiku, the pictures only).*
+
+**The panel's verdict on round 1 was "revise before painting".** The
+storyboard caught the book's biggest remaining problems, every one of them
+invisible in the manuscript:
+
+| # | Point (reviewer) | Decision | What changed in round 2 |
+|---|---|---|---|
+| 33 | **"Eleven" has nothing to count** ("Who is the eleven?") (child; educator: "about 8 boats") | **Adopt, in the art** | p17 lays the count out for a finger: ten boats in one row (the nine and the little blue one), and at the end of the row, at the same height, Ana's lamp is the eleventh thing. The text stays as it is |
+| 34 | **"Not little" has no visual meaning:** Grandpa's boat was never smaller than the others (educator) | **Adopt** | The nine are bigger (s 20/26) and Grandpa's is smaller (s 13–15) wherever they share a page, including in its empty mooring |
+| 35 | Teal reads as blue, so "not blue" is shaky (educator) | **Adopt** | The sixth sail is lime |
+| 36 | **Mama missing** on pp. 2, 7, 9, 14, 17, and only a hand on 16 (all three) | **Adopt** | Mama is in frame on every page. On p9 her hand is on Ana's shoulder |
+| 37 | **Ana holds the lamp in one hand** (artist, safety) | **Adopt** | `cb-ana` draws the far arm whenever she carries the lamp, so it is always in both hands |
+| 38 | **p8: the fog reads as a moon** and hides the pink boat; a child counts 8 (educator, artist) | **Adopt** | A soft bank of overlapping washes stands on the tenth mooring, which moved right (x 572) so no boat is covered. The nine fade behind a thinner fog |
+| 39 | **p13 is the weakest key page** (artist) | **Adopt** | The camera pushes in (Ana 130 → 200 pt). A new pose, `cb-arm /top`, has both arms straight up on tiptoe, and the glow is the largest in the book |
+| 40 | **Light only reads against dark:** the fog-night pages were pale grey, so the gold was beige and white text illegible (artist, child) | **Adopt** | A `/fognight` light (cool blue-grey, L about 35%) and a darker fog colour for pp. 12–14 |
+| 41 | p7 is a copy of p6; the gulls are specks that could be counted as boats (artist, educator) | **Adopt** | p7 turns the camera to the open sea: Ana small, alone at the rail, three large gulls on the posts, and Mama behind |
+| 42 | Rows cut by the rail, boats hidden by posts and figures (educator) | **Adopt** | The moorings are raised above the rail and placed clear of the lamp post and the figures |
+| 43 | Nets read as a basket (educator, artist) | **Adopt** | A wider net draped over the rail, with a diamond mesh |
+| 44 | p14: the boat is fully visible, so nothing "blinks" (artist) | **Adopt** | The boat is a faded shape behind the fog, and only its lamp is sharp: a spark answering Ana's |
+| 45 | p16: Ana floats, and the ten boats are absent (artist, educator) | **Adopt** | She sits on Grandpa's lifted arm (`cb-gparm /lift`), with ten boats behind |
+| 46 | p17: no grin (artist) | **Adopt** | `cb-grin` |
+| 47 | Cover subtitle "painted in PostScript" is a production note (artist) | **Adopt** | "a counting book" |
+| 48 | p18 has no words, so "there's nothing to ask for" (child) | **Decline** | The editor asked for a wordless end page. On the last page, a child looking for the blue boat in its mooring and the lamp back on its hook *is* the asking |
+| 49 | pp. 3–8 are six wide shots in a row, breaking the shot-variety rule (author's own check) | **Adapt** | p7 now breaks the run (a new camera). The counting pages keep one camera deliberately, so each returning boat is found in the same place: continuity outranks variety for a counting book |
+
+**Checkpoint 3 passed** after round 2 (the stop rule: two rounds). The
+round-2 sheet was checked against every row above. **Unlocks painting.**

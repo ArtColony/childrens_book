@@ -6,14 +6,14 @@
 cb-ground
 /night cb-light
 cb-harbour-back 9 cb-moored-n
-cb-HZ 60 sub 470 0.35 cb-fog
+cb-HZ 60 sub 470 0.2 cb-fog
 cb-harbour-front false cb-hook-lamp
 % Grandpa's little blue boat comes alongside the pier's end; Mama catches the rope
-/cb-boatlight true def /cb-face -1 def 530 96 34 cb-gpboat /cb-face 1 def /cb-boatlight false def
-newpath 470 cb-DECK 40 add moveto 500 120 510 125 520 128 curveto [0.85 0.78 0.6] cb-rgb << /Width 1.6 >> pkliner
-430 cb-DECK 140 cb-mama
-/cb-arm /up def /cb-lamp true def /cb-lit true def /cb-glowr 1.2 def
-360 cb-DECK 90 cb-ana
+/cb-boatlight true def /cb-face -1 def 530 100 22 cb-gpboat /cb-face 1 def /cb-boatlight false def
+newpath 455 cb-DECK 75 add moveto 480 140 500 120 520 112 curveto [0.85 0.78 0.6] cb-rgb << /Width 1.6 >> pkliner
+400 cb-DECK 130 cb-mama
+/cb-arm /out def /cb-lamp true def /cb-lit true def /cb-glowr 0.7 def
+330 cb-DECK 90 cb-ana
 /cb-arm /down def /cb-lamp false def /cb-lit false def /cb-glowr 0.8 def
 cb-paper cb-rgb
 cb-fontit findfont 44 scalefont setfont (Ten!) 306 540 showctr

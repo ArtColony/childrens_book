@@ -18,6 +18,9 @@
 %   cb-step   true: mid-stride, boots apart          (default false)
 %   cb-glowr  radius of a lit lamp's glow, in multiples of h (default 0.8)
 %   cb-worry  true: a worried brow                   (default false)
+%   cb-grin   true: a wide grin                      (default false)
+%   cb-tiptoe true: on tiptoe                        (default false)
+%   cb-arm    also /top: both arms straight up, the lamp held as high as she can
 % Grandpa reads cb-gparm: /reach (arm forward and low) or /lift (holding Ana up).
 % cb-boat reads cb-face too, and cb-boatlight (a lit lantern on the mast).
 
@@ -28,6 +31,8 @@
 /cb-boatlight false cb-default
 /cb-glowr 0.8 cb-default
 /cb-worry false cb-default        % Ana: a worried brow
+/cb-grin false cb-default         % Ana: a wide grin
+/cb-tiptoe false cb-default       % Ana: on tiptoe (raised by 4% of her height)
 /cb-gparm /reach cb-default       % Grandpa's arm: /reach (forward, low) or /lift (forward, high)          % Ana's lamplight radius, in her heights
 
 /cb-coat   [0.84 0.27 0.22] def
@@ -90,9 +95,10 @@
 /cb-ana {
   20 dict begin
   /h exch def /y exch def /x exch def
+  cb-tiptoe { /y y h 0.04 mul add def } if
   /lw h 70 div 0.7 max 2.4 min def
   /frame { x y translate h cb-face mul h scale } def
-  /hand cb-arm /up eq { [0.36 0.86] } { cb-arm /out eq { [0.27 0.44] } { [0.07 0.30] } ifelse } ifelse def
+  /hand cb-arm /top eq { [0.20 1.10] } { cb-arm /up eq { [0.36 0.86] } { cb-arm /out eq { [0.27 0.44] } { [0.07 0.30] } ifelse } ifelse } ifelse def
 
   % lamplight first, centred on the lantern's glass, so she stands in it
   cb-lamp cb-lit and {
@@ -110,6 +116,13 @@
     newpath { frame bx 0.0 0.12 0.13 0.03 rrect } cb-local cb-boots 0.8 cb-wash
     newpath { frame bx 0.0 0.12 0.13 0.03 rrect } cb-local lw cb-line
   } forall
+
+  % the far arm, behind her body: with the lamp she always holds it in both hands
+  cb-lamp cb-arm /down ne and {
+    newpath { frame -0.05 0.50 moveto hand aload pop 0.02 sub exch 0.04 sub exch lineto } cb-local
+    cb-coat 0.7 shade setrgbcolor << /Width h 0.07 mul /Pressure { pop 1 } >> pkribbon
+    newpath { frame -0.05 0.50 moveto hand aload pop 0.02 sub exch 0.04 sub exch lineto } cb-local lw 0.6 mul cb-line
+  } if
 
   % hood behind the head
   newpath { frame -0.02 0.70 0.15 0 360 arc closepath } cb-local
@@ -140,11 +153,16 @@
     newpath { frame 0.065 0.765 moveto 0.13 0.745 lineto } cb-local lw 0.7 mul cb-line
   } if
   newpath { frame 0.085 0.645 0.028 0 360 arc closepath } cb-local cb-pink 0.6 cb-wash
-  newpath { frame 0.105 0.625 moveto 0.115 0.615 0.125 0.615 0.135 0.625 curveto } cb-local lw 0.6 mul cb-line
+  cb-grin {
+    newpath { frame 0.085 0.635 moveto 0.10 0.595 0.135 0.595 0.145 0.632 curveto closepath } cb-local
+    gsave [0.75 0.30 0.30] cb-rgb fill grestore lw 0.6 mul cb-line
+  } {
+    newpath { frame 0.105 0.625 moveto 0.115 0.615 0.125 0.615 0.135 0.625 curveto } cb-local lw 0.6 mul cb-line
+  } ifelse
 
   % arm: a sleeve from the near shoulder to the hand (raised, it passes in
   % front of the face's edge, never across it)
-  /sh cb-arm /up eq { [0.06 0.50] } { [-0.01 0.50] } ifelse def
+  /sh cb-arm dup /up eq exch /top eq or { [0.06 0.50] } { [-0.01 0.50] } ifelse def
   newpath { frame sh aload pop moveto hand aload pop lineto } cb-local
   cb-coat 0.85 shade setrgbcolor << /Width h 0.075 mul /Pressure { pop 1 } >> pkribbon
   newpath { frame sh aload pop moveto hand aload pop lineto } cb-local lw 0.6 mul cb-line

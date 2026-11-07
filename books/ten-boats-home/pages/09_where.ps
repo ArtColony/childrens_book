@@ -6,12 +6,20 @@
 cb-ground
 /fog cb-light
 220 cb-harbour-sky
+% the boats, half swallowed: only their sail tops show above the fog
+/cb-face -1 def
+[ [330 250 16] [390 256 14] [450 248 16] [505 254 14] [560 250 16] ]
+0 1 4 { /i exch def dup i get aload pop cb-sails i get cb-boat } for pop
+/cb-face 1 def
+220 30 sub 300 0.8 cb-fog
 -9 700 60 150 cb-pier
-0 600 0.7 cb-fog
-% the old lamp, unlit, at the top of the frame
-newpath 470 470 moveto 640 470 lineto cb-wood-c cb-rgb << /Width 8 /Pressure { pop 1 } >> pkribbon
-/cb-lit false def 500 466 50 cb-lantern
--260 60 640 cb-mama
+0 600 0.45 cb-fog
+% the old lamp's post, at the right, the lamp unlit on its hook
+newpath 588 60 14 430 cb-rect cb-wood-c 0.75 shade 3 array astore 0.8 cb-wash
+newpath 600 482 moveto 470 482 lineto cb-wood-c 0.75 shade setrgbcolor << /Width 9 /Pressure { pop 1 } >> pkribbon
+/cb-lit false def 500 478 46 cb-lantern
+% Mama right behind her, a hand on her shoulder
+5 -16 520 cb-mama
 /cb-worry true def 150 60 380 cb-ana /cb-worry false def
 cb-ink cb-rgb
 (The fog swallows the boats. It swallows the pier. \252Where is Grandpa?\272 Ana whispers.) 56 584 500 /center cb-text pop
