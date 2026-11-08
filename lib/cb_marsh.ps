@@ -207,9 +207,11 @@
   { fr hx hr 0.33 mul add hy hr 0.23 mul add transform } cb-local itransform
   2 copy newpath s 0.032 mul 0 360 arc closepath [0.08 0.08 0.10] cb-bfill
   exch s 0.011 mul add exch s 0.011 mul add newpath s 0.011 mul 0 360 arc closepath [1 1 1] cb-bfill
-  cb-dkmood /sad eq {   % a worried brow: rising toward the beak
-    newpath { fr hx hr 0.33 mul add 0.07 sub hy hr 0.23 mul add 0.055 add moveto 0.09 0.035 rlineto } cb-local
+  cb-dkmood /sad eq {   % a worried brow: rising toward the beak, scaled to the head
+    gsave
+    newpath { fr hx hr 0.33 mul add hr 0.47 mul sub hy hr 0.23 mul add hr 0.33 mul add moveto hr 0.6 mul hr 0.23 mul rlineto } cb-local
     1 setlinecap s 0.022 mul setlinewidth dark [0.10 0.10 0.12] 0.6 cb-mixa cb-rgb stroke
+    grestore
   } if
   end
 } bind def
@@ -355,7 +357,7 @@
   newpath cx cw 0.62 mul add cy cw 0.86 mul add cw 0.10 mul cw 0.28 mul cb-rect [0.36 0.30 0.28] cb-bfill   % chimney
   newpath cx cw 0.18 mul add cy cw 0.24 mul add cw 0.22 mul cw 0.20 mul cb-rect [0.99 0.80 0.42] cb-bfill   % the lit window
   % the glow: soft rings of warm light (a spray here read as a glitch)
-  cx cw 0.29 mul add cy cw 0.34 mul add cw 0.17 mul [0.98 0.80 0.46] cb-glow
+  cx cw 0.29 mul add cy cw 0.34 mul add cw 0.17 mul [0.98 0.80 0.46] cb-pglow
   newpath cx cw 0.60 mul add cy cw 0.30 mul cw 0.48 mul cb-rect [0.30 0.24 0.22] cb-bfill                  % door
   end
 } bind def
@@ -426,9 +428,14 @@
 } bind def
 
 % A soft round glow: x y r [rgb]. Rings of low alpha, densest at the centre.
-/cb-glow { % x y r [rgb] -> ()
-  5 dict begin /gc exch def /gr exch def /gy exch def /gx exch def
-  1 -0.2 0.2 { /k exch def newpath gx gy gr k mul 0 360 arc closepath gc 0.10 cb-bigwash } for
+% cb-pglowsq < 1 squashes it vertically (light lying on the ground). The path
+% is built in the squashed frame; the wash paints at page scale.
+% (Named cb-pglow: cb_ana.ps already has a 3-operand cb-glow.)
+/cb-pglowsq 1 cb-default
+/cb-pglow { % x y r [rgb] -> ()
+  6 dict begin /gc exch def /gr exch def /gy exch def /gx exch def
+  1 -0.2 0.2 { /k exch def
+    newpath { gx gy translate 1 cb-pglowsq scale 0 0 gr k mul 0 360 arc closepath } cb-local gc 0.10 cb-bigwash } for
   end
 } bind def
 

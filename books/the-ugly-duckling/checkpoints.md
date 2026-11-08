@@ -135,7 +135,7 @@ with no earlier notes. **Lesson gate: passed again.**
 | # | Point | Decision |
 |---|---|---|
 | 1 | Artist: he is an expressionless lump | **New `cb-dkmood /sad`**: a worried brow rising toward the beak, on pp 4 (with his head down), 6, 7, 8 and 15 |
-| 2 | Artist, adult: p7 duckling invisible, window speckle "looks like a glitch" | **Fixed:** he is at the door at 1.7x, in a pool of window light. The speckle (a spray) is replaced by a new `cb-glow` (soft rings), also on p8 (the cat's "smudges") |
+| 2 | Artist, adult: p7 duckling invisible, window speckle "looks like a glitch" | **Fixed:** he is at the door at 1.7x, in a pool of window light. The speckle (a spray) is replaced by a new `cb-pglow` (soft rings; first named `cb-glow`, see checkpoint 7), also on p8 (the cat's "smudges") |
 | 3 | Both children (rounds 1 and 2): p13 "night, or space?" | **Fixed:** a moonlit ice tint instead of the navy wash, frozen reeds at the edges, and ripples round the open water. It stays wordless |
 | 4 | Artist: p16 swan lost on the pale band | **Fixed:** a green treeline behind, a larger swan, a deeper reflection |
 | 5 | Artist: p5 he doesn't run; p9 the step and the floating bird; p14 the bird over the sun; p18 the card | **Fixed:** p5 larger, clear of the hedge; p9 a solid step and a shadow; p14 the sun moved and the bird larger; p18 a soft wash, not a card |
@@ -145,3 +145,29 @@ with no earlier notes. **Lesson gate: passed again.**
 | 9 | Artist: p4 hen tilt and pecking ducks; p1 bigger nest and farm details; p17 text weight; sky bands | **Deferred** to round 3, to see if a fresh artist names them again |
 | 10 | Adult: split sentences on pp 5, 6, 11, 12 | **Kept:** the one type move per page is the house rule. Only p6 was hard to see, and that was fixed in round 1 |
 | 11 | Adult: wordless p7 and p13 | **Kept**, now drawn to read without words (pp 7 and 13 above) |
+
+## Checkpoint 7: review round 3, and the end of the loop
+
+**Lesson gate: passed for the third time.**
+
+- **Child:** "Being different is okay, and you might grow up to be something wonderful, so don't give up on yourself or on others." p13 is no longer named as confusing.
+- **Adult (7.5/10):** "Being different does not make you ugly or unworthy; you may just be still growing, and you will find the ones who welcome you."
+
+**Artist: 7/10.** Biggest lift: "make the duckling's size… grow steadily on p3 through p13."
+
+| # | Point | Decision |
+|---|---|---|
+| 1 | Code (**blocker**): the new `cb-glow` replaced Ten Boats Home's `cb-glow`; its lamp pages failed to render | **Fixed:** renamed `cb-pglow`; `scripts/check_names.sh` in CI. Our "byte-identical" check had passed on a stale PDF from an earlier bind. It now deletes the PDF first. All three books are re-verified byte-identical |
+| 2 | Artist: he never visibly grows (widths 110, 150, 110, 70) | **Fixed:** close and medium shots now grow steadily, 112 (p3) → 122 → 132 → 142 → 150 (p12) → 172 (p11 is close) → 184 (p15). Wide shots stay smaller. The ice circles on pp 12 and 13 are larger to hold him |
+| 3 | Artist: "Welcome" far from the bowing heads | **Fixed:** set just above the swans |
+| 4 | Adult: p8 has no speaker tags | **Fixed:** "asked the hen." and "asked the cat." restored, as in the manuscript |
+| 5 | Artist, adult: p5 pond a hard rectangle; p2 egg not big; p6 duckling lost; p16 ripples cut the reflection | **Fixed:** a curved shoreline; the egg 1.3x; the duckling 1.3x at the reed edge; ripples halved |
+| 6 | Code: brow above the head, gstate leak, p7 squashed wash, p14 spray in the text | **Fixed** |
+| 7 | Artist: p13 should be truly top-down; p14 flat silhouette and floes; p16 neck loop; p4 hen menace; p17 text weight | **Left open** (below) |
+| 8 | Adult: wordless p7 and p13, harsh words, "still growing" is abstract | **Kept** (the tale's stakes; three readers in a row have stated the lesson) |
+
+**Stop rule:** the artist did not reach 8/10 (scores 7, 6.5, 7 from three fresh reviewers). The loop stops at three rounds, as the [process](../../docs/process.md) says. Still open, in order of the artist's "biggest lift":
+
+1. **The payoff drawing (pp 14–16):** a real bow (a cleaner S-neck, the head down to the water), a two-winged flier on p14, and the floes as ice.
+2. **p13 from above:** a top-down duckling, which needs a new top-view path in `cb_swan.ps`.
+3. Menace on p4 (a hen leaning in, ducks pecking).
