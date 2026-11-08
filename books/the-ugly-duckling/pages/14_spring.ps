@@ -3,19 +3,19 @@
 %%Title: The Ugly Duckling, page 14: up he flew
 /Seed where { pop } { /Seed 24 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /spring cb-season
 180 cb-psky 180 cb-pwater
-newpath 450 430 46 0 360 arc closepath [1.0 0.96 0.82] cb-bfill
-{ newpath 450 430 moveto 0 0 rlineto << /Nozzle 120 /Density 80 /Speck 1.1 >> pkspray } << /Soft 0.8 /Under /skylo cb-pc >> [1.0 0.96 0.84] cb-rgb pkwet
+newpath 536 470 40 0 360 arc closepath [1.0 0.96 0.82] cb-bfill
+{ newpath 536 470 moveto 0 0 rlineto << /Nozzle 120 /Density 80 /Speck 1.1 >> pkspray } << /Soft 0.8 /Under /skylo cb-pc >> [1.0 0.96 0.84] cb-rgb pkwet
 [ [80 120 60] [200 90 80] [380 140 50] [520 70 90] ] { aload pop /w exch def /yy exch def /xx exch def
   newpath { xx yy translate 1 0.25 scale 0 0 w 0 360 arc closepath } cb-local [0.92 0.95 0.98] cb-bfill } forall
 40 180 120 false cb-ptree 560 180 130 false cb-ptree
 -9 100 220 26 cb-preeds
-newpath { 430 420 translate 110 110 scale 0.6 cb-swan-wing-path } cb-local [0.42 0.42 0.48] cb-bfill
-newpath { 430 420 translate 110 110 scale cb-swan-body-path } cb-local [0.46 0.46 0.52] cb-bfill
-newpath { 430 420 translate 110 110 scale 0.6 cb-swan-wing2-path } cb-local [0.50 0.50 0.56] cb-bfill
+newpath { 350 400 translate 150 150 scale 0.6 cb-swan-wing-path } cb-local [0.42 0.42 0.48] cb-bfill
+newpath { 350 400 translate 150 150 scale cb-swan-body-path } cb-local [0.46 0.46 0.52] cb-bfill
+newpath { 350 400 translate 150 150 scale 0.6 cb-swan-wing2-path } cb-local [0.50 0.50 0.56] cb-bfill
 cb-ink cb-rgb
 (Spring came. The duckling spread his wings, and up he flew.) 60 584 492 /center cb-text pop
 14 cb-folio

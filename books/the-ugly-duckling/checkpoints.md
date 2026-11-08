@@ -120,3 +120,28 @@ The art items deferred at checkpoint 4, painted:
 
 Kept: p13 (the child's "night or snow?"). p12 sets it up on the page before.
 Moss, Ten Boats Home and Puff still rebind byte-identical.
+
+## Checkpoint 6: review round 2
+
+The review loop ([process](../../docs/process.md)) replaces the Codex pass.
+Fresh agents saw only the page images (and, for the artist, the page plan),
+with no earlier notes. **Lesson gate: passed again.**
+
+- **Child:** "Being different from others does not make you bad or ugly, and if you keep going and stay kind to yourself, you may grow into something beautiful."
+- **Adult (7.5/10):** "Being different isn't being bad; you can be unloved where you are and still be growing into something beautiful, and you belong with those who welcome you."
+
+**Artist: 6.5/10** (a fresh reviewer; round 1 gave 7). The biggest lift it named: the duckling has one neutral face, and the emotional pages are too small or pale.
+
+| # | Point | Decision |
+|---|---|---|
+| 1 | Artist: he is an expressionless lump | **New `cb-dkmood /sad`**: a worried brow rising toward the beak, on pp 4 (with his head down), 6, 7, 8 and 15 |
+| 2 | Artist, adult: p7 duckling invisible, window speckle "looks like a glitch" | **Fixed:** he is at the door at 1.7x, in a pool of window light. The speckle (a spray) is replaced by a new `cb-glow` (soft rings), also on p8 (the cat's "smudges") |
+| 3 | Both children (rounds 1 and 2): p13 "night, or space?" | **Fixed:** a moonlit ice tint instead of the navy wash, frozen reeds at the edges, and ripples round the open water. It stays wordless |
+| 4 | Artist: p16 swan lost on the pale band | **Fixed:** a green treeline behind, a larger swan, a deeper reflection |
+| 5 | Artist: p5 he doesn't run; p9 the step and the floating bird; p14 the bird over the sun; p18 the card | **Fixed:** p5 larger, clear of the hedge; p9 a solid step and a shadow; p14 the sun moved and the bird larger; p18 a soft wash, not a card |
+| 6 | Code: the tuft punched a hole in his head on every page | **Fixed** |
+| 7 | Code: PDF 13.5 MB (sky strokes, paper grain, mist) | **Fixed: 6.5 MB**, with no visible change |
+| 8 | Code: p2 Crack!, p9 folio, p17 overlap | **Fixed** |
+| 9 | Artist: p4 hen tilt and pecking ducks; p1 bigger nest and farm details; p17 text weight; sky bands | **Deferred** to round 3, to see if a fresh artist names them again |
+| 10 | Adult: split sentences on pp 5, 6, 11, 12 | **Kept:** the one type move per page is the house rule. Only p6 was hard to see, and that was fixed in round 1 |
+| 11 | Adult: wordless p7 and p13 | **Kept**, now drawn to read without words (pp 7 and 13 above) |

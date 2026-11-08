@@ -3,7 +3,7 @@
 %%Title: The Ugly Duckling, page 15: welcome
 /Seed where { pop } { /Seed 25 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /spring cb-season
 230 cb-psky
@@ -11,7 +11,7 @@ cb-ground
 230 cb-pwater
 -10 620 234 cb-pmist
 /cb-swbow true def /cb-dkface -1 def 380 150 120 cb-swanswim 470 180 100 cb-swanswim 540 130 110 cb-swanswim /cb-swbow false def /cb-dkface 1 def
-/cb-dkgrow 0.8 def 150 110 140 cb-duckling /cb-dkgrow 0 def
+/cb-dkmood /sad def /cb-dkgrow 0.8 def 150 110 140 cb-duckling /cb-dkgrow 0 def /cb-dkmood /calm def
 -9 80 200 20 cb-preeds
 cb-ink cb-rgb
 (There on the water were three white swans. \252They will chase me away,\272 he thought. But the swans swam to meet him, and they bowed their heads.) 50 590 512 /center cb-text pop

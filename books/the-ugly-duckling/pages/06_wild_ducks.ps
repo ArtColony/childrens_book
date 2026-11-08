@@ -3,7 +3,7 @@
 %%Title: The Ugly Duckling, page 6: all alone
 /Seed where { pop } { /Seed 16 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /summer cb-season
 340 cb-psky
@@ -13,7 +13,7 @@ cb-ground
 /cb-duckc [0.56 0.44 0.32] def /cb-dkface -1 def 400 170 70 cb-pduck 470 150 76 cb-pduck 360 130 66 cb-pduck 520 190 60 cb-pduck
 /cb-duckc [0.96 0.94 0.90] def /cb-dkface 1 def
 -9 200 250 40 cb-preeds
-/cb-dkgrow 0.2 def 110 70 80 cb-duckling /cb-dkgrow 0 def
+/cb-dkgrow 0.2 def /cb-dkmood /sad def 110 70 80 cb-duckling /cb-dkmood /calm def /cb-dkgrow 0 def
 -9 160 160 18 cb-preeds
 cb-ink cb-rgb
 (The wild ducks looked at him. \252You are very ugly,\272 they said. \252But you may stay, if you keep out of the way.\272 So he hid in the reeds,) 50 590 512 /center cb-text pop

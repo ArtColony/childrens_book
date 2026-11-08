@@ -3,7 +3,7 @@
 %%Title: The Ugly Duckling, page 17: still growing
 /Seed where { pop } { /Seed 27 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /spring cb-season
 240 cb-psky
@@ -11,7 +11,7 @@ cb-ground
 240 cb-pwater 306 240 90 cb-pglints
 -10 620 244 cb-pmist
 /cb-dkface -1 def 535 190 92 cb-swanswim 455 166 112 cb-swanswim /cb-dkface 1 def 125 176 104 cb-swanswim
-290 96 178 cb-swanswim
+268 96 178 cb-swanswim
 cb-ink cb-rgb
 /cb-size 19 def
 (The young swan whispered, \252When I was the ugly duckling, I never dreamed of such happiness.\272) 60 590 492 /center cb-text pop

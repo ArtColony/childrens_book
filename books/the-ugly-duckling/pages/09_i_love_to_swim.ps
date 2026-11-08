@@ -3,7 +3,7 @@
 %%Title: The Ugly Duckling, page 9: I love to swim
 /Seed where { pop } { /Seed 19 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /summer cb-season
 200 cb-psky
@@ -15,11 +15,11 @@ newpath -9 -9 129 630 cb-rect [0.70 0.56 0.40] 0.4 cb-bigwash
 newpath 120 -9 moveto 120 640 lineto 150 640 lineto 150 -9 lineto closepath [0.36 0.26 0.20] cb-bfill   % the frame
 newpath 120 40 moveto 40 0 lineto 40 520 lineto 120 470 lineto closepath [0.50 0.34 0.24] cb-bfill     % the open door
 newpath 108 250 5 0 360 arc closepath [0.86 0.72 0.36] cb-bfill                                         % its latch
-newpath 150 -9 moveto 150 70 lineto 440 70 lineto 380 -9 lineto closepath [0.99 0.88 0.60] 0.35 cb-bigwash  % light spilling out
-newpath 150 -9 moveto 150 60 lineto 360 60 lineto 330 -9 lineto closepath [0.62 0.48 0.34] cb-bfill      % the doorstep
-/cb-dkgrow 0.3 def 260 66 130 cb-duckling /cb-dkgrow 0 def
+newpath 150 -9 moveto 150 60 lineto 360 60 lineto 330 -9 lineto closepath [0.80 0.68 0.48] cb-bfill      % the doorstep, in the lamplight
+newpath { 262 56 translate 1 0.18 scale 0 0 62 0 360 arc closepath } cb-local [0.56 0.44 0.32] cb-bfill   % his shadow
+/cb-dkgrow 0.3 def 260 58 130 cb-duckling /cb-dkgrow 0 def
 500 621 220 18 cb-preeds
 cb-ink cb-rgb
 (\252But I love to swim,\272 said the duckling, \252and to dive to the bottom of the water.\272 \252What nonsense!\272 said the hen. So the duckling went back out into the wide world.) 220 584 360 /left cb-text pop
-9 cb-folio
+/cb-foliorgb cb-paper def 9 cb-folio
 showpage

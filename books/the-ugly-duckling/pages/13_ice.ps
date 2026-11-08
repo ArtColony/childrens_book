@@ -3,13 +3,17 @@
 %%Title: The Ugly Duckling, page 13: the ice (no words)
 /Seed where { pop } { /Seed 23 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /winter cb-season
 640 306 300 92 cb-pice
-newpath -9 -9 630 630 cb-rect [0.16 0.20 0.36] 0.35 cb-bigwash
+newpath -9 -9 630 630 cb-rect [0.30 0.36 0.58] 0.16 cb-bigwash   % moonlit, not night-dark: it must read as ice
+% frozen reeds standing up through the ice, seen from above: it is a pond
+-9 120 150 14 cb-preeds 500 621 160 12 cb-preeds
+% ripples round the open water: he is swimming
+0 1 1 { /i exch def newpath 306 300 104 i 14 mul add 200 340 arc [0.86 0.90 0.98] cb-rgb << /Width 2.4 /Taper 0.6 >> pkliner } for
 /cb-dkgrow 0.75 def 306 290 92 cb-duckling /cb-dkgrow 0 def
--9 640 70 9 cb-psnow
+-9 640 70 9 cb-psnow  % flakes over the ice
 /cb-foliorgb cb-paper def
 13 cb-folio
 showpage
