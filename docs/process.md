@@ -109,9 +109,11 @@ so no reviewer is anchored on the last round:
 - the code reviewer (Opus), who reviews only what changed since the last round.
 
 The author fixes what holds up, logs every decision in `checkpoints.md`,
-and starts the next round. **Stop rule:** the artist scores 8/10 or more
-and both readers still pass the lesson gate. After three rounds, stop
-anyway and record what is left.
+and starts the next round. **Stop rule:** both readers still pass the
+lesson gate, and either the artist scores 8/10 or more, or a round finds no
+new major issue. After three rounds, stop anyway and record what is left.
+(*The Ugly Duckling* showed why the score alone is a weak rule: three fresh
+artists gave 7, 6.5 and 7 while real fixes landed.)
 
 The reviewers run in parallel and never see each other's notes. Each review
 is saved under `books/<slug>/reviews/<stage>-<reviewer>.md`, and
