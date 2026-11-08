@@ -45,7 +45,7 @@
     /k 3 t 3 mul cvi sub 0 max 3 min def
     /c1 bd k get def /c2 bd k 1 sub 0 max get def
     newpath -20 yy moveto 640 yy 3 jit add lineto
-    << /Width 58 /Depletion 0.02 /Charge 1 /Colors [c1 c2] /ColorMix 1 >> pkbroad
+    << /Width 58 /Depletion 0.02 /Charge 1 /Colors [c1 c2] /ColorMix 1 /Pitch 8 >> pkbroad
   } for
   % a last thin glaze over the strokes, so they read as paint, not stripes
   newpath -9 y0 630 cb-H y0 sub 9 add cb-rect /skylo cb-pc /skyhi cb-pc 0.5 cb-mixa 0.12 cb-bigwash
@@ -85,7 +85,7 @@
   % A soft band, then the spray. (pkwet around the spray cost about 1 MB of
   % PDF per call; a wash band gives the same halo for a few KB.)
   newpath x0 my 10 sub x1 x0 sub 20 cb-rect /mist cb-pc 0.35 cb-bigwash
-  newpath x0 my moveto x1 my lineto /mist cb-pc cb-rgb << /Nozzle 14 /Density 150 /Speck 1.0 >> pkspray
+  newpath x0 my moveto x1 my lineto /mist cb-pc cb-rgb << /Nozzle 14 /Density 90 /Speck 1.0 >> pkspray
   end
 } bind def
 
@@ -150,6 +150,7 @@
 % Shapes are unions of simple fills (no outline), lit from the upper left:
 % a base, a lit top clipped to the base, a cool underside.
 /cb-dkface 1 cb-default          % 1 faces right, -1 left
+/cb-dkmood /calm cb-default      % /calm, or /sad: a worried brow over the eye
 /cb-dklook /ahead cb-default     % /ahead /up /down
 /cb-dkstage /grey cb-default     % /grey (the ugly duckling) /white (the swan he becomes)
 /cb-dkgrow 0 cb-default          % 0 hatchling .. 1 nearly grown: a longer neck, a smaller head, paler
@@ -180,9 +181,10 @@
     % head and tuft
     hx hy hr 0 360 arc closepath
     % one soft wisp of down, leaning back (two points read as a cat's ears)
-    hx 0.05 sub hy hr 0.75 mul add moveto
-    hx 0.04 sub hy hr 0.9 mul add 0.06 tf mul add  hx 0.08 sub hy hr 0.9 mul add 0.09 tf mul add  hx 0.10 sub hy hr 0.9 mul add 0.08 tf mul add curveto
-    hx 0.04 sub hy hr 0.9 mul add 0.04 tf mul add  hx 0.00 add hy hr 0.9 mul add 0.01 add  hx 0.02 add hy hr 0.75 mul add curveto closepath
+    % (drawn counter-clockwise, like the head, so nonzero fill doesn't punch a hole)
+    hx 0.02 add hy hr 0.75 mul add moveto
+    hx 0.00 add hy hr 0.9 mul add 0.01 add  hx 0.04 sub hy hr 0.9 mul add 0.04 tf mul add  hx 0.10 sub hy hr 0.9 mul add 0.08 tf mul add curveto
+    hx 0.08 sub hy hr 0.9 mul add 0.09 tf mul add  hx 0.04 sub hy hr 0.9 mul add 0.06 tf mul add  hx 0.05 sub hy hr 0.75 mul add curveto closepath
   } def
   /neckp { newpath 0.14 0.20 moveto hx 0.03 sub hy 0.04 sub lineto } def
   /paintall { % colour -> the union of body, neck and head in that colour
@@ -205,6 +207,12 @@
   { fr hx hr 0.33 mul add hy hr 0.23 mul add transform } cb-local itransform
   2 copy newpath s 0.032 mul 0 360 arc closepath [0.08 0.08 0.10] cb-bfill
   exch s 0.011 mul add exch s 0.011 mul add newpath s 0.011 mul 0 360 arc closepath [1 1 1] cb-bfill
+  cb-dkmood /sad eq {   % a worried brow: rising toward the beak, scaled to the head
+    gsave
+    newpath { fr hx hr 0.33 mul add hr 0.47 mul sub hy hr 0.23 mul add hr 0.33 mul add moveto hr 0.6 mul hr 0.23 mul rlineto } cb-local
+    1 setlinecap s 0.022 mul setlinewidth dark [0.10 0.10 0.12] 0.6 cb-mixa cb-rgb stroke
+    grestore
+  } if
   end
 } bind def
 
@@ -348,8 +356,8 @@
   newpath cx 0.08 cw mul sub cy cw 0.58 mul add moveto cx cw 0.56 mul add cy cw 1.08 mul add lineto cx cw 1.14 mul add cy cw 0.56 mul add lineto closepath [0.42 0.36 0.30] cb-bfill
   newpath cx cw 0.62 mul add cy cw 0.86 mul add cw 0.10 mul cw 0.28 mul cb-rect [0.36 0.30 0.28] cb-bfill   % chimney
   newpath cx cw 0.18 mul add cy cw 0.24 mul add cw 0.22 mul cw 0.20 mul cb-rect [0.99 0.80 0.42] cb-bfill   % the lit window
-  { newpath cx cw 0.29 mul add cy cw 0.34 mul add moveto 0 0 rlineto << /Nozzle cw 0.5 mul /Density 60 /Speck 1.1 >> pkspray }
-  << /Soft 0.8 /Under [0.30 0.30 0.42] >> [0.98 0.78 0.46] cb-rgb pkwet
+  % the glow: soft rings of warm light (a spray here read as a glitch)
+  cx cw 0.29 mul add cy cw 0.34 mul add cw 0.17 mul [0.98 0.80 0.46] cb-pglow
   newpath cx cw 0.60 mul add cy cw 0.30 mul cw 0.48 mul cb-rect [0.30 0.24 0.22] cb-bfill                  % door
   end
 } bind def
@@ -416,6 +424,18 @@
     newpath icx icy ir 0 360 arc closepath [0.20 0.24 0.38] cb-bfill
     newpath icx icy ir 0.96 mul 200 340 arc [0.40 0.46 0.62] cb-rgb << /Width 2 /Taper 0.5 >> pkribbon
   } if
+  end
+} bind def
+
+% A soft round glow: x y r [rgb]. Rings of low alpha, densest at the centre.
+% cb-pglowsq < 1 squashes it vertically (light lying on the ground). The path
+% is built in the squashed frame; the wash paints at page scale.
+% (Named cb-pglow: cb_ana.ps already has a 3-operand cb-glow.)
+/cb-pglowsq 1 cb-default
+/cb-pglow { % x y r [rgb] -> ()
+  6 dict begin /gc exch def /gr exch def /gy exch def /gx exch def
+  1 -0.2 0.2 { /k exch def
+    newpath { gx gy translate 1 cb-pglowsq scale 0 0 gr k mul 0 360 arc closepath } cb-local gc 0.10 cb-bigwash } for
   end
 } bind def
 

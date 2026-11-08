@@ -3,7 +3,7 @@
 %%Title: The Ugly Duckling, the end (no words)
 /Seed where { pop } { /Seed 28 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /spring cb-season
 150 cb-psky 150 cb-pwater 306 150 120 cb-pglints
@@ -12,7 +12,7 @@ cb-ground
 [ [300 400 100 0.9] [390 360 88 -0.4] [210 360 88 0.3] [470 320 76 0.6] ] { aload pop cb-swanfly } forall
 -9 110 170 24 cb-preeds 510 621 160 22 cb-preeds
 cb-ink cb-rgb cb-fontit 40 cb-type (The End) 306 540 /center cb-say
-130 22 352 56 cb-panel cb-ink cb-rgb cb-font 10 cb-type
+newpath -9 18 630 58 cb-rect cb-paper 0.55 cb-bigwash cb-ink cb-rgb cb-font 10 cb-type
 (The Ugly Duckling, after Hans Christian Andersen \(1843\).) 306 62 /center cb-say
 (Retold, painted and set in PostScript, rendered with pscat.) 306 48 /center cb-say
 (An ArtColony project: github.com/ArtColony/childrens_book) 306 34 /center cb-say

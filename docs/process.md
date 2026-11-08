@@ -100,6 +100,21 @@ review is replaced by a Claude code reviewer (Opus, given the code and the
 conventions but not our notes) and by the advisor. Each book's checkpoints
 say which review it had, so a Codex pass can be run later.
 
+**The review loop.** Stage 4 is no longer one review panel: it is a loop. Each
+round sends **fresh** agents the finished page images, with no earlier notes,
+so no reviewer is anchored on the last round:
+
+- the artist (Sonnet), who scores out of 10;
+- a cold child (Haiku) and a cold adult (Sonnet), who state the lesson;
+- the code reviewer (Opus), who reviews only what changed since the last round.
+
+The author fixes what holds up, logs every decision in `checkpoints.md`,
+and starts the next round. **Stop rule:** both readers still pass the
+lesson gate, and either the artist scores 8/10 or more, or a round finds no
+new major issue. After three rounds, stop anyway and record what is left.
+(*The Ugly Duckling* showed why the score alone is a weak rule: three fresh
+artists gave 7, 6.5 and 7 while real fixes landed.)
+
 The reviewers run in parallel and never see each other's notes. Each review
 is saved under `books/<slug>/reviews/<stage>-<reviewer>.md`, and
 `checkpoints.md` records what each review changed and what was declined,

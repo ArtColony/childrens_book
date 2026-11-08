@@ -73,8 +73,9 @@
 } bind def
 
 % The paper every page is painted on. Bleeds 9 pt past the trim.
+/cb-grain 0.55 cb-default   % 0 where paint covers every page (it costs PDF size)
 /cb-ground {
-  -9 -9 cb-W 18 add cb-H 18 add << /Tone cb-paper /Grain 0.55 >> pkpaper
+  -9 -9 cb-W 18 add cb-H 18 add << /Tone cb-paper /Grain cb-grain >> pkpaper
 } bind def
 
 % Run proc, which builds a path in a local frame (translate/scale/rotate

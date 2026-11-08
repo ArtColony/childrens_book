@@ -3,21 +3,23 @@
 %%Title: The Ugly Duckling, page 8: the hen and the cat
 /Seed where { pop } { /Seed 18 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /summer cb-season
 newpath -9 120 630 500 cb-rect [0.86 0.74 0.56] 0.95 cb-bigwash
 newpath -9 -9 630 129 cb-rect [0.62 0.48 0.36] cb-bfill
-{ newpath 560 300 moveto 0 0 rlineto << /Nozzle 160 /Density 60 /Speck 1.1 >> pkspray } << /Soft 0.8 /Under [0.86 0.74 0.56] >> [0.98 0.80 0.48] cb-rgb pkwet
+560 300 170 [0.99 0.84 0.56] cb-pglow   % lamplight from the right
 150 110 210 cb-phen
 /cb-dkface -1 def 480 110 220 cb-pcat /cb-dkface 1 def
-/cb-dkgrow 0.25 def 306 110 120 cb-duckling /cb-dkgrow 0 def
+/cb-dkmood /sad def /cb-dkgrow 0.25 def 306 110 132 cb-duckling /cb-dkmood /calm def /cb-dkgrow 0 def
 cb-ink cb-rgb
 (In the crooked little cottage lived a hen and a cat.) 50 584 512 /center cb-text pop
 [0.50 0.20 0.14] cb-rgb cb-fontit 24 cb-type (\252Can you lay eggs?\272) 150 470 /center cb-say
-[0.28 0.28 0.32] cb-rgb cb-fontit 20 cb-type (\252No.\272) 230 436 /center cb-say
+cb-ink cb-rgb cb-font 15 cb-type (asked the hen.) 150 448 /center cb-say
+[0.28 0.28 0.32] cb-rgb cb-fontit 20 cb-type (\252No.\272) 262 424 /center cb-say
 [0.30 0.30 0.36] cb-rgb cb-fontit 24 cb-type (\252Can you purr?\272) 460 410 /center cb-say
-[0.28 0.28 0.32] cb-rgb cb-fontit 20 cb-type (\252No.\272) 380 376 /center cb-say
+cb-ink cb-rgb cb-font 15 cb-type (asked the cat.) 460 388 /center cb-say
+[0.28 0.28 0.32] cb-rgb cb-fontit 20 cb-type (\252No.\272) 350 364 /center cb-say
 cb-ink cb-rgb cb-fontit 28 cb-type (\252Then you are no use at all!\272) 250 320 /center cb-say
 8 cb-folio
 showpage

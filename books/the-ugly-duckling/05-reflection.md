@@ -69,3 +69,31 @@ The list, as written before the pass:
 4. Give p17 one hero swan, slightly larger, and no cropping.
 5. Lose the ear tufts, which read as a cat's ears.
 6. Bring the PDF under 10 MB (`cb-psky` is the next largest cost).
+
+## 5. The review loop (in place of Codex)
+
+Codex was unavailable, so stage 4 became a loop: three rounds of **fresh**
+persona agents (artist, child, adult and code reviewer), each round blind
+to the last. See checkpoints [4](checkpoints.md) to 7.
+
+| Round | Artist | Adult | Child, lesson | Code |
+|---|---|---|---|---|
+| 1 | 7 | — | passed | 3 bugs; PDF 21 MB → 13 MB |
+| 2 | 6.5 | 7.5 | passed | a hole in his head; PDF → 6.5 MB |
+| 3 | 7 | 7.5 | passed | a name collision that broke another book |
+
+**What it was good at:**
+
+- **Bugs no page review would see.** Hooked reeds, a winding hole, the PDF
+  size, and above all a library name collision.
+- **Repeated signals.** p13 was named by two children in a row, fixed, and
+  not named by the third.
+
+**What it was bad at:**
+
+- **The score is noisy.** Fresh reviewers judge from scratch, so 7 → 6.5 → 7
+  is the same book seen by three people, not a trend. The fixes were real;
+  the number did not move. A score is a weak stop rule. A better one: stop
+  when **no new major issue** appears in a round.
+- **The loop needs a check on its own checks.** "Byte-identical" passed on
+  a stale PDF. The guard (delete first, `check_names.sh`) is in now.

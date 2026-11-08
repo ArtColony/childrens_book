@@ -3,20 +3,20 @@
 %%Title: The Ugly Duckling, page 5: he ran away
 /Seed where { pop } { /Seed 15 def } ifelse  Seed srand
 (lib/cb_book.ps) run
-/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def
+/cb-font /Palatino-Roman def /cb-fontit /Palatino-Italic def /cb-size 21 def /cb-grain 0 def   % paint covers the paper everywhere
 cb-ground
 /summer cb-season
 240 cb-psky
 300 621 238 50 cb-ptreeline
-newpath 300 150 330 90 cb-rect /waterhi cb-pc cb-bfill
+newpath 300 150 moveto 296 196 330 232 384 238 curveto 640 238 lineto 640 150 lineto closepath /waterhi cb-pc cb-bfill
 330 150 160 cb-pglints
 newpath -9 -9 630 160 cb-rect [0.48 0.64 0.32] 0.9 cb-bigwash
 -9 150 621 156 18 cb-grassdk cb-grass
--20 300 170 90 cb-phedge
+-20 250 170 90 cb-phedge
 -9 60 621 50 22 [0.40 0.56 0.28] cb-grass
-/cb-dkgrow 0.1 def 300 112 92 cb-duckling /cb-dkgrow 0 def
+/cb-dkgrow 0.1 def 380 108 104 cb-duckling /cb-dkgrow 0 def
 % he is running: three quick strokes behind him
-0 1 2 { /i exch def newpath 240 i 9 mul sub 128 i 12 mul add moveto -34 i 6 mul add 0 rlineto
+0 1 2 { /i exch def newpath 318 i 9 mul sub 120 i 14 mul add moveto -40 i 6 mul add 0 rlineto
   [0.92 0.96 0.80] cb-rgb << /Width 2.6 /Taper 0.8 >> pkliner } for
 cb-ink cb-rgb
 (His mother hushed them, but they would not stop.) 60 572 492 /center cb-text pop
