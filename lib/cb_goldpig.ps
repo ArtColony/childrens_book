@@ -113,3 +113,109 @@
   } for
   end
 } bind def
+
+% ---------------------------------------------------------------- the pig
+% The golden pig (금돼지): a great round boar in flat gold inside an ink
+% line, curled minhwa marks on its hide, a bristled ridge, white tusks.
+% Options, set just before a call:
+%   cb-gp-face   1 faces right, -1 faces left
+%   cb-gp-mood   /fierce (in the cave), /sly (coaxed into talking),
+%                /dead (felled by the deerskin: on its back, eye shut)
+/cb-gp-face 1 cb-default
+/cb-gp-mood /fierce cb-default
+/cb-gp-goldlo [0.74 0.50 0.10] def     % the shadowed gold of the hide
+
+% x y len -> the pig, its feet's base line at y, len long, facing cb-gp-face.
+% Leaves the page position of the back of its head (where the deerskin
+% goes): -> bx by
+/cb-gp-pig {
+  8 dict begin /len exch def /y exch def /x exch def
+  /lw len 120 div 0.8 max 2.2 min def
+  /dead cb-gp-mood /dead eq def
+  /fr { x y translate len 100 div cb-gp-face mul len 100 div scale
+        dead { 50 34 translate 180 rotate -50 -34 translate } if } def
+  /goldfill { % path -> flat gold, ink line
+    gsave cb-mh-gold 0.95 cb-wash grestore lw cb-line } def
+  % far legs, darker
+  newpath { fr 6 26 moveto 9 14 10 8 10 4 curveto 17 4 lineto 18 10 20 18 21 26 curveto closepath
+                61 26 moveto 63 14 64 8 64 4 curveto 71 4 lineto 72 10 73 18 74 26 curveto closepath } cb-local
+  gsave cb-gp-goldlo 0.95 cb-wash grestore lw cb-line
+  % the body: a big round barrel, the back higher than the shoulders
+  newpath { fr
+    6 30 moveto -2 44 2 62 20 68 curveto
+    40 74 64 72 76 62 curveto
+    84 56 86 44 82 34 curveto
+    76 18 56 14 40 16 curveto
+    22 16 10 20 6 30 curveto closepath } cb-local
+  goldfill
+  % the lit back, and the pale belly
+  gsave newpath { fr 6 30 moveto -2 44 2 62 20 68 curveto 40 74 64 72 76 62 curveto
+                  84 56 86 44 82 34 curveto 76 18 56 14 40 16 curveto 22 16 10 20 6 30 curveto closepath } cb-local clip
+    newpath { fr 0 58 moveto 30 74 60 72 90 58 curveto 90 80 lineto 0 80 lineto closepath } cb-local
+    cb-mh-goldhi 0.8 cb-wash
+    newpath { fr 10 14 moveto 40 26 60 24 86 16 curveto 86 10 lineto 10 10 lineto closepath } cb-local
+    cb-mh-goldhi 0.5 cb-wash
+  grestore
+  % near legs and hooves
+  newpath { fr 13 28 moveto 16 16 17 10 17 4 curveto 27 4 lineto 28 10 30 18 31 28 curveto closepath
+                52 28 moveto 55 16 56 10 56 4 curveto 66 4 lineto 67 10 68 18 69 28 curveto closepath } cb-local
+  goldfill
+  % cloven hooves
+  newpath { fr 16 0 moveto 16.5 5 lineto 27.5 5 lineto 28 0 lineto closepath
+                55 0 moveto 55.5 5 lineto 66.5 5 lineto 67 0 lineto closepath } cb-local
+  gsave cb-mh-black 0.95 cb-wash grestore lw cb-line
+  newpath { fr 22 0 moveto 22 4 lineto 61 0 moveto 61 4 lineto } cb-local
+  gsave cb-mh-goldhi cb-rgb lw 0.8 mul setlinewidth stroke grestore newpath
+  % the head: a heavy wedge to the snout
+  newpath { fr 70 64 moveto 84 66 94 58 104 46 curveto
+            108 40 108 32 104 28 curveto 96 24 86 26 78 30 curveto 70 40 lineto closepath } cb-local
+  gsave cb-mh-gold 0.95 cb-wash grestore newpath
+  % ink only the head's outer edge, so no seam shows where it meets the body
+  newpath { fr 70 64 moveto 84 66 94 58 104 46 curveto
+            108 40 108 32 104 28 curveto 96 24 86 26 78 30 curveto } cb-local
+  lw cb-line
+  % the snout's flat disc, with nostrils
+  newpath { fr matrix currentmatrix 105 36 translate 0.45 1 scale 0 0 8.5 0 360 arc setmatrix closepath } cb-local
+  gsave cb-mh-pink [0.80 0.50 0.30] 0.5 cb-mixa 0.9 cb-wash grestore lw cb-line
+  cb-mh-black cb-rgb
+  newpath { fr 105.6 38.5 1.2 0 360 arc closepath 105.6 33 1.2 0 360 arc closepath } cb-local fill
+  % tusks
+  newpath { fr 98 28 moveto 102 30 104 38 100 44 curveto 99 38 98 33 95 30 curveto closepath } cb-local
+  gsave cb-mh-white 0.95 cb-wash grestore lw 0.8 mul cb-line
+  % ears: a pointed near ear, the far ear peeking
+  newpath { fr 76 64 moveto 80 80 lineto 88 64 lineto closepath } cb-local
+  gsave cb-gp-goldlo 0.95 cb-wash grestore lw cb-line
+  newpath { fr 82 62 moveto 90 77 lineto 94 58 lineto closepath } cb-local
+  goldfill
+  % the eye, by mood
+  cb-gp-mood /fierce eq {
+    newpath { fr 90 50 3.2 0 360 arc closepath } cb-local
+    gsave cb-mh-red 0.95 cb-wash grestore lw 0.7 mul cb-line
+    newpath { fr 90.6 50 1.5 0 360 arc closepath } cb-local
+    gsave cb-mh-black cb-rgb fill grestore newpath
+    newpath { fr 84 56 moveto 96 52 lineto } cb-local lw 1.2 mul cb-line   % a low brow
+  } if
+  cb-gp-mood /sly eq {
+    newpath { fr 86 50 moveto 88 53 92 53 94 50 curveto } cb-local lw cb-line  % a half-lidded eye
+    newpath { fr 89.5 49.4 1.3 0 360 arc closepath } cb-local
+    gsave cb-mh-black cb-rgb fill grestore newpath
+  } if
+  dead {
+    newpath { fr 86 49 moveto 94 53 lineto 86 53 moveto 94 49 lineto } cb-local lw cb-line   % an X for an eye
+  } if
+  % curled marks on the hide
+  newpath { fr 30 44 4 cb-mh-spiralpath 50 52 4.5 cb-mh-spiralpath 20 56 3.5 cb-mh-spiralpath
+            62 38 3.5 cb-mh-spiralpath 40 30 3 cb-mh-spiralpath } cb-local
+  gsave cb-gp-goldlo cb-rgb << /Width lw 0.9 mul /Taper 0.4 /Waver 0.2 >> pkliner grestore
+  % the bristled ridge along the spine
+  newpath { fr 0 1 16 { /k exch def
+      /tx 8 k 4.2 mul add def /ty 62 k 8 sub dup mul 0.09 mul neg add 8 add def
+      tx ty moveto tx 1.5 sub ty 5 add lineto } for } cb-local
+  lw 0.9 mul cb-line
+  % the curled tail
+  newpath { fr 4 50 moveto -6 52 -8 62 -2 62 curveto 4 62 2 54 -4 56 curveto } cb-local
+  lw cb-line
+  % the back of the head, for the deerskin
+  { fr 74 58 transform } cb-local itransform
+  end
+} bind def
