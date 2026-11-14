@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 5
+/Seed where { pop } { /Seed 5 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, gold. Inside: the sly pig; the wife facing it, hand on her pouch;
+% two stolen wives behind.
+{
+  cb-gp-cave
+  /cb-gp-face -1 def /cb-gp-mood /sly def
+  560 175 300 cb-gp-pig pop pop
+  /cb-ch-hair /bun def /cb-ch-cloth /skirt def /cb-ch-pose /stand def /cb-ch-age /adult def
+  /cb-ch-face 1 def /cb-ch-top [0.86 0.86 0.80] def
+  70 175 150 [0.50 0.56 0.60] cb-ch-person pop pop
+  120 175 140 [0.56 0.50 0.58] cb-ch-person pop pop
+  /cb-ch-top cb-mh-white def
+  190 175 210 cb-mh-jade cb-ch-person pop pop
+  newpath 204 258 moveto 210 236 lineto [0.62 0.40 0.22] cb-rgb << /Width 3 /Taper 0 >> pkliner
+  newpath 210 228 9 0 360 arc closepath [0.80 0.30 0.30] 0.95 cb-mh-flat 0.8 cb-line
+} cb-gp-panel
+5 cb-gp-say
+showpage

@@ -1,0 +1,19 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 26
+/Seed where { pop } { /Seed 26 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% W, sea. The blue lion over minhwa waves, carrying Chiwon home (←).
+{
+  /day cb-gp-sky
+  70 410 30 cb-gp-moon
+  260 [0.30 0.50 0.70] cb-gp-sea
+  420 420 150 cb-mh-cloud
+  /cb-mh-face -1 def 420 250 260 cb-mh-lion
+  /cb-ch-cloth /robe def /cb-ch-hair /putou def /cb-ch-age /adult def /cb-ch-saekdong false def /cb-ch-trim cb-mh-red def /cb-ch-pose /stand def /cb-ch-face -1 def
+  370 300 110 cb-mh-blue cb-ch-person pop pop
+} cb-gp-panel
+26 cb-gp-say
+showpage

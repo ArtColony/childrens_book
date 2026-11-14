@@ -53,22 +53,27 @@
 % ---------------------------------------------------------------- sunflower
 % x y r angle -> a sunflower head of radius r, turned by angle (it faces the
 % viewer; the turn sets where the petals lie). Hope, in this book.
+/cb-mh-sfopen 1 cb-default    % 0: a closed green bud; 1: in full bloom
 /cb-mh-sunflower {
-  8 dict begin /an exch def /r exch def /y exch def /x exch def
+  10 dict begin /an exch def /r exch def /y exch def /x exch def
   /n 18 def
+  /op cb-mh-sfopen 0 max 1 min def
+  /pl 0.25 op 0.75 mul add def                        % petal length, as opened
+  /pc cb-mh-green cb-mh-yellow op cb-mixa def         % petal colour, as opened
+  /pc2 cb-mh-green cb-mh-gold op cb-mixa def
   % back ring of petals, a little darker, offset half a step
   newpath
   0 1 n 1 sub { /i exch def
     { x y translate an i 360 mul n div add 180 n div add rotate
-      r 0.42 mul 0 translate r 0.62 mul r 0.22 mul cb-mh-petalpath } cb-local
+      r 0.42 mul 0 translate r 0.62 mul pl mul r 0.22 mul cb-mh-petalpath } cb-local
   } for
-  cb-mh-gold 0.85 cb-wash
+  pc2 0.85 cb-wash
   newpath
   0 1 n 1 sub { /i exch def
     { x y translate an i 360 mul n div add rotate
-      r 0.40 mul 0 translate r 0.60 mul r 0.24 mul cb-mh-petalpath } cb-local
+      r 0.40 mul 0 translate r 0.60 mul pl mul r 0.24 mul cb-mh-petalpath } cb-local
   } for
-  gsave cb-mh-yellow 0.9 cb-wash grestore
+  gsave pc 0.9 cb-wash grestore
   r 70 div 0.6 max cb-line
   % the seed disk
   newpath x y r 0.44 mul 0 360 arc closepath

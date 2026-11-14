@@ -13,7 +13,8 @@ and nothing is typed twice.
 
 `fit` sets every page in the real fonts with cb-lines, at the sizes and
 widths the page frame uses, and fails when a page needs more lines than its
-band holds. Standard library only.
+band holds, or leaves a widow (one word alone on its last line, in either
+language). Standard library only.
 """
 import os
 import re
@@ -47,7 +48,25 @@ def clean(s):
 
 
 def psstr(s):
-    return "(" + s.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)") + ")"
+    s = s.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+    return "(" + s.replace("\n", "\\n") + ")"
+
+
+def about(book):
+    """The back matter: the ```ko and ```en blocks under '## Back matter'.
+    Paragraphs (blank-line separated) are joined with \\n\\n for cb-text."""
+    with open(os.path.join(book, "02-retelling.md"), encoding="utf-8") as f:
+        md = f.read()
+    if "## Back matter" not in md:
+        return None
+    md = md.split("## Back matter", 1)[1]
+    out = {}
+    for lang in ("ko", "en"):
+        m = re.search(r"```" + lang + r"\n(.*?)```", md, re.S)
+        if m:
+            paras = [re.sub(r"\s+", " ", p).strip() for p in m.group(1).strip().split("\n\n")]
+            out[lang] = "\n\n".join(paras)
+    return out.get("ko", ""), out.get("en", "")
 
 
 def generate(book):
@@ -61,6 +80,10 @@ def generate(book):
     for i, (ko, en) in enumerate(pages):
         lines.append(f"  [ {psstr(ko)}\n    {psstr(en)} ]   % {i}")
     lines.append("] def")
+    ab = about(book)
+    if ab:
+        lines.append("% the back matter; paragraphs are separated by \\n\\n")
+        lines.append(f"/cb-gp-about [ {psstr(ab[0])}\n  {psstr(ab[1])} ] def")
     return "\n".join(lines) + "\n"
 
 
@@ -72,8 +95,10 @@ def fit(book):
             if not text:
                 continue
             prog.append(
-                f"{font} findfont {size} scalefont setfont {psstr(text)} {width} cb-lines length "
-                f"dup {most} gt {{ (page {i} {tag}: ) print 3 string cvs print ( lines, over {most}) = /bad bad 1 add def }} {{ pop }} ifelse"
+                f"{font} findfont {size} scalefont setfont {psstr(text)} {width} cb-lines "
+                f"dup length {most} gt {{ (page {i} {tag}: ) print dup length 3 string cvs print ( lines, over {most}) = /bad bad 1 add def }} if "
+                # a widow: more than one line, and the last is a single word
+                f"dup length 1 gt {{ dup dup length 1 sub get ( ) search {{ pop pop pop }} {{ (page {i} {tag}: widow: ) print = /bad bad 1 add def }} ifelse }} if pop"
             )
     prog.append("bad 0 eq { (bitext: every page fits) = } { (bitext: pages over their bands) = } ifelse")
     with tempfile.NamedTemporaryFile("w", suffix=".ps", delete=False, encoding="utf-8") as f:

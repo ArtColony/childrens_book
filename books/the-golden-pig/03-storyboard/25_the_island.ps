@@ -1,0 +1,20 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 25
+/Seed where { pop } { /Seed 25 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% W, grey. A barren island; a small figure writing poems in the sand.
+{
+  /grey cb-gp-sky
+  280 [0.46 0.54 0.62] cb-gp-sea
+  newpath 120 150 moveto 180 260 420 270 500 150 curveto closepath [0.78 0.74 0.64] 0.95 cb-mh-flat 1 cb-line
+  /cb-ch-cloth /robe def /cb-ch-hair /putou def /cb-ch-age /adult def /cb-ch-saekdong false def /cb-ch-trim cb-mh-red def /cb-ch-pose /kneel def /cb-ch-face 1 def
+  290 230 60 cb-mh-blue cb-ch-person pop pop
+  gsave [0.56 0.48 0.36] cb-rgb /NotoSansKR-Regular findfont 12 scalefont setfont 320 214 moveto (孤雲) show grestore
+  /cb-mh-sfopen 0.6 def
+  240 220 40 4 10 cb-mh-sunflowerplant
+} cb-gp-panel
+25 cb-gp-say
+showpage

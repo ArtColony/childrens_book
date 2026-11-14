@@ -1,0 +1,28 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 10
+/Seed where { pop } { /Seed 10 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% C, day. The boy (3) kneeling, writing hanja in the sand among bird
+% tracks.
+{
+  /day cb-gp-sky
+  360 [0.40 0.60 0.74] cb-gp-sea
+  330 [0.92 0.84 0.66] cb-gp-land
+  % bird tracks and hanja scratched in the sand
+  0 1 8 { /k exch def newpath 300 k 28 mul add 250 k 3 mod 12 mul add 2 copy moveto 2 copy 6 9 rlineto moveto 0 11 rlineto pop pop 0.8 cb-line } for
+  gsave [0.62 0.50 0.32] cb-rgb /NotoSansKR-Regular findfont 44 scalefont setfont
+    newpath 320 190 moveto (天 地 人) false charpath 1.2 setlinewidth stroke grestore
+  /cb-ch-cloth /robe def /cb-ch-hair /braid def /cb-ch-age /tot def /cb-ch-pose /kneel def
+  /cb-ch-saekdong true def /cb-ch-trim cb-mh-blue def /cb-ch-face 1 def
+  150 170 230 cb-mh-green cb-ch-person /hy exch def /hx exch def
+  /cb-ch-saekdong false def /cb-ch-age /adult def
+  newpath hx hy moveto hx 40 add hy 20 sub lineto [0.52 0.36 0.20] cb-rgb << /Width 3 /Taper 0.3 >> pkliner
+  /cb-mh-face -1 def 520 300 46 cb-mh-magpie
+  /cb-mh-sfopen 1 def
+  560 150 130 -8 -30 cb-mh-sunflowerplant
+} cb-gp-panel
+10 cb-gp-say
+showpage

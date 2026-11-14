@@ -1,0 +1,29 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 20
+/Seed where { pop } { /Seed 20 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% FULL-BLEED, bright. The climax: the open box, the chick, the astonished
+% Emperor, a magpie with the news. The texts sit on hanji panels.
+gsave newpath -9 -9 630 630 cb-mh-rect clip newpath
+  /gold cb-gp-sky
+  % rays of light from the box
+  0 1 11 { /k exch def newpath 306 230 moveto k 30 mul 4 add dup cos 700 mul 306 add exch sin 700 mul 230 add lineto
+           k 30 mul 14 add dup cos 700 mul 306 add exch sin 700 mul 230 add lineto closepath cb-mh-goldhi 0.45 cb-mh-flat } for
+  newpath -20 -20 660 200 cb-mh-rect [0.62 0.30 0.24] 0.9 cb-mh-flat
+  /cb-ch-age /adult def /cb-ch-cloth /robe def /cb-ch-hair /mian def /cb-ch-face 1 def /cb-ch-lean -10 def
+  /cb-ch-beard true def /cb-ch-pose /stand def
+  110 150 290 cb-mh-yellow cb-ch-person pop pop
+  /cb-ch-lean 0 def /cb-ch-beard false def
+  306 160 160 true cb-gp-box
+  /cb-gp-face -1 def 316 250 90 cb-gp-chick
+  /cb-mh-face -1 def 500 330 70 cb-mh-magpie
+  /cb-mh-sfopen 1 def
+  560 140 190 -8 -20 cb-mh-sunflowerplant
+grestore
+36 470 540 130 cb-panel
+36 24 540 126 cb-panel
+20 cb-gp-say
+showpage

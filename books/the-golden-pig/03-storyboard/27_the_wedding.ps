@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 27
+/Seed where { pop } { /Seed 27 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, day. The wedding under the peonies; the mountains beyond.
+{
+  /day cb-gp-sky
+  120 300 200 150 [0.46 0.60 0.70] [0.28 0.42 0.52] 5 cb-mh-crag
+  480 300 220 170 [0.46 0.60 0.70] [0.28 0.42 0.52] 5 cb-mh-crag
+  220 [0.52 0.64 0.40] cb-gp-land
+  0 1 10 { /k exch def 50 k 50 mul add 300 k 2 mod 16 mul add 50 cb-mh-peony } for
+  /cb-ch-cloth /robe def /cb-ch-hair /putou def /cb-ch-age /adult def /cb-ch-saekdong false def /cb-ch-trim cb-mh-red def /cb-ch-pose /stand def /cb-ch-face 1 def
+  230 190 210 cb-mh-blue cb-ch-person pop pop
+  /cb-ch-cloth /skirt def /cb-ch-hair /bun def /cb-ch-face -1 def /cb-ch-top cb-mh-yellow def
+  /cb-ch-trim cb-mh-red def
+  370 190 195 cb-mh-red cb-ch-person pop pop
+  /cb-mh-sfopen 1 def
+  60 150 110 6 20 cb-mh-sunflowerplant 550 150 110 -6 -20 cb-mh-sunflowerplant
+} cb-gp-panel
+27 cb-gp-say
+showpage

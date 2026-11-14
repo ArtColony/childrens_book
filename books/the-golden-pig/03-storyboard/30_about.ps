@@ -1,0 +1,20 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 30
+/Seed where { pop } { /Seed 30 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% About this story: a jogakbo border, the Korean above, the English below.
+10 10 592 26 18 1 cb-mh-jogakbo
+10 576 592 26 18 1 cb-mh-jogakbo
+10 36 26 540 1 15 cb-mh-jogakbo
+576 36 26 540 1 15 cb-mh-jogakbo
+cb-ink cb-rgb
+/cb-sizeko 13.5 def /cb-leadko 1.5 def
+cb-gp-about 0 get 60 560 492 /left cb-textko pop
+/cb-size 13 def /cb-leading 1.36 def
+cb-gp-about 1 get 60 300 492 /left cb-text pop
+/cb-mh-sfopen 1 def
+540 40 70 -4 20 cb-mh-sunflowerplant
+showpage

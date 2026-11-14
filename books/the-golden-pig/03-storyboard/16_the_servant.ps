@@ -1,0 +1,30 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 16
+/Seed where { pop } { /Seed 16 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, day. The minister's house: the broken mirror; two servants sneering;
+% the boy (10) with water buckets on a yoke.
+{
+  /day cb-gp-sky
+  430 230 260 160 [0.30 0.30 0.34] cb-mh-hall
+  210 [0.80 0.72 0.56] cb-gp-land
+  % the broken mirror: a bronze disc in shards
+  newpath 120 200 22 0 360 arc closepath [0.70 0.56 0.30] 0.95 cb-mh-flat 1 cb-line
+  newpath 120 200 moveto 104 214 lineto 120 200 moveto 140 210 lineto 120 200 moveto 116 178 lineto 0.8 cb-line
+  /cb-ch-cloth /robe def /cb-ch-hair /braid def /cb-ch-saekdong true def /cb-ch-trim cb-mh-blue def /cb-ch-age /youth def /cb-ch-pose /stand def /cb-ch-face 1 def /cb-ch-lean 6 def
+  230 190 170 cb-mh-green cb-ch-person pop pop
+  /cb-ch-lean 0 def /cb-ch-saekdong false def /cb-ch-age /adult def
+  % the yoke and buckets
+  newpath 190 300 moveto 300 300 lineto [0.50 0.32 0.20] cb-rgb << /Width 4 /Taper 0 >> pkliner
+  newpath 180 230 24 40 cb-mh-rect 288 230 24 40 cb-mh-rect [0.56 0.40 0.24] 0.95 cb-mh-flat 1 cb-line
+  /cb-ch-hair /topknot def /cb-ch-face -1 def
+  440 190 200 [0.70 0.66 0.56] cb-ch-person pop pop
+  520 190 190 [0.62 0.60 0.62] cb-ch-person pop pop
+  /cb-mh-sfopen 0.1 def
+  60 150 80 10 20 cb-mh-sunflowerplant
+} cb-gp-panel
+16 cb-gp-say
+showpage

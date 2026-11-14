@@ -1,0 +1,27 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 17
+/Seed where { pop } { /Seed 17 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% W, day. A peony garden; Unyeong at the gate; the boy at work.
+{
+  /day cb-gp-sky
+  220 [0.52 0.64 0.40] cb-gp-land
+  0 1 9 { /k exch def 80 k 50 mul add 170 k 3 mod 18 mul add 44 cb-mh-peony } for
+  /cb-ch-cloth /robe def /cb-ch-hair /braid def /cb-ch-saekdong true def /cb-ch-trim cb-mh-blue def /cb-ch-age /youth def /cb-ch-pose /kneel def /cb-ch-face 1 def
+  240 180 160 cb-mh-green cb-ch-person pop pop
+  /cb-ch-saekdong false def /cb-ch-age /adult def
+  % the gate, right, and Unyeong
+  newpath 470 200 moveto 470 360 lineto 482 360 lineto 482 200 lineto closepath
+         560 200 moveto 560 360 lineto 572 360 lineto 572 200 lineto closepath [0.50 0.30 0.20] 0.95 cb-mh-flat 1 cb-line
+  newpath 456 360 130 14 cb-mh-rect [0.30 0.30 0.34] 0.95 cb-mh-flat 1 cb-line
+  /cb-ch-cloth /skirt def /cb-ch-hair /bun def /cb-ch-face -1 def /cb-ch-pose /stand def
+  /cb-ch-top cb-mh-yellow def /cb-ch-trim cb-mh-red def
+  525 190 190 cb-mh-pink cb-ch-person pop pop
+  /cb-mh-sfopen 1 def
+  400 150 120 -4 -40 cb-mh-sunflowerplant
+} cb-gp-panel
+17 cb-gp-say
+showpage

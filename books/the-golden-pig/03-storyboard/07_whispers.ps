@@ -1,0 +1,32 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 7
+/Seed where { pop } { /Seed 7 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, morning. The mother with the baby by the house; two neighbours
+% whispering at the gate.
+{
+  /day cb-gp-sky
+  420 230 260 150 [0.30 0.30 0.34] cb-mh-hall
+  200 [0.70 0.66 0.52] cb-gp-land
+  % the gate
+  newpath 70 200 moveto 70 330 lineto 82 330 lineto 82 200 lineto closepath
+         160 200 moveto 160 330 lineto 172 330 lineto 172 200 lineto closepath [0.50 0.30 0.20] 0.95 cb-mh-flat 1 cb-line
+  newpath 56 330 130 14 cb-mh-rect [0.30 0.30 0.34] 0.95 cb-mh-flat 1 cb-line
+  /cb-ch-cloth /skirt def /cb-ch-hair /bun def /cb-ch-age /adult def /cb-ch-pose /stand def
+  /cb-ch-face 1 def /cb-ch-top [0.86 0.84 0.70] def
+  60 190 150 [0.60 0.52 0.42] cb-ch-person pop pop
+  /cb-ch-top [0.80 0.84 0.86] def
+  120 190 145 [0.46 0.50 0.40] cb-ch-person pop pop
+  /cb-ch-face -1 def /cb-ch-pose /hold def /cb-ch-top cb-mh-white def
+  /cb-ch-held { exch 30 add exch 4 sub 64 cb-ch-baby } def
+  /cb-ch-face -1 def
+  360 188 220 cb-mh-jade cb-ch-person pop pop
+  /cb-ch-held { pop pop } def /cb-ch-pose /stand def
+  /cb-mh-sfopen 1 def 470 170 120 -6 -20 cb-mh-sunflowerplant
+  /cb-mh-sfopen 0.1 def 210 170 90 8 -20 cb-mh-sunflowerplant
+} cb-gp-panel
+7 cb-gp-say
+showpage

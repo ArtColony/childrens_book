@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 24
+/Seed where { pop } { /Seed 24 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, court. Chiwon honoured, now grown; two ministers whispering behind a
+% screen; the Emperor listening.
+{
+  210 cb-gp-room
+  newpath 330 210 220 220 cb-mh-rect [0.94 0.90 0.80] 0.95 cb-mh-flat 1.4 cb-line
+  /cb-mh-face 1 def 360 380 50 cb-mh-magpie
+  /cb-ch-cloth /robe def /cb-ch-hair /putou def /cb-ch-age /adult def /cb-ch-saekdong false def /cb-ch-trim cb-mh-red def /cb-ch-face 1 def /cb-ch-pose /stand def
+  130 190 240 cb-mh-blue cb-ch-person pop pop
+  /cb-ch-face -1 def
+  420 300 120 cb-mh-violet cb-ch-person pop pop
+  470 300 120 [0.30 0.50 0.40] cb-ch-person pop pop
+  /cb-ch-hair /mian def /cb-ch-beard true def
+  560 190 240 cb-mh-yellow cb-ch-person pop pop
+  /cb-ch-beard false def
+} cb-gp-panel
+24 cb-gp-say
+showpage

@@ -330,3 +330,62 @@
           1 1 2 { /k exch def x w k mul 3 div add y moveto 0 h rlineto } for 0.6 cb-line
   end
 } bind def
+
+% ---------------------------------------------------------------- scenes
+% Skies and grounds for the panel. They paint past the panel's edges; the
+% panel clips them. Light names: /night /day /dawn /evening /grey /gold.
+/cb-gp-skies <<
+  /night   [ [0.22 0.27 0.50] [0.36 0.42 0.62] ]
+  /day     [ [0.62 0.78 0.90] [0.86 0.92 0.94] ]
+  /dawn    [ [0.56 0.62 0.80] [0.98 0.80 0.62] ]
+  /evening [ [0.40 0.40 0.66] [0.98 0.70 0.46] ]
+  /grey    [ [0.62 0.64 0.68] [0.82 0.82 0.80] ]
+  /gold    [ [0.92 0.62 0.30] [1.00 0.86 0.52] ]
+>> def
+
+% light -> the sky over the whole panel, its top colour above, its lower
+% colour toward the horizon.
+/cb-gp-sky {
+  cb-gp-skies exch get aload pop /cb-gp-lo exch def /cb-gp-hi exch def
+  newpath -20 100 652 520 cb-mh-rect cb-gp-lo 0.95 cb-bigwash
+  newpath -20 330 652 300 cb-mh-rect cb-gp-hi 0.75 cb-bigwash
+} bind def
+
+% y colour -> land from the bottom up to about y, a gentle swell.
+/cb-gp-land {
+  /cb-gp-lc exch def /cb-gp-ly exch def
+  newpath -20 100 moveto -20 cb-gp-ly lineto
+  150 cb-gp-ly 14 add 400 cb-gp-ly 10 sub 640 cb-gp-ly 6 add curveto 640 100 lineto closepath
+  cb-gp-lc 0.92 cb-bigwash
+  newpath -20 cb-gp-ly moveto 150 cb-gp-ly 14 add 400 cb-gp-ly 10 sub 640 cb-gp-ly 6 add curveto 1.1 cb-line
+} bind def
+
+% y colour -> the sea from the bottom up to y, in rows of minhwa scallop
+% waves over a wash of colour.
+/cb-gp-sea {
+  /cb-gp-sc exch def /cb-gp-sy exch def
+  newpath -20 100 652 cb-gp-sy 100 sub cb-mh-rect cb-gp-sc 0.9 cb-bigwash
+  0 1 cb-gp-sy 130 sub 26 div cvi { /k exch def
+    -20 cb-gp-sy k 26 mul sub 680 3 cb-mh-waves } for
+} bind def
+
+% floor-y -> a room: a papered wall with a folding screen, a heated floor
+% (온돌) of oiled paper in a warm yellow-brown.
+/cb-gp-room {
+  /cb-gp-fy exch def
+  newpath -20 cb-gp-fy 652 400 cb-mh-rect [0.93 0.88 0.76] 0.95 cb-mh-flat
+  newpath -20 100 652 cb-gp-fy 100 sub cb-mh-rect [0.82 0.62 0.36] 0.95 cb-mh-flat
+  newpath -20 cb-gp-fy moveto 652 cb-gp-fy lineto 1.2 cb-line
+  newpath 0 1 12 { /k exch def k 55 mul -20 add 100 moveto k 55 mul 10 add cb-gp-fy lineto } for 0.4 cb-line
+} bind def
+
+% -> the golden cave: dark rock walls round a gold glow.
+/cb-gp-cave {
+  newpath -20 100 652 420 cb-mh-rect [0.24 0.18 0.14] 0.95 cb-mh-flat
+  newpath 306 290 260 0 360 arc closepath [0.62 0.42 0.12] 0.7 cb-bigwash
+  newpath 306 290 170 0 360 arc closepath cb-mh-gold 0.5 cb-bigwash
+  newpath 306 290 90 0 360 arc closepath cb-mh-goldhi 0.4 cb-bigwash
+  % hanging rock teeth at the top
+  newpath 30 462 moveto 0 1 14 { /k exch def 30 k 40 mul add 20 add 420 rand 30 mod sub lineto 30 k 1 add 40 mul add 462 lineto } for closepath
+  [0.30 0.22 0.16] 0.95 cb-mh-flat 1 cb-line
+} bind def
