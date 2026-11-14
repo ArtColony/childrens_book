@@ -95,11 +95,15 @@ for page in "${files[@]}"; do
     args=(--lint-strict --png "$target")
   fi
   start=$(date +%s)
-  if pscat --page "$size" --dpi "$dpi" "${args[@]}" "$prelude"; then
+  # a face that fell back (an uninstalled font pack) fails the page: Hangul
+  # set in Helvetica prints nothing
+  if pscat --page "$size" --dpi "$dpi" "${args[@]}" "$prelude" 2> "$tmp/err" \
+     && { cat "$tmp/err" >&2; ! grep -q 'warning: font' "$tmp/err"; }; then
     secs=$(( $(date +%s) - start ))
     printf '%s\t%s\t%s\t%ss\t%s\n' "$(date -u +%FT%TZ)" "$book/$stage/$name" "$dpi" "$secs" "${defs[*]-}" >> "$out/timings.tsv"
     echo "render: $name ${secs}s -> $target"
   else
+    cat "$tmp/err" >&2
     echo "render: $name FAILED" >&2
     status=1
   fi

@@ -1,0 +1,26 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 3
+/Seed where { pop } { /Seed 3 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, dark. The empty bedding; the thread running out of the open lattice
+% door into the night; wind.
+{
+  210 cb-gp-room
+  newpath -20 210 652 300 cb-mh-rect [0.10 0.12 0.24] 0.55 cb-mh-flat
+  % the open door: a dark rectangle onto the night, the paper door swung back
+  newpath 420 210 110 190 cb-mh-rect [0.14 0.18 0.36] 0.95 cb-mh-flat 1.2 cb-line
+  530 210 60 190 cb-gp-door
+  % the empty bedding (이불)
+  newpath 90 196 230 34 cb-mh-rect [0.72 0.36 0.40] 0.9 cb-mh-flat 1 cb-line
+  newpath 90 226 60 16 cb-mh-rect [0.94 0.92 0.86] 0.9 cb-mh-flat 1 cb-line
+  [ 170 228  260 216  360 222  430 250  470 300  540 330 ] cb-gp-thread
+  % wind lines through the door
+  newpath 440 360 moveto 400 370 360 350 330 362 curveto 450 330 moveto 410 336 380 320 350 330 curveto 0.8 cb-line
+  /cb-mh-sfopen 0 def
+  560 150 60 -14 -30 cb-mh-sunflowerplant
+} cb-gp-panel
+3 cb-gp-say
+showpage

@@ -1,0 +1,26 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 0
+/Seed where { pop } { /Seed 0 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% The cover: full-bleed, the pig's gold on a crag at golden evening, one
+% sunflower turned up. The titles in the sky.
+gsave newpath -9 -9 630 630 cb-mh-rect clip newpath
+  /gold cb-gp-sky
+  80 120 220 300 [0.46 0.56 0.74] [0.30 0.36 0.58] 5 cb-mh-crag
+  520 120 200 280 [0.46 0.56 0.74] [0.30 0.36 0.58] 4 cb-mh-crag
+  430 470 140 cb-mh-cloud
+  140 430 34 cb-gp-moon
+  120 [0.40 0.50 0.40] cb-gp-land
+  /cb-gp-face -1 def /cb-gp-mood /fierce def
+  440 70 300 cb-gp-pig pop pop
+  /cb-mh-sfopen 1 def 90 40 230 -10 25 cb-mh-sunflowerplant
+grestore
+cb-ink cb-rgb
+(금돼지 전설) 306 520 78 /center cb-brushko
+/cb-halo true def
+/Bookman-Demi 30 cb-type (The Legend of the Golden Pig) 306 470 /center cb-say
+/cb-halo false def
+showpage

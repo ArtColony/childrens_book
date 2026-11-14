@@ -1,0 +1,31 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 13
+/Seed where { pop } { /Seed 13 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% W, moon. The pavilion; the boy reading; his voice, a ribbon of hanja,
+% crossing the sea to a far palace.
+{
+  /night cb-gp-sky
+  110 410 26 cb-gp-moon
+  320 [0.30 0.40 0.60] cb-gp-sea
+  % the far palace on the horizon, right
+  540 322 70 40 [0.30 0.30 0.34] cb-mh-hall
+  250 [0.62 0.60 0.56] cb-gp-land
+  150 240 200 140 cb-mh-pavilion
+  /cb-ch-cloth /robe def /cb-ch-hair /braid def /cb-ch-saekdong true def /cb-ch-trim cb-mh-blue def /cb-ch-age /youth def /cb-ch-pose /kneel def /cb-ch-face 1 def
+  150 255 70 cb-mh-green cb-ch-person pop pop
+  /cb-ch-saekdong false def /cb-ch-age /adult def
+  % the voice: characters floating over the sea toward the palace
+  gsave cb-mh-white cb-rgb /NotoSansKR-Regular findfont 22 scalefont setfont
+    /chs [ (天) (地) (玄) (黃) (宇) (宙) (洪) (荒) ] def
+    0 1 chs length 1 sub { /k exch def
+      230 k 38 mul add 330 k 45 mul sin 12 mul add moveto chs k get show } for
+  grestore
+  /cb-mh-sfopen 1 def
+  60 150 90 6 10 cb-mh-sunflowerplant
+} cb-gp-panel
+13 cb-gp-say
+showpage

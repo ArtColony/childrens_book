@@ -1,0 +1,28 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 4
+/Seed where { pop } { /Seed 4 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% W, moon. The style study: he follows the thread up to the crack.
+{
+  /night cb-gp-sky
+  130 420 26 cb-gp-moon
+  110 300 210 170 [0.42 0.52 0.72] [0.26 0.32 0.56] 5 cb-mh-crag
+  300 300 170 140 [0.42 0.52 0.72] [0.26 0.32 0.56] 4 cb-mh-crag
+  360 400 140 cb-mh-cloud
+  160 222 160 120 [0.44 0.64 0.62] [0.22 0.40 0.46] 3 cb-mh-crag
+  110 248 60 8 cb-mh-pine
+  490 150 190 310 [0.62 0.56 0.66] [0.38 0.32 0.46] 3 cb-mh-crag
+  492 220 88 cb-gp-crack
+  200 [0.40 0.48 0.40] cb-gp-land
+  /cb-mh-sfopen 0 def
+  60 150 60 6 -8 cb-mh-sunflowerplant
+  /cb-ch-face 1 def /cb-ch-lean 8 def
+  190 196 180 [0.92 0.92 0.86] cb-ch-magistrate /hy exch def /hx exch def
+  /cb-ch-lean 0 def
+  [ 30 190  100 200  hx 30 sub hy 25 sub  hx hy  330 240  420 250  470 256  492 258 ] cb-gp-thread
+} cb-gp-panel
+4 cb-gp-say
+showpage

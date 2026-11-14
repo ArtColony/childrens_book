@@ -1,0 +1,309 @@
+%!PS-Adobe-3.0
+% cb_chiwon.ps -- The Golden Pig's people, as minhwa figures: flat robes,
+% a round head, dot eyes, no modelled anatomy. All names start cb-ch-.
+%
+% Options, set just before a call:
+%   cb-ch-mode   /flat (colour inside an ink line) or /silhouette (one dark
+%                shape, for night pages and distant figures)
+%   cb-ch-face   1 faces right, -1 faces left
+
+/cb-ch-mode /flat cb-default
+/cb-ch-face 1 cb-default
+/cb-ch-skin [0.96 0.84 0.70] def
+/cb-ch-silc [0.10 0.10 0.16] def
+
+% Fill the current path in colour c, flat or as silhouette, and line it.
+% c lw -> ()
+/cb-ch-paint {
+  cb-ch-mode /silhouette eq {
+    pop pop gsave cb-ch-silc cb-rgb fill grestore newpath
+  } {
+    exch gsave 0.92 cb-wash grestore cb-line
+  } ifelse
+} bind def
+
+% The figure's local frame: feet at (x, y), 100 units tall, facing
+% cb-ch-face, leaning cb-ch-lean degrees into the way they go.
+/cb-ch-lean 0 cb-default
+/cb-ch-frame { % x y h -> (in cb-local: translate and scale)
+  3 dict begin /h exch def /y exch def /x exch def
+  x y translate h 100 div cb-ch-face mul h 100 div scale cb-ch-lean neg rotate
+  end
+} bind def
+
+% ---------------------------------------------------------------- everyone
+% One procedure for every person in the book, so they share one hand.
+% Options, set just before a call (with cb-ch-mode, -face, -lean above):
+%   cb-ch-hair   /putou (an official's hat), /bun (a woman: hair parted, a
+%                bun with a pin), /braid (an unmarried boy: a long braid with
+%                a red ribbon, 댕기), /topknot (a grown man, bare-headed),
+%                /none
+%   cb-ch-pose   /stand, /walk (stepping toward cb-ch-face), /hold (both
+%                arms in, cradling: see cb-ch-held), /kneel (seated on the
+%                heels, the near hand out low, as for writing)
+%   cb-ch-cloth  /robe (a long robe and belt) or /skirt (chima tied high
+%                under a short jeogori, with long ribbons)
+%   cb-ch-top    the jeogori's colour, for /skirt
+%   cb-ch-trim   collar, belt and ribbon colour
+%   cb-ch-age    /adult, /youth (about 10-12: a bigger head, a shorter body)
+%                or /tot (about 3)
+%   cb-ch-beard  true: a beard and moustache
+%   cb-ch-saekdong  true: a child's rainbow-striped sleeves (색동)
+%   cb-ch-old    true: white hair and beard, a stoop
+%   cb-ch-scarf  true: long floating ribbons (a heavenly maiden)
+%   hair also: /crown (the Silla king's gold crown), /mian (the Emperor's
+%                beaded crown), /gat (a scholar's wide black hat)
+%   cb-ch-held   { cx cy -> } run before the near arm is drawn, with the
+%                page position of the chest, to draw what is held (the arm
+%                then wraps over it)
+/cb-ch-hair /none cb-default
+/cb-ch-pose /stand cb-default
+/cb-ch-cloth /robe cb-default
+/cb-ch-top [0.96 0.95 0.90] cb-default
+/cb-ch-trim [0.80 0.20 0.16] cb-default
+/cb-ch-age /adult cb-default
+/cb-ch-beard false cb-default
+/cb-ch-saekdong false cb-default
+/cb-ch-held { pop pop } cb-default
+/cb-ch-old false cb-default
+/cb-ch-scarf false cb-default
+/cb-ch-hairc0 [0.13 0.11 0.12] def
+/cb-ch-hairc { cb-ch-old { [0.90 0.90 0.88] } { cb-ch-hairc0 } ifelse } bind def
+/cb-ch-collarc [0.98 0.97 0.94] def
+/cb-ch-saekc [ [0.80 0.20 0.16] [0.96 0.76 0.22] [0.30 0.54 0.40] [0.98 0.96 0.90] [0.16 0.36 0.60] [0.92 0.52 0.52] ] def
+
+% x y h garment -> a person, feet at (x, y), h tall when standing.
+% Leaves the near hand's page position: -> hx hy
+/cb-ch-person {
+  20 dict begin /robe exch def /h exch def /y exch def /x exch def
+  /lw h 75 div 0.6 max 1.6 min def
+  /kneel cb-ch-pose /kneel eq def
+  /adult cb-ch-age /adult eq def
+  % proportions: the body is drawn for an adult and squashed for a child;
+  % the head is drawn round (0, 0), radius 10, and placed and sized here
+  /bs cb-ch-age /tot eq { 0.62 } { adult { 1 } { 0.78 } ifelse } ifelse def
+  /ky kneel { 0.62 } { 1 } ifelse def
+  /hr cb-ch-age /tot eq { 17 } { adult { 10 } { 15 } ifelse } ifelse def
+  /hcx adult { 5 } { 4 } ifelse def
+  /hc 75 bs mul ky mul hr 0.92 mul add def          % head centre, on the shoulders
+  /fr { x y h cb-ch-frame cb-ch-old { -8 rotate } if } def
+  /bf { fr 1 bs ky mul scale } def                  % the body's frame
+  /hf { fr hcx hc translate hr 10 div dup scale } def   % the head's frame
+  /ink { lw cb-ch-paint } def
+  /skirt cb-ch-cloth /skirt eq kneel not and def
+  % a sleeve path by pose, near (true) or far (false)
+  /sleeve { % near? -> (adds the path in the body frame)
+    { cb-ch-pose /walk eq { 2 73 moveto 27 66 lineto 31 61 lineto 29 52 26 48 20 48 curveto 13 47 lineto 4 58 lineto closepath } if
+      cb-ch-pose /hold eq { 2 73 moveto 8 58 lineto 24 54 lineto 26 49 23 45 18 46 curveto 4 47 lineto -1 60 lineto closepath } if
+      kneel { 2 73 moveto 22 50 lineto 30 27 lineto 28 21 24 19 20 21 curveto 14 36 lineto 3 58 lineto closepath } if
+      cb-ch-pose /stand eq { 2 73 moveto 11 64 lineto 15 44 lineto 14 39 9 37 5 39 curveto 1 56 lineto closepath } if }
+    { cb-ch-pose /hold eq { -4 72 moveto 8 62 lineto 20 55 lineto 18 50 12 48 8 50 curveto -2 60 lineto closepath }
+                          { -6 72 moveto -15 58 lineto -17 47 lineto -15 43 -9 43 -7 45 curveto -1 62 lineto closepath } ifelse }
+    ifelse
+  } def
+  /stripes { % near? -> rainbow rings round the shoulder, clipped to the sleeve
+    /nr exch def
+    gsave newpath { bf nr sleeve } cb-local clip
+      0 1 11 { /k exch def
+        newpath { bf 2 73 k 3.2 mul 6 add 0 360 arc 2 73 k 3.2 mul 7.8 add 360 0 arcn closepath } cb-local
+        cb-ch-saekc k cb-ch-saekc length mod get 0.85 cb-wash } for
+    grestore
+  } def
+  % ---- a maiden's floating ribbons, behind everything
+  cb-ch-scarf {
+    newpath { bf -6 70 moveto -40 80 -50 40 -30 10 curveto -28 14 lineto -44 44 -34 74 -4 66 curveto closepath
+              10 70 moveto 44 84 56 50 40 18 curveto 38 22 lineto 50 50 40 78 8 66 curveto closepath } cb-local
+    cb-mh-pink lw cb-ch-paint
+  } if
+  % ---- shoes
+  kneel not {
+    newpath { fr
+      cb-ch-pose /walk eq
+        { -12 0 moveto -12 4 -2 4 -1 0 curveto closepath 12 5 moveto 13 10 22 10 24 6 curveto closepath }
+        { -10 0 moveto -10 4 -1 4 0 0 curveto closepath 4 0 moveto 4 4 13 4 14 0 curveto closepath } ifelse
+    } cb-local
+    cb-mh-black ink
+  } if
+  % ---- the far sleeve
+  newpath { bf false sleeve } cb-local
+  skirt { cb-ch-top } { robe } ifelse [0.3 0.3 0.4] 0.3 cb-mixa ink
+  cb-ch-saekdong cb-ch-mode /flat eq and { false stripes newpath { bf false sleeve } cb-local lw cb-line } if
+  % ---- the body
+  kneel {
+    newpath { bf -8 75 moveto 10 75 lineto 18 40 30 10 30 2 curveto 30 0 lineto -20 0 lineto -20 4 -14 40 -8 75 curveto closepath } cb-local
+    robe ink
+  } {
+    skirt {
+      % the chima, tied high under the chest, belling to the ground
+      newpath { bf -8 67 moveto 12 67 lineto 18 46 24 20 25 1 curveto 8 -2 -10 -2 -21 1 curveto -18 22 -13 46 -8 67 curveto closepath } cb-local
+      robe ink
+      newpath { bf -2 66 moveto 0 40 lineto 4 66 moveto 8 34 lineto } cb-local lw 0.5 mul cb-line   % pleats
+      % the jeogori: short, its hem curving up at the front
+      newpath { bf -8 75 moveto 10 75 lineto 12 70 13 66 12 63 curveto 4 64 -4 63 -10 65 curveto -9 69 lineto closepath } cb-local
+      cb-ch-top ink
+    } {
+      newpath { bf
+        cb-ch-pose /walk eq
+          { -8 75 moveto 11 75 lineto 14 54 18 30 24 11 curveto 12 7 -2 2 -14 3 curveto -12 26 -11 52 -8 75 curveto closepath }
+          { -8 75 moveto 10 75 lineto 12 50 14 26 16 2 curveto 4 0 -6 0 -15 2 curveto -13 26 -11 52 -8 75 curveto closepath } ifelse
+      } cb-local
+      robe ink
+    } ifelse
+  } ifelse
+  cb-ch-mode /flat eq {
+    skirt {
+      % the white collar strip (동정) down the V of the jeogori
+      newpath { bf -3 75 moveto 5 66 lineto 7 67.5 lineto 0 75 lineto closepath } cb-local
+      cb-ch-collarc ink
+    } {
+      newpath { bf -4 75 moveto -2 68 8 67 11 74 curveto
+        6 67 moveto 9 48 lineto 11 26 lineto } cb-local
+      lw 0.8 mul cb-line
+    } ifelse
+  } if
+  % ---- belt, or the jeogori's long ribbons (고름)
+  skirt {
+    newpath { bf 5 66 moveto 7 56 9 48 8 40 curveto 10 40 lineto 11 48 9 58 7 66 curveto closepath
+                 5 66 moveto 2 58 2 52 4 46 curveto 6 46 lineto 4 52 5 58 7 66 curveto closepath } cb-local
+    cb-ch-trim ink
+  } {
+    newpath { bf -10 47 moveto 14 47 lineto 15 42 lineto -11 42 lineto closepath } cb-local
+    cb-ch-trim ink
+  } ifelse
+  % ---- what is held, then the near sleeve and hand over it
+  cb-ch-pose /hold eq { { bf 8 60 transform } cb-local itransform cb-ch-held } if
+  /hp cb-ch-pose /walk eq { [34 60] } {
+      cb-ch-pose /hold eq { [25 50] } {
+      kneel { [31 22] } { [10 37] } ifelse } ifelse } ifelse def
+  newpath { bf true sleeve } cb-local
+  skirt { cb-ch-top } { robe } ifelse ink
+  cb-ch-saekdong cb-ch-mode /flat eq and { true stripes newpath { bf true sleeve } cb-local lw cb-line } if
+  % a mitten hand with a thumb
+  newpath { bf hp aload pop translate 1 bs ky mul div 1 scale
+            matrix currentmatrix 0 0 translate 1 0.8 scale 0 0 4.2 0 360 arc closepath setmatrix
+            2.4 2.8 1.7 0 360 arc closepath } cb-local
+  cb-ch-skin ink
+  % ---- the braid hangs behind, under the head
+  cb-ch-hair /braid eq {
+    /bl adult { -40 } { -26 } ifelse def
+    newpath { hf -7 -6 moveto -12 bl 0.3 mul -12 bl 0.7 mul -10 bl curveto -7 bl lineto -8 bl 0.7 mul -7 bl 0.3 mul -3 -7 curveto closepath } cb-local
+    cb-ch-hairc ink
+    newpath { hf -12 bl moveto -5 bl lineto -4 bl 7 sub lineto -8 bl 4 sub lineto -12 bl 8 sub lineto closepath } cb-local
+    cb-mh-red ink
+  } if
+  % ---- the head
+  newpath { hf 0 0 10 0 360 arc closepath } cb-local
+  cb-ch-skin ink
+  % ---- hair or hat
+  cb-ch-hair /putou eq {
+    newpath { hf -8 14 moveto -22 15.5 lineto -23 18 lineto -8 16.5 lineto closepath
+                 7 14 moveto 19 15.5 lineto 20 18 lineto 7 16.5 lineto closepath } cb-local
+    cb-mh-black ink
+    newpath { hf -10 4 moveto 9 4 lineto 9 11 lineto -10 11 lineto closepath
+                 -8 11 moveto -8 23 7 23 7 11 curveto closepath } cb-local
+    cb-mh-black ink
+    cb-ch-mode /flat eq {
+      newpath { hf -9 11.5 moveto 8 11.5 lineto } cb-local
+      gsave [0.45 0.45 0.55] cb-rgb lw 0.6 mul setlinewidth stroke grestore newpath
+    } if
+  } if
+  cb-ch-hair /crown eq {
+    % the Silla gold crown: a band with three tree-shaped uprights and dangles
+    newpath { hf -10 6 20 5 cb-mh-rect
+      [ -7 0 7 ] { /cx exch def cx 1.2 sub 11 2.4 14 cb-mh-rect cx 11 16 add moveto cx 5 add 23 lineto cx 1.2 add 21 lineto
+                   cx 1.2 sub 21 lineto cx 5 sub 23 lineto closepath } forall } cb-local
+    cb-mh-gold ink
+    newpath { hf -9 4 moveto -10 -4 lineto 9 4 moveto 10 -4 lineto } cb-local lw 0.6 mul cb-line
+  } if
+  cb-ch-hair /mian eq {
+    % the Emperor's crown: a cap under a flat board hung with bead strings
+    newpath { hf -9 5 18 9 cb-mh-rect } cb-local cb-mh-black ink
+    newpath { hf -16 14 32 4 cb-mh-rect } cb-local cb-mh-black ink
+    newpath { hf 0 1 4 { /k exch def -14 k 7 mul add 14 moveto 0 -10 rlineto } for } cb-local
+    gsave cb-mh-red cb-rgb lw 0.8 mul setlinewidth [1 2] 0 setdash stroke grestore newpath
+  } if
+  cb-ch-hair /bun eq cb-ch-hair /braid eq or cb-ch-hair /topknot eq or cb-ch-hair /gat eq or {
+    % hair: a cap over the crown and the back of the head. A child's
+    % hairline sits high, for a clear forehead, and is parted in the middle.
+    newpath { hf adult {
+        10 2 moveto 9 12 -6 13 -10 3 curveto -11 -4 -8 -8 -5 -9 curveto -3 -2 lineto -1 4 5 6 10 2 curveto }
+      { 8 6 moveto 6 12 -6 12 -10 3 curveto -11 -4 -8 -8 -5 -9 curveto -3 -2 lineto -1 6 4 8 8 6 curveto } ifelse
+      closepath } cb-local
+    cb-ch-hairc ink
+  } if
+  cb-ch-hair /bun eq {
+    newpath { hf -11 -6 5.5 0 360 arc closepath } cb-local
+    cb-ch-hairc ink
+    newpath { hf -19 -5 moveto -6 -7 lineto } cb-local          % the pin (비녀), behind the ear
+    gsave cb-mh-gold cb-rgb lw 1.4 mul setlinewidth 1 setlinecap stroke grestore newpath
+  } if
+  cb-ch-hair /topknot eq {
+    newpath { hf 1 14.5 4 0 360 arc closepath } cb-local
+    cb-ch-hairc ink
+  } if
+  cb-ch-hair /gat eq {
+    % a wide-brimmed black horsehair hat, the crown tall
+    newpath { hf -20 5 40 3 cb-mh-rect -7 8 14 12 cb-mh-rect } cb-local
+    gsave cb-mh-black 0.75 cb-mh-flat grestore lw cb-line
+    newpath { hf 5 6 moveto 6 -8 lineto } cb-local lw 0.5 mul cb-line
+  } if
+  % ---- the face: a long eye for an adult, a round one for a child
+  cb-ch-mode /flat eq {
+    adult {
+      newpath { hf 4 1.2 moveto 6 2.2 8 2 9 0.8 curveto } cb-local lw 0.7 mul cb-line
+      newpath { hf 6.6 0.9 1.1 0 360 arc closepath } cb-local
+      gsave cb-mh-black cb-rgb fill grestore newpath
+    } {
+      newpath { hf 6 0 1.9 0 360 arc closepath } cb-local
+      gsave cb-mh-black cb-rgb fill grestore newpath
+      newpath { hf 6.6 0.7 0.6 0 360 arc closepath } cb-local
+      gsave 1 setgray fill grestore newpath
+    } ifelse
+    newpath { hf 3 4.2 moveto 9 5 lineto } cb-local lw 0.7 mul cb-line
+    adult { newpath { hf 9.6 -1 moveto 11 -3.5 lineto 9.4 -4 lineto } cb-local lw 0.6 mul cb-line } if
+    newpath { hf 5 -6.5 moveto 6.8 -7.4 8.4 -6.4 9 -5.6 curveto } cb-local lw 0.5 mul cb-line
+    cb-ch-hair /bun ne cb-ch-hair /braid ne and {
+      newpath { hf -6.5 -1 2.2 0 360 arc } cb-local lw 0.6 mul cb-line
+    } if
+    cb-ch-beard cb-ch-old cb-ch-cloth /robe eq and or {
+      newpath { hf 6 -9 moveto 7 -13 6 -17 8 -21 curveto
+                8 -5 moveto 11 -6.5 12 -8 12.5 -10 curveto
+                4 -5 moveto 2 -6 1 -8 0.5 -9.5 curveto } cb-local
+      cb-ch-old
+        { gsave [0.62 0.62 0.62] cb-rgb << /Width lw 2.4 mul /Taper 0.5 /Waver 0.2 >> pkliner grestore newpath }
+        { lw 0.8 mul cb-line } ifelse
+    } if
+  } if
+  { bf hp aload pop transform } cb-local itransform
+  end
+} bind def
+
+% x y h -> a swaddled baby in a patchwork cloth (jogakbo), head to the
+% right, h long.
+/cb-ch-baby {
+  4 dict begin /h exch def /y exch def /x exch def
+  /lw h 40 div 0.5 max 1.2 min def
+  /fr { x y translate h 100 div cb-ch-face mul h 100 div scale } def
+  newpath { fr matrix currentmatrix 40 0 translate 1 0.55 scale 0 0 44 0 360 arc setmatrix closepath } cb-local
+  gsave gsave clip
+    0 1 5 { /k exch def newpath { fr -10 k 18 mul add -30 18 60 cb-mh-rect } cb-local
+      [ cb-mh-pink cb-mh-jade cb-mh-yellow cb-mh-white cb-mh-jade cb-mh-pink ] k get 0.6 cb-wash } for
+  grestore grestore lw cb-line
+  newpath { fr 0 1 4 { /k exch def -6 k 18 mul add -26 moveto 0 50 rlineto } for } cb-local lw 0.5 mul cb-line
+  newpath { fr 86 6 16 0 360 arc closepath } cb-local
+  gsave cb-ch-skin 0.92 cb-wash grestore lw cb-line
+  newpath { fr 92 8 moveto 94 9.5 96 9.5 98 8 curveto } cb-local lw 0.8 mul cb-line   % a sleeping eye
+  newpath { fr 96 0 moveto 98.5 0.5 lineto } cb-local lw 0.6 mul cb-line
+  end
+} bind def
+
+% x y h robe -> the magistrate, Choe Chung, walking toward cb-ch-face with
+% his near hand out (to hold the thread). A Silla official: a round-collared
+% robe (단령), a red belt, the putou hat (복두), a beard.
+% Leaves the hand's page position: -> hx hy
+/cb-ch-magistrate {
+  /cb-ch-hair /putou def /cb-ch-pose /walk def /cb-ch-cloth /robe def
+  /cb-ch-beard true def /cb-ch-age /adult def /cb-ch-trim cb-mh-red def
+  cb-ch-person
+  /cb-ch-beard false def
+} bind def

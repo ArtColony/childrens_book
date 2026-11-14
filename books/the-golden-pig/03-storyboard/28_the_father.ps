@@ -1,0 +1,23 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 28
+/Seed where { pop } { /Seed 28 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% C, evening. The old father holds his son's hands.
+{
+  /evening cb-gp-sky
+  220 [0.62 0.56 0.46] cb-gp-land
+  /cb-ch-age /adult def /cb-ch-cloth /robe def /cb-ch-hair /putou def /cb-ch-old true def
+  /cb-ch-face 1 def /cb-ch-pose /hold def /cb-ch-held { pop pop } def
+  200 180 270 [0.92 0.92 0.86] cb-ch-person pop pop
+  /cb-ch-old false def
+  /cb-ch-cloth /robe def /cb-ch-hair /putou def /cb-ch-age /adult def /cb-ch-saekdong false def /cb-ch-trim cb-mh-red def /cb-ch-hair /gat def /cb-ch-face -1 def /cb-ch-pose /hold def
+  400 180 280 [0.94 0.94 0.90] cb-ch-person pop pop
+  /cb-ch-pose /stand def
+  /cb-mh-sfopen 1 def
+  70 150 140 6 10 cb-mh-sunflowerplant 540 150 130 -6 -10 cb-mh-sunflowerplant
+} cb-gp-panel
+28 cb-gp-say
+showpage

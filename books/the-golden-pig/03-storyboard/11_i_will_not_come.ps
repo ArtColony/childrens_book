@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 11
+/Seed where { pop } { /Seed 11 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, day. The boy (3) standing straight, facing two officials on the sand.
+{
+  /day cb-gp-sky
+  300 [0.40 0.60 0.74] cb-gp-sea
+  220 [0.92 0.84 0.66] cb-gp-land
+  /cb-ch-cloth /robe def /cb-ch-hair /braid def /cb-ch-saekdong true def /cb-ch-trim cb-mh-blue def /cb-ch-age /tot def /cb-ch-pose /stand def /cb-ch-face 1 def
+  170 200 130 cb-mh-green cb-ch-person pop pop
+  /cb-ch-saekdong false def /cb-ch-age /adult def /cb-ch-hair /putou def /cb-ch-face -1 def
+  380 196 200 [0.50 0.40 0.30] cb-ch-person pop pop
+  470 196 205 [0.40 0.40 0.46] cb-ch-person pop pop
+  /cb-mh-sfopen 0.3 def
+  60 150 100 10 20 cb-mh-sunflowerplant
+} cb-gp-panel
+11 cb-gp-say
+showpage

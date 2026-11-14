@@ -1,0 +1,22 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, the pig's sheet
+/Seed where { pop } { /Seed 2 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+cb-mh-ground
+/cb-gp-face 1 def /cb-gp-mood /fierce def
+60 360 300 cb-gp-pig pop pop
+/cb-gp-face -1 def /cb-gp-mood /sly def
+560 380 150 cb-gp-pig pop pop
+/cb-gp-face 1 def /cb-gp-mood /dead def
+330 60 220 cb-gp-pig pop pop
+% at the smallest size the book needs
+/cb-gp-face -1 def /cb-gp-mood /fierce def
+160 90 70 cb-gp-pig pop pop
+cb-ink cb-rgb
+/cb-size 13 def
+(fierce, the cave) 60 600 300 /left cb-text pop
+(sly, talking) 420 600 150 /left cb-text pop
+(dead, the deerskin) 330 230 220 /left cb-text pop
+(smallest) 80 190 100 /left cb-text pop
+showpage

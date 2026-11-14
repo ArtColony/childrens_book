@@ -1,0 +1,31 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 29
+/Seed where { pop } { /Seed 29 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% W, gold. Mount Gaya at golden evening; two small figures on a path into
+% cloud; a gat hanging on a pine (mirrors p. 1).
+{
+  /gold cb-gp-sky
+  330 230 340 260 [0.50 0.58 0.74] [0.32 0.38 0.58] 7 cb-mh-crag
+  300 400 220 cb-mh-cloud
+  420 360 170 cb-mh-cloud
+  % the path, winding up into the cloud
+  newpath 60 150 moveto 200 190 140 250 260 300 curveto 320 330 300 360 330 390 curveto
+    [0.86 0.74 0.52] cb-rgb << /Width 10 /Taper 0.7 >> pkliner
+  200 [0.44 0.56 0.40] cb-gp-land
+  /cb-ch-age /adult def /cb-ch-cloth /robe def /cb-ch-hair /topknot def /cb-ch-face 1 def /cb-ch-pose /walk def
+  262 296 36 [0.94 0.94 0.90] cb-ch-person pop pop
+  /cb-ch-cloth /skirt def /cb-ch-hair /bun def /cb-ch-top cb-mh-yellow def
+  280 304 34 cb-mh-red cb-ch-person pop pop
+  /cb-ch-pose /stand def
+  % the pine with the gat on a branch
+  120 190 130 10 cb-mh-pine
+  newpath 168 290 20 4 cb-mh-rect 174 294 8 8 cb-mh-rect [0.15 0.13 0.13] 0.8 cb-mh-flat 0.8 cb-line
+  /cb-mh-sfopen 1 def
+  480 150 130 -10 40 cb-mh-sunflowerplant 540 150 110 -6 40 cb-mh-sunflowerplant
+} cb-gp-panel
+29 cb-gp-say
+showpage

@@ -1,0 +1,29 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 612
+%%Title: The Golden Pig, storyboard p. 9
+/Seed where { pop } { /Seed 9 def } ifelse  Seed srand
+(lib/cb_book.ps) run
+(books/the-golden-pig/text.ps) run
+cb-mh-ground
+% M, moon. Heavenly maidens on clouds; cranes over the baby; lotus; the
+% first sunflowers open.
+{
+  /night cb-gp-sky
+  480 410 30 cb-gp-moon
+  250 [0.30 0.40 0.60] cb-gp-sea
+  205 [0.76 0.72 0.66] cb-gp-land
+  330 380 200 cb-mh-cloud
+  /cb-ch-cloth /skirt def /cb-ch-hair /bun def /cb-ch-scarf true def /cb-ch-pose /hold def
+  /cb-ch-face -1 def /cb-ch-top cb-mh-white def /cb-ch-held { pop pop } def
+  360 240 170 cb-mh-pink cb-ch-person pop pop
+  /cb-ch-scarf false def /cb-ch-pose /stand def
+  /cb-mh-face 1 def 120 330 110 cb-mh-crane
+  /cb-mh-face -1 def 300 300 90 cb-mh-crane
+  /cb-ch-face 1 def 170 200 50 cb-ch-baby
+  80 190 50 cb-mh-lotus 500 175 60 cb-mh-lotus
+  /cb-mh-sfopen 1 def
+  60 150 110 6 -10 cb-mh-sunflowerplant
+  550 150 90 -6 20 cb-mh-sunflowerplant
+} cb-gp-panel
+9 cb-gp-say
+showpage
