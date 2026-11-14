@@ -79,12 +79,16 @@ is the life of a boy everyone whispered about. We condense it into about
   source.
 - **These episodes are cut:** the Dragon King's son Yi Mok, the
   drought-island rain and the monk; the Tang scholars' verse contest; the
-  exam and the Huang Chao proclamation; the river woman's talismans and the
-  poisoned meal (magic that tests the charms, not him); and the
-  talisman-throwing variant. **Kept:** the old woman's soy-soaked cotton,
-  because it is a kindness and it later keeps him alive; the exile, because
-  slander causes it and slander is the whisper again; and the blue lion,
-  as one page of wonder on the way home (the editor would cut it; logged).
+  exam and the Huang Chao proclamation; and the talisman-throwing variant.
+  **Kept:**
+  - the old woman's soy-soaked cotton, a kindness that later keeps him alive;
+  - **the river woman's talismans and the poisoned meal at the Tang court.**
+    The editor would cut them as "magic that tests the charms, not him", but
+    the reader restored them (2026-11-14). We tell them as two more
+    kindnesses on the road that save him, so the sunflowers open for them;
+  - the exile, because slander causes it and slander is the whisper again;
+  - the blue lion, as one page of wonder on the way home (the editor would
+    cut it; logged).
 - **The marriage is Unyeong's choice.** A book that opens with stolen wives
   can't trade a daughter for a riddle. The boy comes into Minister Na's
   house as a servant after breaking a mirror by accident (Korean Wikipedia).
@@ -95,7 +99,8 @@ is the life of a boy everyone whispered about. We condense it into about
   on a pine, and a path goes up into cloud. (Shoes by a stream, from the
   Hongryu valley legend, read as drowning to adults, so they're cut.)
 - **Our one addition:** the father lives to see the end and says the
-  lesson. In the novel he isn't mentioned after the boy leaves.
+  lesson. In the novel he isn't mentioned after the boy leaves. The reader
+  approved it (2026-11-14), and the last page says it is ours.
 
 ### Page outline (about 28 story pages)
 
@@ -122,8 +127,9 @@ is the life of a boy everyone whispered about. We condense it into about
 | 19 | He writes the answer | lamp |
 | 20 | **The box is opened: a chick.** (The widest spread; the magpie brings the news) | bright |
 | 21 | Summoned, at twelve he sails for China; a farewell with Unyeong | sea |
-| 22 | On the road an old woman gives him cotton soaked in soy sauce | day |
-| 23 | The Tang court: he outshines them; the jealous whisper (4), slander | court |
+| 22 | On the road an old woman gives him cotton soaked in soy sauce; by a river a woman gives him talismans | day |
+| 23 | The Tang court tries him with traps and a poisoned meal; the talismans see him through | court |
+| 23b | He outshines them; the jealous whisper (4), slander | court |
 | 24 | Exile on a barren island; he lives on the soy cotton and writes in the sand | grey |
 | 25 | Recalled, he crosses home on a blue lion | sea |
 | 26 | Silla's court shuts him out; he turns toward the mountains | dusk |
@@ -178,7 +184,7 @@ is the life of a boy everyone whispered about. We condense it into about
 
 | Symbol | Where | What it does |
 |---|---|---|
-| **Sunflowers (해바라기)** | Every page the boy is on | Hope. They answer **kindness to him**, not his presence: they open where someone protects or loves him (the maidens, his mother, Unyeong, the old woman) and turn toward him then, and they stay closed or bowed where he is shunned. Key pages get a sunflower border. They are not a mark that he is special. |
+| **Sunflowers (해바라기)** | **Every page** (the reader's "throughout"), from the closed sunflowers by the town gate on the night pages | Hope. They answer **kindness to him**, not his presence, and stay closed or bowed until kindness opens them (agreed with the reader, 2026-11-14): they open where someone protects or loves him (the maidens, his mother, Unyeong, the old woman) and turn toward him then, and they stay closed or bowed where he is shunned. Key pages get a sunflower border. They are not a mark that he is special. |
 | **Gold** | The pig, then nowhere, then the sunflowers | The one accent colour. Once the pig is dead the gold comes back only as sunflowers: the thing feared becomes the thing hoped. |
 | **The red thread** | Pages 2–5 | The rescue. It returns as the thread of the jogakbo his mother sews for him. |
 | **Deer (십장생)** | The cave and the mountains | Long life. Deer hide defeats the pig, and deer watch from the mountains at the end. |

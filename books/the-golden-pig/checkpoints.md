@@ -39,8 +39,13 @@ Issue: [#7](https://github.com/ArtColony/childrens_book/issues/7). Branch:
   4 English lines at 19 pt. About 30 English words a page, 38 at most,
   about 850 in all. The first plan's 50 a page didn't fit.
 - [x] CI installs the `cjk-thai` pack on Linux (draft PR #8, green).
-- [ ] The reader signs off on the outline, the cuts and the sunflowers, before
-  the manuscript.
+- [x] **The reader signed off** (2026-11-14), after seeing the before and
+  after sheet:
+  - **Sunflowers** are on every page, closed or bowed until kindness opens
+    them and turns them toward him.
+  - **The father's line** at the end is kept, as our stated addition.
+  - **The cuts** are approved, except that the river woman's **talismans and
+    the poisoned meal are restored** (one more page, 29 story pages).
 - [ ] Hero sheet: the people, the pig, the boy at each age ("the same boy,
   getting older").
 - [x] Advisor gate on the interpretation and style. Its points: measure the
