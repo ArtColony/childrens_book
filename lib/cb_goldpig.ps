@@ -133,23 +133,26 @@
   /lw len 120 div 0.8 max 2.2 min def
   /dead cb-gp-mood /dead eq def
   /fr { x y translate len 100 div cb-gp-face mul len 100 div scale
-        dead { 50 34 translate 180 rotate -50 -34 translate } if } def
+        dead { 0 -16 translate } if } def    % dead: collapsed flat, the legs splayed
   /goldfill { % path -> flat gold, ink line
     gsave cb-mh-gold 0.95 cb-wash grestore lw cb-line } def
   % far legs, darker
-  newpath { fr 6 26 moveto 9 14 10 8 10 4 curveto 17 4 lineto 18 10 20 18 21 26 curveto closepath
-                61 26 moveto 63 14 64 8 64 4 curveto 71 4 lineto 72 10 73 18 74 26 curveto closepath } cb-local
+  newpath { fr dead {
+      12 24 moveto -10 18 lineto -10 12 lineto 14 16 lineto closepath
+      66 24 moveto 92 18 lineto 92 12 lineto 64 16 lineto closepath }
+    { 6 26 moveto 9 14 10 8 10 4 curveto 17 4 lineto 18 10 20 18 21 26 curveto closepath
+      61 26 moveto 63 14 64 8 64 4 curveto 71 4 lineto 72 10 73 18 74 26 curveto closepath } ifelse } cb-local
   gsave cb-gp-goldlo 0.95 cb-wash grestore lw cb-line
   % the body: a big round barrel, the back higher than the shoulders
   newpath { fr
     6 30 moveto -2 44 2 62 20 68 curveto
-    40 74 64 72 76 62 curveto
+    38 72 54 82 72 68 curveto
     84 56 86 44 82 34 curveto
     76 18 56 14 40 16 curveto
     22 16 10 20 6 30 curveto closepath } cb-local
   goldfill
   % the lit back, and the pale belly
-  gsave newpath { fr 6 30 moveto -2 44 2 62 20 68 curveto 40 74 64 72 76 62 curveto
+  gsave newpath { fr 6 30 moveto -2 44 2 62 20 68 curveto 38 72 54 82 72 68 curveto
                   84 56 86 44 82 34 curveto 76 18 56 14 40 16 curveto 22 16 10 20 6 30 curveto closepath } cb-local clip
     newpath { fr 0 58 moveto 30 74 60 72 90 58 curveto 90 80 lineto 0 80 lineto closepath } cb-local
     cb-mh-goldhi 0.8 cb-wash
@@ -157,6 +160,14 @@
     cb-mh-goldhi 0.5 cb-wash
   grestore
   % near legs and hooves
+  dead {
+    newpath { fr 20 22 moveto -4 8 lineto -2 2 lineto 24 14 lineto closepath
+                  58 22 moveto 86 8 lineto 86 2 lineto 56 14 lineto closepath } cb-local
+    goldfill
+    newpath { fr -4 8 moveto -8 6 lineto -6 0 lineto -2 2 lineto closepath
+                  86 8 moveto 91 6 lineto 90 0 lineto 86 2 lineto closepath } cb-local
+    gsave cb-mh-black 0.95 cb-wash grestore lw cb-line
+  } {
   newpath { fr 13 28 moveto 16 16 17 10 17 4 curveto 27 4 lineto 28 10 30 18 31 28 curveto closepath
                 52 28 moveto 55 16 56 10 56 4 curveto 66 4 lineto 67 10 68 18 69 28 curveto closepath } cb-local
   goldfill
@@ -166,6 +177,7 @@
   gsave cb-mh-black 0.95 cb-wash grestore lw cb-line
   newpath { fr 22 0 moveto 22 4 lineto 61 0 moveto 61 4 lineto } cb-local
   gsave cb-mh-goldhi cb-rgb lw 0.8 mul setlinewidth stroke grestore newpath
+  } ifelse
   % the head: a heavy wedge to the snout
   newpath { fr 70 64 moveto 84 66 94 58 104 46 curveto
             108 40 108 32 104 28 curveto 96 24 86 26 78 30 curveto 70 40 lineto closepath } cb-local
@@ -187,26 +199,57 @@
   gsave cb-gp-goldlo 0.95 cb-wash grestore lw cb-line
   newpath { fr 82 62 moveto 90 77 lineto 94 58 lineto closepath } cb-local
   goldfill
+  % the mouth: a long line with teeth when fierce, a smirk when sly
+  cb-gp-mood /fierce eq {
+    newpath { fr 84 32 moveto 92 30 98 30 100 32 curveto } cb-local lw cb-line
+    newpath { fr 88 31.5 moveto 89.5 28.5 lineto 91 31 lineto 93 30.5 moveto 94.5 27.5 lineto 96 30.5 lineto } cb-local
+    gsave cb-mh-white cb-rgb fill grestore lw 0.6 mul cb-line
+    % the far tusk, smaller
+    newpath { fr 93 30 moveto 95.5 32 96 36 94 39 curveto 93.5 35 93 33 91.5 31 curveto closepath } cb-local
+    gsave cb-mh-white 0.95 cb-wash grestore lw 0.7 mul cb-line
+  } if
+  cb-gp-mood /sly eq {
+    newpath { fr 86 32 moveto 92 30 97 31 100 34 curveto } cb-local lw cb-line
+  } if
   % the eye, by mood
   cb-gp-mood /fierce eq {
-    newpath { fr 90 50 3.2 0 360 arc closepath } cb-local
-    gsave cb-mh-red 0.95 cb-wash grestore lw 0.7 mul cb-line
-    newpath { fr 90.6 50 1.5 0 360 arc closepath } cb-local
+    % a minhwa tiger's eye: big, round, a gold ring round a black pupil
+    newpath { fr 89 50 5 0 360 arc closepath } cb-local
+    gsave cb-mh-white 0.95 cb-wash grestore lw 0.8 mul cb-line
+    newpath { fr 90 50 3.4 0 360 arc closepath } cb-local
+    gsave cb-mh-yellow [1 0.5 0] 0.3 cb-mixa 0.95 cb-wash grestore
+    newpath { fr 90.6 50 1.7 0 360 arc closepath } cb-local
     gsave cb-mh-black cb-rgb fill grestore newpath
-    newpath { fr 84 56 moveto 96 52 lineto } cb-local lw 1.2 mul cb-line   % a low brow
+    % a heavy brow ridge
+    newpath { fr 81 55 moveto 87 60 94 58 99 52 curveto 96 56 lineto 89 58 85 56 81 55 curveto closepath } cb-local
+    gsave cb-gp-goldlo 0.95 cb-wash grestore lw cb-line
   } if
   cb-gp-mood /sly eq {
     newpath { fr 86 50 moveto 88 53 92 53 94 50 curveto } cb-local lw cb-line  % a half-lidded eye
-    newpath { fr 89.5 49.4 1.3 0 360 arc closepath } cb-local
+    newpath { fr 90 50.6 1.3 0 360 arc closepath } cb-local
     gsave cb-mh-black cb-rgb fill grestore newpath
+    newpath { fr 84 55 moveto 90 57.5 lineto 95 55 lineto } cb-local lw 0.8 mul cb-line   % a raised brow
   } if
   dead {
-    newpath { fr 86 49 moveto 94 53 lineto 86 53 moveto 94 49 lineto } cb-local lw cb-line   % an X for an eye
+    newpath { fr 86 51 moveto 88 49 92 49 94 51 curveto } cb-local lw cb-line     % shut
+    % the deer hide on the back of its head: brown, white-spotted
+    newpath { fr 70 54 moveto 74 66 82 66 84 58 curveto 82 52 74 50 70 54 curveto closepath } cb-local
+    gsave [0.60 0.38 0.22] 0.95 cb-wash grestore lw cb-line
+    gsave cb-mh-white cb-rgb
+    newpath { fr 74 58 1.2 0 360 arc closepath 78 61 1.1 0 360 arc closepath 80 56 1.2 0 360 arc closepath } cb-local fill
+    grestore
   } if
   % curled marks on the hide
   newpath { fr 30 44 4 cb-mh-spiralpath 50 52 4.5 cb-mh-spiralpath 20 56 3.5 cb-mh-spiralpath
             62 38 3.5 cb-mh-spiralpath 40 30 3 cb-mh-spiralpath } cb-local
   gsave cb-gp-goldlo cb-rgb << /Width lw 0.9 mul /Taper 0.4 /Waver 0.2 >> pkliner grestore
+  % a gold-leaf sheen: pale rings and a speckle of light
+  newpath { fr 26 56 moveto 34 64 48 66 56 62 curveto 30 48 moveto 36 52 44 52 48 48 curveto } cb-local
+  gsave cb-mh-goldhi cb-rgb << /Width lw 1.4 mul /Taper 0.5 /Waver 0.2 >> pkliner grestore
+  cb-mh-goldhi cb-rgb
+  0 1 22 { pop
+    newpath { fr rand 70 mod 6 add rand 46 mod 22 add 0.9 0 360 arc closepath } cb-local fill
+  } for
   % the bristled ridge along the spine
   newpath { fr 0 1 16 { /k exch def
       /tx 8 k 4.2 mul add def /ty 62 k 8 sub dup mul 0.09 mul neg add 8 add def
