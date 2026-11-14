@@ -33,6 +33,9 @@ jobs:
       # Hangul smoke test: a bilingual page sets Korean through the pack, and
       # fails if any face falls back (until The Golden Pig has pages/)
       - run: scripts/render.sh books/the-golden-pig/01-style/c_flat.ps
+      # the bilingual text: generated from the manuscript, and every page fits
+      - run: scripts/bitext.py check books/the-golden-pig
+      - run: scripts/bitext.py fit books/the-golden-pig
       - run: scripts/book.sh          # every book
       - uses: actions/upload-artifact@v7
         if: always()

@@ -21,6 +21,15 @@
 /cb-mh-goldhi  [1.00 0.88 0.46] def
 /cb-mh-hanji   [0.95 0.91 0.81] def   % mulberry paper
 
+% Minhwa's flat mineral colour: a wash with two layers and no granulation.
+% It reads flatter than cb-wash, which suits folk painting, and on many
+% mid-sized shapes it keeps the PDF small (a five-spire crag in cb-wash
+% was 184 KB). [rgb] alpha -> (fills the current path)
+/cb-mh-flat {
+  exch cb-rgb
+  << /Alpha 3 -1 roll /Layers 2 /Wet 4 /Bloom 0.4 /Grain 0 >> pkwash
+} bind def
+
 % A warm hanji ground in place of cb-ground's white paper.
 /cb-mh-ground {
   -9 -9 cb-W 18 add cb-H 18 add << /Tone cb-mh-hanji /Grain cb-grain >> pkpaper
@@ -290,14 +299,14 @@
     closepath
   } def
   newpath { x y translate w h scale outline } cb-local
-  gsave shdc 0.9 cb-wash grestore
+  gsave shdc 0.9 cb-mh-flat grestore
   % the litc facet: the left edge up to the tip and down the ridge
   gsave clip newpath
   { x y translate w h scale
     L 0 get L 1 get moveto
     2 2 L length 1 sub { /i exch def L i get L i 1 add get lineto } for
     tx 1 lineto tx rx add 2 div 0.55 lineto rx 0 lineto closepath } cb-local
-  litc 0.85 cb-wash grestore
+  litc 0.85 cb-mh-flat grestore
   w 70 div 0.8 max 1.6 min cb-line
   % the ridge
   newpath { x y translate w h scale tx 1 moveto tx rx add 2 div 0.55 lineto rx 0 lineto } cb-local

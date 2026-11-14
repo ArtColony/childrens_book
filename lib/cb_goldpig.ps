@@ -34,6 +34,12 @@
   end
 } bind def
 
+% n -> page n's two texts, from cb-gp-text (the book's text.ps, generated
+% from the manuscript by scripts/bitext.py, so no page types its own words).
+/cb-gp-say {
+  cb-gp-text exch get aload pop cb-gp-texts
+} bind def
+
 % ---------------------------------------------------------------- night
 /cb-gp-nightc  [0.22 0.27 0.50] def    % indigo washes on the warm ground,
 /cb-gp-nightlo [0.36 0.42 0.62] def    % lighter than a navy field
