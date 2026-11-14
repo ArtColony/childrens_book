@@ -30,6 +30,9 @@ jobs:
       - run: pscat fonts install --pack cjk-thai
       - run: scripts/check_names.sh
       - run: scripts/render.sh
+      # Hangul smoke test: a bilingual page sets Korean through the pack, and
+      # fails if any face falls back (until The Golden Pig has pages/)
+      - run: scripts/render.sh books/the-golden-pig/01-style/c_flat.ps
       - run: scripts/book.sh          # every book
       - uses: actions/upload-artifact@v7
         if: always()
