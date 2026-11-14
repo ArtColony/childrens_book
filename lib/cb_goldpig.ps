@@ -1,0 +1,113 @@
+%!PS-Adobe-3.0
+% cb_goldpig.ps -- The Golden Pig: the page frame, night skies, the red
+% thread, the cave. Uses cb_minhwa.ps. All names start cb-gp-.
+
+% ---------------------------------------------------------------- page frame
+% The painting sits in a panel between two hanji bands: Korean in the top
+% band, English in the bottom one. These are the panel's edges.
+/cb-gp-px0 30 cb-default
+/cb-gp-px1 582 cb-default
+/cb-gp-py0 132 cb-default    % English band below this
+/cb-gp-py1 506 cb-default    % Korean band above this
+
+% Clip to the picture panel, run proc, then draw the panel's frame.
+% proc -> ()
+/cb-gp-panel {
+  gsave
+    newpath cb-gp-px0 cb-gp-py0 cb-gp-px1 cb-gp-px0 sub cb-gp-py1 cb-gp-py0 sub cb-mh-rect clip newpath
+    exec
+  grestore
+  newpath cb-gp-px0 cb-gp-py0 cb-gp-px1 cb-gp-px0 sub cb-gp-py1 cb-gp-py0 sub cb-mh-rect
+  1.6 cb-line
+} bind def
+
+% The two texts, Korean above the panel and English below it.
+% (korean) (english) -> ()
+/cb-gp-texts {
+  2 dict begin /en exch def /ko exch def
+  cb-ink cb-rgb
+  ko 56 cb-H 24 sub cb-W 112 sub /center cb-textko pop
+  en 56 cb-gp-py0 12 sub cb-W 112 sub /center cb-text pop
+  end
+} bind def
+
+% ---------------------------------------------------------------- night
+/cb-gp-nightc  [0.10 0.15 0.32] def
+/cb-gp-nightlo [0.20 0.28 0.48] def
+/cb-gp-moonc   [0.99 0.95 0.82] def
+
+% x0 y0 x1 y1 -> a night sky over the box, darker at the top.
+/cb-gp-nightsky {
+  4 dict begin /y1 exch def /x1 exch def /y0 exch def /x0 exch def
+  newpath x0 y0 x1 x0 sub y1 y0 sub cb-mh-rect cb-gp-nightlo 0.95 cb-bigwash
+  newpath x0 y0 y1 y0 sub 0.45 mul add x1 x0 sub y1 y0 sub 0.55 mul cb-mh-rect cb-gp-nightc 0.7 cb-bigwash
+  end
+} bind def
+
+% x y r -> a minhwa moon: a white disc with a soft halo ring.
+/cb-gp-moon {
+  3 dict begin /r exch def /y exch def /x exch def
+  newpath x y r 1.5 mul 0 360 arc closepath cb-gp-moonc 0.18 cb-wash
+  % an opaque underlay first: a translucent wash over night sky goes grey
+  newpath x y r 0 360 arc closepath gsave cb-gp-moonc cb-rgb fill grestore
+  cb-gp-moonc 0.95 cb-wash
+  newpath x y r 0 360 arc closepath r 40 div 0.6 max cb-line
+  end
+} bind def
+
+% ---------------------------------------------------------------- thread
+% The red silk thread along a list of points [x0 y0 x1 y1 ...], drawn as a
+% smooth curve through them, thin and bright.
+/cb-gp-thread {
+  6 dict begin /pts exch def
+  newpath pts 0 get pts 1 get moveto
+  2 2 pts length 3 sub { /i exch def
+    % a curve to the midpoint of the next segment, with this point as control
+    pts i get pts i 1 add get
+    pts i get pts i 2 add get add 2 div pts i 1 add get pts i 3 add get add 2 div
+    /my exch def /mx exch def /cy exch def /cx exch def
+    currentpoint /sy exch def /sx exch def
+    sx cx sx sub 0.66 mul add sy cy sy sub 0.66 mul add
+    mx cx mx sub 0.66 mul add my cy my sub 0.66 mul add mx my curveto
+  } for
+  pts dup length 2 sub get pts dup length 1 sub get lineto
+  gsave cb-mh-red cb-rgb << /Width 2.2 /Taper 0.1 /Waver 0.2 /Depletion 0 >> pkliner grestore
+  end
+} bind def
+
+% ---------------------------------------------------------------- the cave
+% x y h -> a crack in a rock face, h tall: a dark lens, faintly gold inside
+% (the pig's glow), with ink lips.
+/cb-gp-crack {
+  3 dict begin /h exch def /y exch def /x exch def
+  newpath { x y translate h h scale
+    0 0 moveto -0.10 0.25 -0.06 0.62 0.02 1 curveto
+    0.08 0.62 0.12 0.30 0 0 curveto closepath } cb-local
+  gsave cb-mh-black 0.95 cb-wash grestore
+  gsave clip newpath { x y translate h h scale -0.03 0.3 0.05 0.4 cb-mh-rect } cb-local
+    cb-mh-gold 0.35 cb-wash grestore
+  h 60 div 0.8 max cb-line
+  end
+} bind def
+
+% x y w h [colour] -> a minhwa rock face: a blocky crag with flat facets
+% and moss dots (태점).
+/cb-gp-rock {
+  6 dict begin /c exch def /h exch def /w exch def /y exch def /x exch def
+  newpath { x y translate w h scale
+    0 0 moveto 0.05 0.55 lineto 0.22 0.92 lineto 0.48 1 lineto 0.78 0.88 lineto
+    0.96 0.6 lineto 1 0 lineto closepath } cb-local
+  gsave c 0.85 cb-wash grestore
+  w 150 div 1 max cb-line
+  % facet lines
+  newpath { x y translate w h scale 0.22 0.92 moveto 0.35 0.55 lineto 0.30 0.2 lineto
+    0.78 0.88 moveto 0.66 0.5 lineto 0.72 0.15 lineto } cb-local
+  w 260 div 0.6 max cb-line
+  % moss dots along the top
+  cb-mh-black cb-rgb
+  /dots [0.12 0.74 0.30 0.95 0.55 0.98 0.70 0.92 0.88 0.76 0.40 0.6 0.62 0.62] def
+  0 2 dots length 2 sub { /i exch def
+    newpath x dots i get w mul add y dots i 1 add get h mul add w 120 div 1 max 0 360 arc fill
+  } for
+  end
+} bind def

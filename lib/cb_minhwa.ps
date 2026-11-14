@@ -116,7 +116,7 @@
     -4.2 -0.6 -5.0 -0.6 -6.0 -1.4 curveto
     -4.6 -0.2 -4.0 0 -3 0 curveto closepath
   } cb-local
-  gsave cb-mh-white 0.95 cb-wash grestore
+  gsave gsave cb-mh-white cb-rgb fill grestore cb-mh-white 0.95 cb-wash grestore   % opaque, so it stays white at night
   gsave [0.30 0.40 0.58] cb-rgb
   << /Width w 90 div 0.7 max /Taper 0.35 /Waver 0.3 /Depletion 0.1 >> pkliner grestore
   % inner curl lines
@@ -128,27 +128,70 @@
 } bind def
 
 % ---------------------------------------------------------------- mountains
-% x y w h [colour] -> a minhwa peak: a tall rounded crag with jade top,
-% contour bands and texture dots (the sipjangsaeng mountain).
+% The peak's outline in a unit frame (base -0.5..0.5, top near 1), scaled
+% by sc toward the middle of its base. A hooked crown and a shoulder.
+/cb-mh-peakline { % sc -> (adds an open subpath)
+  2 dict begin /sc exch def
+  /m matrix currentmatrix def sc sc scale   % (not gsave: that would drop the path)
+  -0.5 0 moveto -0.50 0.42 -0.36 0.62 -0.24 0.74 curveto
+  -0.30 0.86 -0.14 1.04 0.02 1.0 curveto
+  0.14 0.98 0.20 0.86 0.16 0.80 curveto
+  0.36 0.70 0.50 0.40 0.5 0 curveto
+  m setmatrix
+  end
+} bind def
+
+% x y w h [colour] -> a minhwa peak (the sipjangsaeng mountain): a hooked
+% crag drawn as nested outlines, like an onion's layers, with a jade crown
+% and moss dots (태점).
 /cb-mh-peak {
   6 dict begin /c exch def /h exch def /w exch def /y exch def /x exch def
-  newpath
-  { x y translate w h scale
-    -0.5 0 moveto -0.48 0.45 -0.30 0.70 -0.16 0.86 curveto
-    -0.06 1.02 0.10 1.02 0.18 0.84 curveto
-    0.32 0.62 0.48 0.40 0.5 0 curveto closepath } cb-local
-  gsave c 0.75 cb-bigwash grestore
-  % lit jade cap
+  newpath { x y translate w h scale 1 cb-mh-peakline closepath } cb-local
+  gsave c 0.8 cb-bigwash grestore
+  % lit jade crown, only the very top
   gsave clip newpath
-  { x y translate w h scale -0.6 0.62 moveto 0 0.78 lineto 0.6 0.58 lineto 0.6 1.2 lineto -0.6 1.2 lineto closepath } cb-local
-  cb-mh-jade 0.55 cb-wash grestore
-  w 120 div 0.8 max cb-line
-  % contour bands, following the peak's shoulders
-  [0.25 0.45 0.65] { /t exch def
-    /hw 1 t sub 0.42 mul def /ty t 0.86 mul def   % half-width and height of the band
-    newpath { x y translate w h scale
-      hw neg ty moveto hw -0.35 mul ty 0.07 add hw 0.35 mul ty 0.07 add hw ty curveto } cb-local
-    w 200 div 0.5 max cb-line
+  { x y translate w h scale -0.6 0.80 moveto -0.1 0.88 lineto 0.6 0.74 lineto 0.6 1.2 lineto -0.6 1.2 lineto closepath } cb-local
+  cb-mh-jade 0.5 cb-wash grestore
+  w 110 div 0.8 max cb-line
+  % ridge folds (준법) running down from the crown, inside the peak
+  gsave newpath { x y translate w h scale 1 cb-mh-peakline closepath } cb-local clip
+  [ [-0.10 0.92 -0.30 0.45 -0.34 0.0] [0.06 0.94 0.02 0.50 -0.06 0.0]
+    [0.14 0.80 0.24 0.40 0.22 0.0] [-0.24 0.70 -0.42 0.30 -0.44 0.0] ] {
+    aload pop /y2 exch def /x2 exch def /y1 exch def /x1 exch def /y0 exch def /x0 exch def
+    newpath { x y translate w h scale x0 y0 moveto x0 x1 add 2 div y1 0.15 add x1 y1 x2 y2 curveto } cb-local
+    w 230 div 0.5 max cb-line
+  } forall
+  grestore
+  % moss dots along the crown and shoulders
+  cb-mh-black cb-rgb
+  /dots [-0.42 0.52 -0.27 0.73 -0.20 0.88 -0.06 0.99 0.10 0.95 0.24 0.73 0.38 0.55
+         -0.30 0.50 -0.12 0.74 0.14 0.66] def
+  0 2 dots length 2 sub { /i exch def
+    newpath x dots i get w mul add y dots i 1 add get h mul add
+    w 95 div 0.7 max 2.2 min 0 360 arc fill
+  } for
+  end
+} bind def
+
+% x y h lean -> a minhwa pine (one of the sipjangsaeng): a bent red-brown
+% trunk and flat, fan-ribbed needle pads.
+/cb-mh-pine {
+  6 dict begin /ln2 exch def /h exch def /y exch def /x exch def
+  newpath x y moveto x ln2 0.6 mul add y h 0.35 mul add x ln2 0.2 mul sub y h 0.65 mul add x ln2 add y h add curveto
+  gsave [0.50 0.26 0.18] cb-rgb h 14 div setlinewidth 1 setlinecap stroke grestore
+  h 80 div 0.6 max cb-line
+  % needle pads: [t dx width] along the trunk
+  [ [1.0 0 0.62] [0.72 0.18 0.46] [0.48 -0.16 0.40] ] {
+    aload pop /pw exch def /dx exch def /t exch def
+    /cx x ln2 t mul add dx h mul add def /cy y h t mul add def
+    newpath cx pw h mul 0.5 mul sub cy moveto
+    cx pw h mul 0.5 mul sub cy h 0.16 mul add cx pw h mul 0.5 mul add cy h 0.16 mul add cx pw h mul 0.5 mul add cy curveto closepath
+    gsave [0.16 0.36 0.28] 0.92 cb-wash grestore
+    h 120 div 0.5 max cb-line
+    % ribs fanning up from the pad's base
+    newpath -60 30 60 { /a exch def
+      cx cy moveto cx a sin pw h mul 0.42 mul mul add cy a cos h 0.13 mul mul add lineto } for
+    h 220 div 0.4 max cb-line
   } forall
   end
 } bind def
