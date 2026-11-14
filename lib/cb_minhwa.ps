@@ -100,30 +100,39 @@
 } bind def
 
 % ---------------------------------------------------------------- clouds
-% x y w -> a minhwa auspicious cloud (a ruyi head with a curling tail),
-% white with a blue-grey line, w wide.
+% A spiral of ink in the local frame: from radius r inward, 1.5 turns.
+/cb-mh-spiralpath { % cx cy r -> (adds an open subpath)
+  4 dict begin /r exch def /cy exch def /cx exch def
+  0 15 540 { /t exch def
+    /rr r 1 t 720 div sub mul def
+    cx t 90 add cos rr mul add cy t 90 add sin rr mul add
+    t 0 eq { moveto } { lineto } ifelse
+  } for
+  end
+} bind def
+
+% x y w -> a sangseo-un (상서운), the auspicious cloud of folk painting: a
+% head of curled lobes with ink spirals and a long tail band that tapers
+% back to the left. Opaque white, so it stays white on a night sky.
 /cb-mh-cloud {
   4 dict begin /w exch def /y exch def /x exch def
-  /u w 10 div def
+  /u w 12 div def
   newpath
   { x y translate u u scale
-    % three round lobes over a flat base, a curl at the right, tail at left
-    -3 0 moveto -3.6 1.6 -1.6 2.6 -0.6 1.6 curveto
-    -0.4 3.4 2.2 3.4 2.0 1.4 curveto
-    3.4 2.4 5.0 0.8 3.8 -0.4 curveto
-    3.0 -1.2 1.8 -0.6 2.2 0.2 curveto
-    1.4 -0.6 -1.8 -0.8 -3 0 curveto
-    -4.2 -0.6 -5.0 -0.6 -6.0 -1.4 curveto
-    -4.6 -0.2 -4.0 0 -3 0 curveto closepath
-  } cb-local
-  gsave gsave cb-mh-white cb-rgb fill grestore cb-mh-white 0.95 cb-wash grestore   % opaque, so it stays white at night
-  gsave [0.30 0.40 0.58] cb-rgb
-  << /Width w 90 div 0.7 max /Taper 0.35 /Waver 0.3 /Depletion 0.1 >> pkliner grestore
-  % inner curl lines
-  newpath { x y translate u u scale -1.8 1.2 moveto -1.2 1.9 -0.2 1.6 -0.4 0.9 curveto } cb-local
-  [0.30 0.40 0.58] cb-rgb << /Width w 140 div 0.5 max /Taper 0.5 /Waver 0.2 >> pkliner
-  newpath { x y translate u u scale 0.8 1.0 moveto 1.0 2.2 2.0 2.0 1.8 1.2 curveto } cb-local
-  [0.30 0.40 0.58] cb-rgb << /Width w 140 div 0.5 max /Taper 0.5 /Waver 0.2 >> pkliner
+    % the tail band, tapering left and curling up at its end
+    -6.5 0.9 moveto -4 1.8 -1 1.9 1 1.5 curveto
+    1 -0.9 lineto -2.5 -1.0 -5.5 -0.8 -6.8 0.0 curveto
+    -7.6 0.6 -7.2 1.6 -6.4 1.5 curveto closepath
+    % the head: three lobes
+    1.6 0.6 2.0 0 360 arc closepath
+    4.2 1.4 1.6 0 360 arc closepath
+    3.6 -0.8 1.3 0 360 arc closepath } cb-local
+  gsave gsave cb-mh-white cb-rgb fill grestore cb-mh-white 0.9 cb-wash grestore
+  [0.24 0.36 0.56] cb-rgb << /Width w 120 div 0.7 max /Taper 0.3 /Waver 0.25 /Depletion 0.1 >> pkliner
+  % ink spirals in the lobes, and a line along the tail
+  newpath { x y translate u u scale 1.6 0.6 1.6 cb-mh-spiralpath 4.2 1.4 1.2 cb-mh-spiralpath
+            3.6 -0.8 0.9 cb-mh-spiralpath -5.8 0.4 moveto -3.5 1.0 -1.5 1.0 0 0.5 curveto } cb-local
+  [0.24 0.36 0.56] cb-rgb << /Width w 170 div 0.5 max /Taper 0.4 /Waver 0.2 >> pkliner
   end
 } bind def
 
@@ -254,5 +263,78 @@
   % seams
   0 1 cols { /i exch def newpath x i cw mul add y moveto 0 h rlineto 0.6 cb-line } for
   0 1 rows { /j exch def newpath x y j rh mul add moveto w 0 rlineto 0.6 cb-line } for
+  end
+} bind def
+
+% ---------------------------------------------------------------- crags
+% Minhwa mountains are built from narrow, angular spires (Irworobongdo,
+% the Geumgangsan screens), not from one rounded outline. Each spire has a
+% litc facet and a shadow facet split by a ridge, vertical texture strokes
+% (준법) on the shadow side and moss dots (태점) at the top.
+
+% x y w h litc shdc -> one spire, base centred on x. Uses rand for its
+% jags, so the page seed fixes it.
+/cb-mh-spire {
+  16 dict begin /shdc exch def /litc exch def /h exch def /w exch def /y exch def /x exch def
+  /tx rand 1000 mod 1000 div 0.5 sub 0.16 mul def          % the tip leans a little
+  /rx rand 1000 mod 1000 div 0.5 sub 0.20 mul def          % where the ridge meets the base
+  /j { rand 1000 mod 1000 div 0.5 sub 0.06 mul } def       % a jag
+  % the outline: up the left edge in steps, over the tip, down the right
+  /L [ -0.5 0  -0.44 j add 0.22  -0.36 j add 0.40  -0.30 j add 0.55  -0.20 j add 0.74  -0.12 j add 0.88 ] def
+  /R [ 0.10 j add 0.90  0.20 j add 0.76  0.27 j add 0.58  0.36 j add 0.40  0.44 j add 0.20  0.5 0 ] def
+  /outline {
+    L 0 get L 1 get moveto
+    2 2 L length 1 sub { /i exch def L i get L i 1 add get lineto } for
+    tx 1 lineto
+    0 2 R length 1 sub { /i exch def R i get R i 1 add get lineto } for
+    closepath
+  } def
+  newpath { x y translate w h scale outline } cb-local
+  gsave shdc 0.9 cb-wash grestore
+  % the litc facet: the left edge up to the tip and down the ridge
+  gsave clip newpath
+  { x y translate w h scale
+    L 0 get L 1 get moveto
+    2 2 L length 1 sub { /i exch def L i get L i 1 add get lineto } for
+    tx 1 lineto tx rx add 2 div 0.55 lineto rx 0 lineto closepath } cb-local
+  litc 0.85 cb-wash grestore
+  w 70 div 0.8 max 1.6 min cb-line
+  % the ridge
+  newpath { x y translate w h scale tx 1 moveto tx rx add 2 div 0.55 lineto rx 0 lineto } cb-local
+  w 120 div 0.5 max 1.0 min cb-line
+  % texture strokes on the shadow side, short and vertical
+  gsave newpath { x y translate w h scale outline } cb-local clip
+  0 1 5 { /k exch def
+    /sx rx k 0.06 mul add 0.06 add def /sy k 0.13 mul 0.12 add def
+    newpath { x y translate w h scale sx sy moveto sx 0.03 sub sy 0.16 add lineto } cb-local
+    w 160 div 0.4 max 0.8 min cb-line
+  } for
+  grestore
+  % moss dots at the tip
+  cb-mh-black cb-rgb
+  [ -0.10 0.90  0.06 0.93  -0.18 0.78  0.16 0.80  -0.26 0.62 ] /dd exch def
+  0 2 dd length 2 sub { /i exch def
+    newpath x dd i get w mul add y dd i 1 add get h mul add w 45 div 0.7 max 1.8 min 0 360 arc fill
+  } for
+  end
+} bind def
+
+% x y w h litc shdc n -> a crag of n spires, the tallest in the middle and
+% at the back. w is the whole cluster's width.
+/cb-mh-crag {
+  10 dict begin /n exch def /shdc exch def /litc exch def /h exch def /w exch def /y exch def /x exch def
+  /sw w n 1 add div 1.9 mul def
+  /mid n 1 sub 2 div def
+  /spire { % i -> draws spire i
+    /i exch def
+    /cx x w 2 div sub sw 2 div add i w sw sub n 1 sub 1 max div mul add def
+    /d i mid sub abs mid 0.5 add div def
+    cx y sw 1 d 0.45 mul sub h mul litc shdc cb-mh-spire
+  } def
+  % back to front: the outer pair first, the centre last
+  0 1 mid floor cvi { /k exch def
+    k spire
+    n 1 sub k sub k ne { n 1 sub k sub spire } if
+  } for
   end
 } bind def

@@ -7,8 +7,8 @@
 % band, English in the bottom one. These are the panel's edges.
 /cb-gp-px0 30 cb-default
 /cb-gp-px1 582 cb-default
-/cb-gp-py0 132 cb-default    % English band below this
-/cb-gp-py1 506 cb-default    % Korean band above this
+/cb-gp-py0 150 cb-default    % English band below this: up to 4 lines at 19 pt
+/cb-gp-py1 476 cb-default    % Korean band above this: up to 3 lines at 20 pt
 
 % Clip to the picture panel, run proc, then draw the panel's frame.
 % proc -> ()
@@ -24,16 +24,19 @@
 % The two texts, Korean above the panel and English below it.
 % (korean) (english) -> ()
 /cb-gp-texts {
-  2 dict begin /en exch def /ko exch def
+  4 dict begin /en exch def /ko exch def
   cb-ink cb-rgb
-  ko 56 cb-H 24 sub cb-W 112 sub /center cb-textko pop
-  en 56 cb-gp-py0 12 sub cb-W 112 sub /center cb-text pop
+  % sizes measured on a 31-word page: 3 Korean lines at 20 pt, 3-4 English
+  % lines at 19 pt (21 pt took 4-5 and overflowed the band)
+  /cb-sizeko 20 def /cb-size 19 def
+  ko 56 cb-H 30 sub cb-W 112 sub /center cb-textko pop
+  en 56 cb-gp-py0 14 sub cb-W 112 sub /center cb-text pop
   end
 } bind def
 
 % ---------------------------------------------------------------- night
-/cb-gp-nightc  [0.10 0.15 0.32] def
-/cb-gp-nightlo [0.20 0.28 0.48] def
+/cb-gp-nightc  [0.22 0.27 0.50] def    % indigo washes on the warm ground,
+/cb-gp-nightlo [0.36 0.42 0.62] def    % lighter than a navy field
 /cb-gp-moonc   [0.99 0.95 0.82] def
 
 % x0 y0 x1 y1 -> a night sky over the box, darker at the top.
@@ -44,10 +47,9 @@
   end
 } bind def
 
-% x y r -> a minhwa moon: a white disc with a soft halo ring.
+% x y r -> a minhwa moon: a flat white disc with a crisp ink ring, no glow.
 /cb-gp-moon {
   3 dict begin /r exch def /y exch def /x exch def
-  newpath x y r 1.5 mul 0 360 arc closepath cb-gp-moonc 0.18 cb-wash
   % an opaque underlay first: a translucent wash over night sky goes grey
   newpath x y r 0 360 arc closepath gsave cb-gp-moonc cb-rgb fill grestore
   cb-gp-moonc 0.95 cb-wash

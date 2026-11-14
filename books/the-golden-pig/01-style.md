@@ -6,7 +6,10 @@ ways: the night the magistrate follows the red thread up the mountain to the
 crack in the rock. The layout is fixed by the reader: Korean in the top band,
 English in the bottom band, and the painting in a framed panel between them.*
 
-![The three style studies](style_studies.png)
+![The three style studies, second pass](style_studies.png)
+
+*The first pass, which the art director reviewed:*
+![First pass](style_studies_pass1.png)
 
 | Study | The figure | Strongest | Weakest |
 |---|---|---|---|
@@ -57,10 +60,29 @@ sinks the book if it isn't fixed. So the hero sheet starts with it.
   none, so this is logged as a decision. The gaps above and below the panel
   are balanced.
 
+## The second pass
+
+Applied to the same scene:
+- **Mountains:** built from angular spires (`cb-mh-spire`, `cb-mh-crag`), each
+  with a lit facet, a shadow facet, a ridge, texture strokes and moss dots.
+  Reshaping one rounded outline three times had still given gumdrops; a
+  new construction fixed it.
+- **Sky and ground:** a lighter indigo wash on the warm ground, and a
+  hillside in place of the slab.
+- **Moon and cloud:** a flat moon with a crisp ring, and a sangseo-un cloud
+  with curled lobes. The cloud is still stripy along its tail and gets
+  another pass on the hero sheet.
+- **The figure:** a three-quarter view with a two-tier putou and thin wings
+  set high, a bigger face with a raised brow and a gaze, a forward lean and
+  an uphill step, and the thread wound round his hand. A pale robe
+  separates him from the night.
+- **Type, measured:** a 35-word page fits 3 Korean lines at 20 pt and 4
+  English lines at 19 pt. The panel now runs from y 150 to 476.
+
 ## Next
 
-The second study pass applies these rules to the same scene (the art
-director's fixes 1–5). It becomes the template for the hero sheet:
+The hero sheet starts with **the golden pig**: the title character and the
+book's only gold, not yet drawn. Then the people in these files:
 
 - `lib/cb_chiwon.ps`: the magistrate, the wife, the boy at each age;
 - `lib/cb_goldpig.ps`: the pig, the cave, the thread, the box;

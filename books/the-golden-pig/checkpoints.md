@@ -32,11 +32,21 @@ Issue: [#7](https://github.com/ArtColony/childrens_book/issues/7). Branch:
 - [x] **Style studies:** three figure treatments of one scene. The art
   director picked a hybrid built on C, flat minhwa figures
   ([review](reviews/01-style-artist.md)).
-- [ ] Second study pass: minhwa crags, sangseo-un, a flat moon, the figure
-  redrawn.
+- [x] Second study pass: minhwa crags, sangseo-un, a flat moon, a lighter
+  indigo, a hillside, and the figure redrawn (two-wing putou, gaze, lean,
+  the thread at his hand).
+- [x] **Text budget measured** (an advisor point): 3 Korean lines at 20 pt and
+  4 English lines at 19 pt. About 30 English words a page, 38 at most,
+  about 850 in all. The first plan's 50 a page didn't fit.
+- [x] CI installs the `cjk-thai` pack on Linux (draft PR #8, green).
+- [ ] The reader signs off on the outline, the cuts and the sunflowers, before
+  the manuscript.
 - [ ] Hero sheet: the people, the pig, the boy at each age ("the same boy,
   getting older").
-- [ ] Advisor gate on the interpretation and style.
+- [x] Advisor gate on the interpretation and style. Its points: measure the
+  text budget, rebuild the mountains rather than reshape them, draw the pig
+  first, ask the reader about the changes to their choices, and open a
+  draft PR early for CI.
 
 ### The editor's review: what changed
 

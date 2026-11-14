@@ -22,64 +22,83 @@
   } ifelse
 } bind def
 
-% The figure's local frame: feet at (x, y), 100 units tall, facing cb-ch-face.
+% The figure's local frame: feet at (x, y), 100 units tall, facing
+% cb-ch-face, leaning cb-ch-lean degrees into the way they go.
+/cb-ch-lean 0 cb-default
 /cb-ch-frame { % x y h -> (in cb-local: translate and scale)
   3 dict begin /h exch def /y exch def /x exch def
-  x y translate h 100 div cb-ch-face mul h 100 div scale
+  x y translate h 100 div cb-ch-face mul h 100 div scale cb-ch-lean neg rotate
   end
 } bind def
 
-% x y h robe -> the magistrate, Choe Chung, walking, his front hand held out
-% (to hold the thread). Silla official: a long robe, a red belt, the black
-% putou hat (복두) with its stiff wings.
+% x y h robe -> the magistrate, Choe Chung, in three-quarter view, walking
+% uphill toward cb-ch-face, his front hand out with the thread wound round
+% it. A Silla official: a round-collared robe (단령), a red belt, the black
+% putou hat (복두) with a two-tier crown and a stiff wing to each side.
 % Leaves the hand's page position: -> hx hy
 /cb-ch-magistrate {
   6 dict begin /robe exch def /h exch def /y exch def /x exch def
-  /lw h 70 div 0.6 max 1.6 min def
+  /lw h 75 div 0.6 max 1.6 min def
   /fr { x y h cb-ch-frame } def
-  % shoes
-  newpath { fr -9 0 moveto -9 4 -1 4 -1 0 curveto closepath
-                 10 0 moveto 10 4 19 4 19 0 curveto closepath } cb-local
+  % shoes: the back foot flat, the front foot stepping up
+  newpath { fr -12 0 moveto -12 4 -2 4 -1 0 curveto closepath
+                 12 5 moveto 13 10 22 10 24 6 curveto closepath } cb-local
   cb-mh-black lw cb-ch-paint
   % the far sleeve, hanging behind
-  newpath { fr -6 72 moveto -16 56 lineto -18 44 lineto -8 46 lineto -2 62 lineto closepath } cb-local
-  robe [0 0 0] 0.25 cb-mixa lw cb-ch-paint
-  % the robe, leaning into the climb
-  newpath { fr -6 77 moveto 10 77 lineto 14 50 18 20 20 2 curveto
-            8 0 -6 0 -16 3 curveto -12 24 -10 52 -6 77 curveto closepath } cb-local
+  newpath { fr -6 72 moveto -15 58 lineto -17 46 lineto -7 45 lineto -1 62 lineto closepath } cb-local
+  robe [0.3 0.3 0.4] 0.3 cb-mixa lw cb-ch-paint
+  % the robe: the front hem lifts over the stepping leg
+  newpath { fr -8 75 moveto 11 75 lineto 14 54 18 30 24 11 curveto
+            12 7 -2 2 -14 3 curveto -12 26 -11 52 -8 75 curveto closepath } cb-local
   robe lw cb-ch-paint
-  % hem and collar lines
   cb-ch-mode /flat eq {
-    newpath { fr -14 9 moveto -2 6 10 7 18 9 curveto
-              -3 77 moveto 4 66 lineto 10 76 lineto } cb-local
-    lw 0.7 mul cb-line
+    % the round collar and the robe's front edge
+    newpath { fr -4 75 moveto -2 68 8 67 11 74 curveto
+              6 67 moveto 9 48 lineto 13 30 lineto 18 12 lineto } cb-local
+    lw 0.8 mul cb-line
   } if
   % belt
-  newpath { fr -9 46 moveto 15 46 lineto 15 41 lineto -10 41 lineto closepath } cb-local
+  newpath { fr -10 47 moveto 14 47 lineto 15 42 lineto -11 42 lineto closepath } cb-local
   cb-mh-red lw cb-ch-paint
-  % the near sleeve, reaching forward
-  newpath { fr 2 74 moveto 26 66 lineto 30 54 lineto 18 50 lineto 4 58 lineto closepath } cb-local
+  % the near sleeve, reaching forward, hanging wide below the arm
+  newpath { fr 2 73 moveto 27 66 lineto 31 60 lineto 27 50 lineto 13 46 lineto 4 58 lineto closepath } cb-local
   robe lw cb-ch-paint
-  % hand
-  newpath { fr 33 57 3.4 0 360 arc closepath } cb-local
+  % hand, with the red thread wound round it
+  newpath { fr 34 61 3.8 0 360 arc closepath } cb-local
   cb-ch-skin lw cb-ch-paint
+  newpath { fr matrix currentmatrix 34 61 translate 1 0.45 scale 0 0 4.6 0 360 arc setmatrix } cb-local
+  gsave cb-mh-red cb-rgb << /Width lw 1.2 mul /Taper 0 /Waver 0.1 >> pkliner grestore
   % head
-  newpath { fr 4 87 8.5 0 360 arc closepath } cb-local
+  newpath { fr 5 85 10 0 360 arc closepath } cb-local
   cb-ch-skin lw cb-ch-paint
-  % putou hat: a rounded crown and one stiff wing behind
-  newpath { fr -5 88 moveto -5 98 13 98 13 90 curveto 13 88 lineto closepath
-            -3 92 moveto -24 93 lineto -24 90 lineto -3 89 lineto closepath } cb-local
+  % putou: thin wings set high at the back of the crown, tips turned up a
+  % little, then a tall two-tier crown over a band no wider than the head
+  newpath { fr -3 99 moveto -24 100.5 lineto -25 103 lineto -3 101.5 lineto closepath
+            12 99 moveto 30 100.5 lineto 31 103 lineto 12 101.5 lineto closepath } cb-local
   cb-mh-black lw cb-ch-paint
-  % face: an eye, a beard
+  newpath { fr -5 89 moveto 14 89 lineto 14 96 lineto -5 96 lineto closepath
+            -3 96 moveto -3 108 12 108 12 96 curveto closepath } cb-local
+  cb-mh-black lw cb-ch-paint
   cb-ch-mode /flat eq {
-    newpath { fr 9 84.5 1.3 0 360 arc closepath } cb-local
+    % a highlight line between the two tiers of the crown
+    newpath { fr -4 96.5 moveto 13 96.5 lineto } cb-local
+    gsave [0.45 0.45 0.55] cb-rgb lw 0.6 mul setlinewidth stroke grestore newpath
+    % the face, turned toward cb-ch-face and looking up the way
+    newpath { fr 11 85.5 1.5 0 360 arc closepath } cb-local          % eye
     gsave cb-mh-black cb-rgb fill grestore newpath
-    newpath { fr 8 80 moveto 10 76 9 72 11 69 curveto } cb-local
-    lw 0.9 mul cb-line
-    newpath { fr 6.5 87.2 moveto 11 87.4 lineto } cb-local   % brow
+    newpath { fr 8 88.5 moveto 14 89.6 lineto } cb-local              % brow, raised
+    lw 0.7 mul cb-line
+    newpath { fr 14.6 84 moveto 16 81.5 lineto 14.4 81 lineto } cb-local   % nose
+    lw 0.6 mul cb-line
+    newpath { fr 10 78 moveto 13.5 78.8 lineto } cb-local             % mouth
+    lw 0.5 mul cb-line
+    newpath { fr 11 76 moveto 12 72 11 68 13 64 curveto               % beard
+              13 79.5 moveto 16 78 lineto 8.5 79.5 moveto 6 77.5 lineto } cb-local
+    lw 0.8 mul cb-line
+    newpath { fr -1.5 84 2.2 0 360 arc } cb-local                     % ear
     lw 0.6 mul cb-line
   } if
   % the hand's page position
-  x 33 h mul 100 div cb-ch-face mul add y 57 h mul 100 div add
+  { fr 34 61 transform } cb-local itransform   % device point, back in page space
   end
 } bind def

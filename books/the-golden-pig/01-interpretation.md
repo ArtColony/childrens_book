@@ -213,12 +213,14 @@ sunflowers added to it, and the last page says so in both languages.
 ## Overrides for ages 6–9
 
 - **Length:** about 28 story pages, plus a cover and a last page about the
-  sources. About **1,000–1,400 English words**, up to about 50 a page, and
-  the Korean to match.
-- **Type:** English in NewCenturySchlbk, Korean in NotoSansKR (`cb-textko`),
-  and the title in NanumBrushScript (`cb-brushko`). Two text bands share
-  the page, so the storyboard decides the size: 21 pt if it fits, otherwise
-  18 pt, and the decision is logged.
+  sources. **About 30 English words a page (38 at most), about 850 in all**,
+  and the Korean to match. This was measured at the second style pass, where
+  a 35-word page filled the bands. The first plan's 50 words a page and
+  1,000–1,400 in total didn't fit two languages on one page.
+- **Type:** English in NewCenturySchlbk **19 pt** (21 pt took four or five
+  lines and overflowed the band), Korean in NotoSansKR **20 pt**
+  (`cb-textko`), and the title in NanumBrushScript (`cb-brushko`). The Korean
+  band holds 3 lines and the English band 4.
 - **Reviewer briefs:** `reviewer-child` is told the listener is 7–8, not 5½,
   and `reviewer-educator` is told the class is first or second grade. The
   parent brief allows traditional violence and asks only about how it is
