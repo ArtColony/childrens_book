@@ -347,3 +347,209 @@
   } for
   end
 } bind def
+
+% ---------------------------------------------------------------- creatures
+% Every creature takes x y s (s: its length) and faces cb-mh-face.
+/cb-mh-face 1 cb-default
+/cb-mh-fr { % x y s -> (in cb-local: a 100-unit frame facing cb-mh-face)
+  3 dict begin /s exch def /y exch def /x exch def
+  x y translate s 100 div cb-mh-face mul s 100 div scale
+  end
+} bind def
+
+% x y s -> a red-crowned crane (학) in flight: white, black neck and wing
+% tips, a red crown, legs trailing.
+/cb-mh-crane {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 90 div 0.5 max 1.4 min def
+  /fr { x y s cb-mh-fr } def
+  % far wing, raised
+  newpath { fr 40 10 moveto 30 40 50 62 64 66 curveto 58 44 56 26 52 8 curveto closepath } cb-local
+  gsave cb-mh-white 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 30 40 moveto 40 54 50 62 64 66 curveto 60 54 lineto 44 46 36 36 32 30 curveto closepath } cb-local
+  gsave cb-mh-black 0.9 cb-mh-flat grestore
+  % body and trailing legs
+  newpath { fr 10 4 moveto 30 14 56 14 70 6 curveto 56 -4 30 -6 10 4 curveto closepath } cb-local
+  gsave cb-mh-white 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 10 3 moveto -20 0 lineto 10 5 moveto -20 4 lineto } cb-local lw 0.8 mul cb-line
+  % neck and head, reaching forward
+  newpath { fr 68 8 moveto 80 12 88 14 96 13 curveto } cb-local
+  gsave cb-mh-black cb-rgb lw 3.2 mul setlinewidth 1 setlinecap stroke grestore newpath
+  newpath { fr 97 13 3.4 0 360 arc closepath } cb-local gsave cb-mh-white 0.95 cb-mh-flat grestore lw 0.8 mul cb-line
+  newpath { fr 97 16 1.8 0 360 arc closepath } cb-local gsave cb-mh-red cb-rgb fill grestore newpath
+  newpath { fr 100 13 moveto 110 11 lineto } cb-local gsave [0.70 0.60 0.30] cb-rgb lw 1.4 mul setlinewidth stroke grestore newpath
+  % near wing, down-stroke
+  newpath { fr 44 8 moveto 34 -16 50 -36 62 -40 curveto 60 -20 58 -6 56 6 curveto closepath } cb-local
+  gsave cb-mh-white 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 34 -16 moveto 42 -28 50 -36 62 -40 curveto 60 -30 lineto 46 -24 40 -18 37 -12 curveto closepath } cb-local
+  gsave cb-mh-black 0.9 cb-mh-flat grestore
+  end
+} bind def
+
+% x y s -> a magpie (까치), perched: black head and back, white belly, a
+% long blue-black tail. Good news.
+/cb-mh-magpie {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 80 div 0.5 max 1.2 min def
+  /fr { x y s cb-mh-fr } def
+  newpath { fr 10 20 moveto -40 6 lineto -42 12 lineto 6 28 lineto closepath } cb-local
+  gsave [0.16 0.20 0.34] 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 0 24 moveto 6 44 30 50 42 40 curveto 50 30 44 12 30 10 curveto 16 8 4 14 0 24 curveto closepath } cb-local
+  gsave cb-mh-black 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 16 12 moveto 26 8 40 12 44 26 curveto 36 18 26 16 16 12 curveto closepath } cb-local
+  gsave cb-mh-white 0.95 cb-mh-flat grestore
+  newpath { fr 6 30 moveto 16 40 28 38 34 30 curveto } cb-local lw 0.6 mul cb-line
+  newpath { fr 44 44 9 0 360 arc closepath } cb-local gsave cb-mh-black 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 52 46 moveto 62 44 lineto 52 41 lineto closepath } cb-local gsave cb-mh-black cb-rgb fill grestore newpath
+  newpath { fr 46 46 1.6 0 360 arc closepath } cb-local gsave 1 setgray fill grestore newpath
+  newpath { fr 26 10 moveto 26 0 lineto 34 10 moveto 34 0 lineto } cb-local lw 0.8 mul cb-line
+  end
+} bind def
+
+% x y s -> a lotus (연꽃): a pink flower of pointed petals over a round pad.
+/cb-mh-lotus {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 90 div 0.5 max 1.2 min def
+  /fr { x y s cb-mh-fr } def
+  newpath { fr matrix currentmatrix 0 0 translate 1 0.32 scale 0 0 46 0 360 arc setmatrix closepath } cb-local
+  gsave cb-mh-green 0.9 cb-mh-flat grestore lw cb-line
+  newpath { fr 0 0 moveto 0 -14 lineto } cb-local lw cb-line
+  [ -60 -30 0 30 60 ] { /a exch def
+    newpath { fr 0 6 translate a rotate 0 0 moveto -9 14 -7 30 0 40 curveto 7 30 9 14 0 0 curveto closepath } cb-local
+    gsave cb-mh-pink cb-mh-white a abs 90 div cb-mixa 0.95 cb-mh-flat grestore lw 0.8 mul cb-line
+  } forall
+  end
+} bind def
+
+% x y s -> a peony (모란): a round red bloom of layered petals, two leaves.
+/cb-mh-peony {
+  6 dict begin /s exch def /y exch def /x exch def
+  /lw s 70 div 0.5 max 1.2 min def
+  /fr { x y s cb-mh-fr } def
+  [ -1 1 ] { /sd exch def
+    newpath { fr sd 18 mul -14 translate sd -40 mul rotate 0 0 moveto -10 10 -8 26 0 34 curveto 8 26 10 10 0 0 curveto closepath } cb-local
+    gsave cb-mh-green 0.9 cb-mh-flat grestore lw 0.8 mul cb-line
+  } forall
+  % rings of scalloped lobes, dark outside to pale inside
+  [ 30 23 16 9 ] { /r exch def
+    newpath { fr 0 1 9 { /k exch def /a k 36 mul r add def
+        a cos r mul 0.72 mul a sin r mul 0.58 mul r 0.42 mul 0 360 arc closepath } for } cb-local
+    gsave cb-mh-red cb-mh-pink 1 r 34 div sub cb-mixa 0.95 cb-mh-flat grestore lw 0.6 mul cb-line
+  } forall
+  end
+} bind def
+
+% ---------------------------------------------------------------- buildings
+% x y w h roofc -> a tiled hall (관아): a stone base, white walls between
+% red posts, lattice doors, a dancheong band under deep eaves that turn up
+% at the corners, and a dark tiled roof. Base centred on x.
+/cb-mh-hall {
+  8 dict begin /rc exch def /h exch def /w exch def /y exch def /x exch def
+  /lw w 200 div 0.7 max 1.5 min def
+  /fr { x y translate w 100 div h 100 div scale } def
+  newpath { fr -46 0 92 10 cb-mh-rect } cb-local gsave [0.70 0.68 0.62] 0.9 cb-mh-flat grestore lw cb-line
+  newpath { fr -40 10 80 46 cb-mh-rect } cb-local gsave cb-mh-white 0.95 cb-mh-flat grestore lw cb-line
+  % posts and lattice doors
+  [ -40 -14 14 40 ] { /px exch def
+    newpath { fr px 2 sub 10 4 46 cb-mh-rect } cb-local gsave [0.62 0.22 0.16] 0.95 cb-mh-flat grestore lw 0.7 mul cb-line } forall
+  [ -27 0 27 ] { /dx exch def
+    newpath { fr dx 9 sub 12 18 34 cb-mh-rect } cb-local gsave [0.90 0.84 0.70] 0.9 cb-mh-flat grestore lw 0.6 mul cb-line
+    newpath { fr 0 1 3 { /k exch def dx 9 sub 12 k 8.5 mul add moveto 18 0 rlineto } for
+              -1 1 1 { /k exch def dx k 4.5 mul add 12 moveto 0 34 rlineto } for } cb-local lw 0.35 mul cb-line
+  } forall
+  % the dancheong band
+  { fr } cb-local
+  x 40 w mul 100 div sub y 56 h mul 100 div add 80 w mul 100 div 8 h mul 100 div cb-mh-dancheong
+  % the roof: eaves lifting at the corners
+  newpath { fr -56 70 moveto -50 62 lineto -20 64 20 64 50 62 curveto 56 70 lineto
+            40 74 30 92 0 96 curveto -30 92 -40 74 -56 70 curveto closepath } cb-local
+  gsave rc 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr -40 75 moveto -20 82 lineto 40 75 moveto 20 82 lineto -26 93 moveto 26 93 lineto
+            -34 66 moveto -30 80 lineto -12 64 moveto -10 88 lineto 12 64 moveto 10 88 lineto 34 66 moveto 30 80 lineto } cb-local
+  lw 0.5 mul cb-line
+  end
+} bind def
+
+% x y w h -> an open pavilion (정자): a roof on four red posts over a
+% platform with a railing.
+/cb-mh-pavilion {
+  6 dict begin /h exch def /w exch def /y exch def /x exch def
+  /lw w 200 div 0.7 max 1.5 min def
+  /fr { x y translate w 100 div h 100 div scale } def
+  newpath { fr -44 0 88 14 cb-mh-rect } cb-local gsave [0.70 0.68 0.62] 0.9 cb-mh-flat grestore lw cb-line
+  newpath { fr -40 14 80 4 cb-mh-rect } cb-local gsave [0.62 0.40 0.26] 0.9 cb-mh-flat grestore lw cb-line
+  [ -38 -12 12 38 ] { /px exch def
+    newpath { fr px 2 sub 18 4 44 cb-mh-rect } cb-local gsave [0.62 0.22 0.16] 0.95 cb-mh-flat grestore lw 0.7 mul cb-line } forall
+  newpath { fr -40 30 moveto 40 30 lineto -40 26 moveto 40 26 lineto } cb-local lw 0.7 mul cb-line
+  x 38 w mul 100 div sub y 60 h mul 100 div add 76 w mul 100 div 6 h mul 100 div cb-mh-dancheong
+  newpath { fr -54 72 moveto -48 64 lineto -20 66 20 66 48 64 curveto 54 72 lineto
+            36 76 20 96 0 100 curveto -20 96 -36 76 -54 72 curveto closepath } cb-local
+  gsave [0.28 0.30 0.34] 0.95 cb-mh-flat grestore lw cb-line
+  end
+} bind def
+
+% x y s -> a sailing ship: a crescent hull, a mast, a square batten sail
+% and a red pennant. Faces cb-mh-face.
+/cb-mh-ship {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 120 div 0.7 max 1.5 min def
+  /fr { x y s cb-mh-fr } def
+  newpath { fr -50 10 moveto -40 -6 40 -6 54 14 curveto 30 8 -20 8 -50 10 curveto closepath } cb-local
+  gsave [0.56 0.36 0.22] 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 0 6 moveto 0 90 lineto } cb-local lw 1.4 mul cb-line
+  newpath { fr -26 14 52 66 cb-mh-rect } cb-local gsave [0.94 0.90 0.80] 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 0 1 4 { /k exch def -26 26 k 12 mul add moveto 52 0 rlineto } for } cb-local lw 0.6 mul cb-line
+  newpath { fr 0 90 moveto 16 86 lineto 0 82 lineto closepath } cb-local gsave cb-mh-red 0.95 cb-mh-flat grestore lw 0.6 mul cb-line
+  end
+} bind def
+
+% x y s -> the blue lion (청사자): a blue beast with a curling white mane,
+% round eyes and a bushy tail, striding. Faces cb-mh-face.
+/cb-mh-lion {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 110 div 0.7 max 1.8 min def
+  /fr { x y s cb-mh-fr } def
+  % legs, striding
+  newpath { fr 8 26 moveto -6 2 lineto 4 0 lineto 20 24 lineto closepath
+                 64 26 moveto 84 4 lineto 92 8 lineto 74 30 lineto closepath } cb-local
+  gsave cb-mh-blue 0.95 cb-mh-flat grestore lw cb-line
+  % body
+  newpath { fr 0 34 moveto 0 56 30 62 60 58 curveto 78 56 84 40 78 28 curveto 60 18 20 18 0 34 curveto closepath } cb-local
+  gsave [0.22 0.44 0.70] 0.95 cb-mh-flat grestore lw cb-line
+  % tail
+  newpath { fr 0 48 moveto -14 56 -18 70 -8 76 curveto } cb-local lw 1.4 mul cb-line
+  newpath { fr -8 76 7 0 360 arc closepath } cb-local gsave cb-mh-white 0.95 cb-mh-flat grestore lw cb-line
+  % the mane: white curls round the head
+  newpath { fr 84 58 22 0 360 arc closepath } cb-local gsave cb-mh-white 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 0 60 300 { /a exch def 84 a cos 16 mul add 58 a sin 16 mul add 4 cb-mh-spiralpath } for } cb-local
+  [0.24 0.36 0.56] cb-rgb << /Width lw 0.8 mul /Taper 0.4 /Waver 0.2 >> pkliner
+  % face
+  newpath { fr 88 56 12 0 360 arc closepath } cb-local gsave [0.22 0.44 0.70] 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 92 60 3.6 0 360 arc closepath } cb-local gsave cb-mh-yellow 0.95 cb-mh-flat grestore lw 0.6 mul cb-line
+  newpath { fr 93 60 1.6 0 360 arc closepath } cb-local gsave cb-mh-black cb-rgb fill grestore newpath
+  newpath { fr 94 50 moveto 98 48 100 50 101 52 curveto } cb-local lw 0.8 mul cb-line
+  end
+} bind def
+
+% x y s -> a comic minhwa tiger (호랑이) sitting up, big round eyes and a
+% curled tail: the kind painted on screens with a magpie.
+/cb-mh-tiger {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 110 div 0.6 max 1.6 min def
+  /fr { x y s cb-mh-fr } def
+  /orange [0.90 0.56 0.20] def
+  newpath { fr -20 0 moveto -26 30 -10 60 10 64 curveto 30 60 40 30 32 0 curveto closepath } cb-local
+  gsave orange 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 0 1 5 { /k exch def -16 k 10 mul 6 add moveto -6 k 10 mul 9 add lineto
+             30 k 10 mul 6 add moveto 20 k 10 mul 9 add lineto } for } cb-local lw 1.3 mul cb-line
+  newpath { fr 32 6 moveto 56 10 58 40 46 46 curveto } cb-local lw 1.6 mul cb-line
+  newpath { fr 6 76 24 0 360 arc closepath } cb-local gsave orange 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr -12 94 6 0 360 arc closepath 24 94 6 0 360 arc closepath } cb-local gsave orange 0.95 cb-mh-flat grestore lw cb-line
+  [ -4 16 ] { /ex exch def
+    newpath { fr ex 80 7 0 360 arc closepath } cb-local gsave cb-mh-yellow 0.95 cb-mh-flat grestore lw cb-line
+    newpath { fr ex 80 3 0 360 arc closepath } cb-local gsave cb-mh-black cb-rgb fill grestore newpath } forall
+  newpath { fr 6 70 4 0 360 arc closepath } cb-local gsave cb-mh-black cb-rgb fill grestore newpath
+  newpath { fr -2 62 moveto 2 58 10 58 14 62 curveto } cb-local lw cb-line
+  newpath { fr 6 96 moveto 6 88 lineto -6 92 moveto -2 86 lineto 18 92 moveto 14 86 lineto } cb-local lw 1.2 mul cb-line
+  end
+} bind def

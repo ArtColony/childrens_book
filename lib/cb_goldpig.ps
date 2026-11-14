@@ -268,3 +268,65 @@
   { fr 74 58 transform } cb-local itransform
   end
 } bind def
+
+% ---------------------------------------------------------------- props
+% x y s open? -> the Emperor's stone box: grey stone, a red paper seal across
+% the lid. Open, the lid lifts back and the chick (cb-gp-chick) can stand in it.
+/cb-gp-box {
+  6 dict begin /op exch def /s exch def /y exch def /x exch def
+  /lw s 60 div 0.6 max 1.6 min def
+  /fr { x y translate s 100 div dup scale } def
+  newpath { fr -50 0 100 56 cb-mh-rect } cb-local
+  gsave [0.62 0.62 0.60] 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr -44 8 moveto -30 14 lineto 10 6 moveto 30 12 lineto -20 40 moveto 0 46 lineto } cb-local lw 0.5 mul cb-line
+  op {
+    newpath { fr -50 56 moveto -64 96 lineto 36 104 lineto 50 56 lineto closepath } cb-local
+    gsave [0.70 0.70 0.68] 0.95 cb-mh-flat grestore lw cb-line
+    newpath { fr -50 56 moveto 50 56 lineto 46 50 lineto -46 50 lineto closepath } cb-local
+    gsave cb-mh-black 0.9 cb-mh-flat grestore
+  } {
+    newpath { fr -54 56 108 16 cb-mh-rect } cb-local
+    gsave [0.70 0.70 0.68] 0.95 cb-mh-flat grestore lw cb-line
+    % the seal: a red paper band with a stamp
+    newpath { fr -10 0 20 72 cb-mh-rect } cb-local gsave cb-mh-red 0.9 cb-mh-flat grestore lw 0.6 mul cb-line
+    newpath { fr 0 60 6 0 360 arc closepath } cb-local gsave [0.55 0.10 0.08] 0.95 cb-mh-flat grestore
+  } ifelse
+  end
+} bind def
+
+% x y s -> a newly hatched chick, cheeping: yellow, round, beak open.
+/cb-gp-chick {
+  5 dict begin /s exch def /y exch def /x exch def
+  /lw s 40 div 0.5 max 1.4 min def
+  /fr { x y translate s 100 div cb-gp-face mul s 100 div scale } def
+  newpath { fr 0 30 30 0 360 arc closepath 26 64 22 0 360 arc closepath } cb-local
+  gsave [1.0 0.88 0.30] 0.95 cb-mh-flat grestore lw cb-line
+  newpath { fr 46 70 moveto 64 76 lineto 48 64 lineto 62 60 lineto 46 60 lineto } cb-local
+  gsave [0.96 0.56 0.18] cb-rgb fill grestore lw 0.8 mul cb-line
+  newpath { fr 34 70 3.5 0 360 arc closepath } cb-local gsave cb-mh-black cb-rgb fill grestore newpath
+  newpath { fr -10 30 moveto -24 44 -20 20 -6 22 curveto } cb-local lw 0.7 mul cb-line
+  newpath { fr -6 0 moveto -6 -10 lineto 8 0 moveto 8 -10 lineto } cb-local
+  gsave [0.96 0.56 0.18] cb-rgb lw 1.2 mul setlinewidth stroke grestore newpath
+  end
+} bind def
+
+% x y s -> an oil lamp on a stand (등잔): a dish with a small flame.
+/cb-gp-lamp {
+  4 dict begin /s exch def /y exch def /x exch def
+  /fr { x y translate s 100 div dup scale } def
+  newpath { fr -3 0 6 70 cb-mh-rect -20 0 40 6 cb-mh-rect -14 70 28 8 cb-mh-rect } cb-local
+  gsave [0.50 0.32 0.20] 0.95 cb-mh-flat grestore 0.8 cb-line
+  newpath { fr 0 78 moveto -6 88 -2 98 0 104 curveto 2 98 6 88 0 78 curveto closepath } cb-local
+  gsave [1.0 0.78 0.30] 0.95 cb-mh-flat grestore
+  newpath { fr 0 92 30 0 360 arc closepath } cb-local [1.0 0.86 0.50] 0.18 cb-mh-flat
+  end
+} bind def
+
+% x y w h -> a lattice door of mulberry paper (창호문), w by h.
+/cb-gp-door {
+  5 dict begin /h exch def /w exch def /y exch def /x exch def
+  newpath x y w h cb-mh-rect gsave [0.93 0.88 0.74] 0.95 cb-mh-flat grestore 1.2 cb-line
+  newpath 1 1 5 { /k exch def x y h k mul 6 div add moveto w 0 rlineto } for
+          1 1 2 { /k exch def x w k mul 3 div add y moveto 0 h rlineto } for 0.6 cb-line
+  end
+} bind def

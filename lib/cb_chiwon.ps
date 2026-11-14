@@ -49,6 +49,10 @@
 %                or /tot (about 3)
 %   cb-ch-beard  true: a beard and moustache
 %   cb-ch-saekdong  true: a child's rainbow-striped sleeves (색동)
+%   cb-ch-old    true: white hair and beard, a stoop
+%   cb-ch-scarf  true: long floating ribbons (a heavenly maiden)
+%   hair also: /crown (the Silla king's gold crown), /mian (the Emperor's
+%                beaded crown), /gat (a scholar's wide black hat)
 %   cb-ch-held   { cx cy -> } run before the near arm is drawn, with the
 %                page position of the chest, to draw what is held (the arm
 %                then wraps over it)
@@ -61,7 +65,10 @@
 /cb-ch-beard false cb-default
 /cb-ch-saekdong false cb-default
 /cb-ch-held { pop pop } cb-default
-/cb-ch-hairc [0.13 0.11 0.12] def
+/cb-ch-old false cb-default
+/cb-ch-scarf false cb-default
+/cb-ch-hairc0 [0.13 0.11 0.12] def
+/cb-ch-hairc { cb-ch-old { [0.90 0.90 0.88] } { cb-ch-hairc0 } ifelse } bind def
 /cb-ch-collarc [0.98 0.97 0.94] def
 /cb-ch-saekc [ [0.80 0.20 0.16] [0.96 0.76 0.22] [0.30 0.54 0.40] [0.98 0.96 0.90] [0.16 0.36 0.60] [0.92 0.52 0.52] ] def
 
@@ -79,7 +86,7 @@
   /hr cb-ch-age /tot eq { 17 } { adult { 10 } { 15 } ifelse } ifelse def
   /hcx adult { 5 } { 4 } ifelse def
   /hc 75 bs mul ky mul hr 0.92 mul add def          % head centre, on the shoulders
-  /fr { x y h cb-ch-frame } def
+  /fr { x y h cb-ch-frame cb-ch-old { -8 rotate } if } def
   /bf { fr 1 bs ky mul scale } def                  % the body's frame
   /hf { fr hcx hc translate hr 10 div dup scale } def   % the head's frame
   /ink { lw cb-ch-paint } def
@@ -102,6 +109,12 @@
         cb-ch-saekc k cb-ch-saekc length mod get 0.85 cb-wash } for
     grestore
   } def
+  % ---- a maiden's floating ribbons, behind everything
+  cb-ch-scarf {
+    newpath { bf -6 70 moveto -40 80 -50 40 -30 10 curveto -28 14 lineto -44 44 -34 74 -4 66 curveto closepath
+              10 70 moveto 44 84 56 50 40 18 curveto 38 22 lineto 50 50 40 78 8 66 curveto closepath } cb-local
+    cb-mh-pink lw cb-ch-paint
+  } if
   % ---- shoes
   kneel not {
     newpath { fr
@@ -194,7 +207,22 @@
       gsave [0.45 0.45 0.55] cb-rgb lw 0.6 mul setlinewidth stroke grestore newpath
     } if
   } if
-  cb-ch-hair /bun eq cb-ch-hair /braid eq or cb-ch-hair /topknot eq or {
+  cb-ch-hair /crown eq {
+    % the Silla gold crown: a band with three tree-shaped uprights and dangles
+    newpath { hf -10 6 20 5 cb-mh-rect
+      [ -7 0 7 ] { /cx exch def cx 1.2 sub 11 2.4 14 cb-mh-rect cx 11 16 add moveto cx 5 add 23 lineto cx 1.2 add 21 lineto
+                   cx 1.2 sub 21 lineto cx 5 sub 23 lineto closepath } forall } cb-local
+    cb-mh-gold ink
+    newpath { hf -9 4 moveto -10 -4 lineto 9 4 moveto 10 -4 lineto } cb-local lw 0.6 mul cb-line
+  } if
+  cb-ch-hair /mian eq {
+    % the Emperor's crown: a cap under a flat board hung with bead strings
+    newpath { hf -9 5 18 9 cb-mh-rect } cb-local cb-mh-black ink
+    newpath { hf -16 14 32 4 cb-mh-rect } cb-local cb-mh-black ink
+    newpath { hf 0 1 4 { /k exch def -14 k 7 mul add 14 moveto 0 -10 rlineto } for } cb-local
+    gsave cb-mh-red cb-rgb lw 0.8 mul setlinewidth [1 2] 0 setdash stroke grestore newpath
+  } if
+  cb-ch-hair /bun eq cb-ch-hair /braid eq or cb-ch-hair /topknot eq or cb-ch-hair /gat eq or {
     % hair: a cap over the crown and the back of the head. A child's
     % hairline sits high, for a clear forehead, and is parted in the middle.
     newpath { hf adult {
@@ -212,6 +240,12 @@
   cb-ch-hair /topknot eq {
     newpath { hf 1 14.5 4 0 360 arc closepath } cb-local
     cb-ch-hairc ink
+  } if
+  cb-ch-hair /gat eq {
+    % a wide-brimmed black horsehair hat, the crown tall
+    newpath { hf -20 5 40 3 cb-mh-rect -7 8 14 12 cb-mh-rect } cb-local
+    gsave cb-mh-black 0.75 cb-mh-flat grestore lw cb-line
+    newpath { hf 5 6 moveto 6 -8 lineto } cb-local lw 0.5 mul cb-line
   } if
   % ---- the face: a long eye for an adult, a round one for a child
   cb-ch-mode /flat eq {
@@ -231,11 +265,13 @@
     cb-ch-hair /bun ne cb-ch-hair /braid ne and {
       newpath { hf -6.5 -1 2.2 0 360 arc } cb-local lw 0.6 mul cb-line
     } if
-    cb-ch-beard {
+    cb-ch-beard cb-ch-old cb-ch-cloth /robe eq and or {
       newpath { hf 6 -9 moveto 7 -13 6 -17 8 -21 curveto
                 8 -5 moveto 11 -6.5 12 -8 12.5 -10 curveto
                 4 -5 moveto 2 -6 1 -8 0.5 -9.5 curveto } cb-local
-      lw 0.8 mul cb-line
+      cb-ch-old
+        { gsave [0.62 0.62 0.62] cb-rgb << /Width lw 2.4 mul /Taper 0.5 /Waver 0.2 >> pkliner grestore newpath }
+        { lw 0.8 mul cb-line } ifelse
     } if
   } if
   { bf hp aload pop transform } cb-local itransform
