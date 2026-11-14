@@ -202,7 +202,7 @@ sunflowers added to it, and the last page says so in both languages.
 - **Palette:** obangsaek on hanji. Blue and jade mountains and sea, red for
   the thread and dancheong, white clouds and cranes, ink black. **Gold is
   the one accent:** the pig, then the sunflowers.
-- **Light across the book:** night for the pig (pages 1–8, moon and lamps),
+- **Light across the book:** night for the pig (pages 1–6, moon and lamps),
   dawn for the birth, bright seaside days and moonlit nights, the
   full-colour courts, a grey island, and golden evening on Mount Gaya.
 - **Cast:** the golden pig; the wife (his mother); Choe Chung (the
