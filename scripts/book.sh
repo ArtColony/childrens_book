@@ -45,7 +45,10 @@ bind() { # dir pdf
   # build beside the target and move it into place only once it checks out,
   # so a failed build never replaces a good PDF (Codex review)
   local part="$pdf.part.pdf"
-  pscat --page 612x612 --lint-strict --pdf "$part" "$tmp/book.ps"
+  pscat --page 612x612 --lint-strict --pdf "$part" "$tmp/book.ps" 2> "$tmp/err" || { cat "$tmp/err" >&2; return 1; }
+  cat "$tmp/err" >&2
+  # a face that fell back (an uninstalled font pack) fails the bind
+  if grep -q 'warning: font' "$tmp/err"; then rm -f "$part"; rm -rf "$tmp"; echo "book: a font fell back; $pdf left unchanged" >&2; return 1; fi
   secs=$(( $(date +%s) - start ))
   rm -rf "$tmp"
   # one PDF page per page file (counts /Type /Page objects, not /Pages)

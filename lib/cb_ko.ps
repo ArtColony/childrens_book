@@ -1,0 +1,45 @@
+%!PS-Adobe-3.0
+% cb_ko.ps -- Korean type, for bilingual books (The Golden Pig).
+%
+% Hangul needs pscat's cjk-thai font pack (`pscat fonts install --pack
+% cjk-thai`). Without it pscat quietly sets Helvetica, which has no Hangul,
+% so every procedure here checks the face first and stops with
+% cb-ko-font-missing-install-cjk-thai rather than print empty boxes. The check
+% runs on use, not on load, so books without Korean never need the pack.
+% (resourcestatus reports no Font, even for installed faces, so the check
+% compares /FontName after findfont.)
+%
+% Strings are UTF-8. Korean puts spaces between words (eojeol), so cb-lines
+% wraps it at spaces like English.
+
+/cb-fontko    /NotoSansKR-Regular cb-default         % body text
+/cb-fontbrush /NanumBrushScript-Regular cb-default   % titles, hand-lettered signs
+/cb-sizeko 19 cb-default
+/cb-leadko 1.55 cb-default    % Hangul is tall and dense: more air than English
+
+% /Name -> /Name, or stops if the face fell back to another
+/cb-needfont {
+  dup findfont /FontName get 1 index ne { cb-ko-font-missing-install-cjk-thai } if
+} bind def
+
+% Korean body text, like cb-text but in cb-fontko at cb-sizeko.
+%   (text) x ytop w align cb-textko -> ybottom
+/cb-textko {
+  cb-fontko cb-needfont pop
+  /cb-font cb-fontko /cb-size cb-sizeko /cb-leading cb-leadko
+  6 dict begin def def def   % shadow the English settings for this call only
+    cb-text
+  end
+} bind def
+
+% Brush-lettered Hangul, for titles: (s) x y size align -> ()
+% align is /left /center or /right; colour is the current colour.
+/cb-brushko {
+  5 dict begin
+  /al exch def /sz exch def /y exch def /x exch def /s exch def
+  cb-fontbrush cb-needfont sz cb-type
+  s stringwidth pop
+  al /center eq { 2 div } { al /left eq { pop 0 } if } ifelse
+  x exch sub y moveto s show
+  end
+} bind def

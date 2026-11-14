@@ -26,6 +26,8 @@ jobs:
           tar xzf "$t.tar.gz"
           echo "$RUNNER_TEMP/$t" >> "$GITHUB_PATH"
       - run: pscat --version
+      # The Golden Pig sets Hangul, from the cjk-thai pack (the pinned fonts release)
+      - run: pscat fonts install --pack cjk-thai
       - run: scripts/check_names.sh
       - run: scripts/render.sh
       - run: scripts/book.sh          # every book
